@@ -84,7 +84,8 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			lon = 0;
 		}
 		mapcode = us.getAndSaveAsString(args, Photo.MAPCODE);
-		
+		if (isEmpty == false && mapcode.length() > 5)
+			isEmpty = true;
 		if (!StringUtil.isLegalTagsString(tags)) {
 			us.setMessage(us.cfg().getInputIsInvalid());
 			return PartUtil.UPLOAD_PHOTO_PAGE_NAME;

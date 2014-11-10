@@ -89,6 +89,8 @@ public class AdminUserPhotoFormHandler extends AbstractWebFormHandler {
 			lon = 0;
 		}
 		mapcode = us.getAndSaveAsString(args, Photo.MAPCODE);
+		if (isEmpty == false && mapcode.length() > 5)
+			isEmpty = true;
 		//Location uebergeben
 		if (isEmpty == false)
 			photo.setLocation(lat, lon);
