@@ -20,14 +20,51 @@
 
 package org.wahlzeit.main;
 
-import java.io.*;
-import javax.servlet.*;
-
 import org.wahlzeit.agents.AgentManager;
-import org.wahlzeit.handlers.*;
-import org.wahlzeit.model.*;
-import org.wahlzeit.webparts.*;
-import org.wahlzeit.services.*;
+import org.wahlzeit.handlers.AdminUserPhotoFormHandler;
+import org.wahlzeit.handlers.AdminUserProfileFormHandler;
+import org.wahlzeit.handlers.ChangePasswordFormHandler;
+import org.wahlzeit.handlers.ConfirmAccountPageHandler;
+import org.wahlzeit.handlers.EditPhotoCaseFormHandler;
+import org.wahlzeit.handlers.EditUserPhotoFormHandler;
+import org.wahlzeit.handlers.EditUserProfileFormHandler;
+import org.wahlzeit.handlers.EmailPasswordFormHandler;
+import org.wahlzeit.handlers.EmailUserNameFormHandler;
+import org.wahlzeit.handlers.FilterPhotosFormHandler;
+import org.wahlzeit.handlers.FilterPhotosPageHandler;
+import org.wahlzeit.handlers.FlagPhotoFormHandler;
+import org.wahlzeit.handlers.LoginFormHandler;
+import org.wahlzeit.handlers.LogoutPageHandler;
+import org.wahlzeit.handlers.NullFormHandler;
+import org.wahlzeit.handlers.PartUtil;
+import org.wahlzeit.handlers.PraisePhotoFormHandler;
+import org.wahlzeit.handlers.ResetSessionPageHandler;
+import org.wahlzeit.handlers.SendEmailFormHandler;
+import org.wahlzeit.handlers.SetLanguagePageHandler;
+import org.wahlzeit.handlers.SetOptionsFormHandler;
+import org.wahlzeit.handlers.SetPhotoSizePageHandler;
+import org.wahlzeit.handlers.ShowAdminPageHandler;
+import org.wahlzeit.handlers.ShowInfoPageHandler;
+import org.wahlzeit.handlers.ShowNotePageHandler;
+import org.wahlzeit.handlers.ShowPartPageHandler;
+import org.wahlzeit.handlers.ShowPhotoCasesPageHandler;
+import org.wahlzeit.handlers.ShowPhotoPageHandler;
+import org.wahlzeit.handlers.ShowUserHomePageHandler;
+import org.wahlzeit.handlers.ShowUserPhotoFormHandler;
+import org.wahlzeit.handlers.ShowUserProfileFormHandler;
+import org.wahlzeit.handlers.SignupFormHandler;
+import org.wahlzeit.handlers.TellFriendFormHandler;
+import org.wahlzeit.handlers.UploadPhotoFormHandler;
+import org.wahlzeit.handlers.WebPartHandler;
+import org.wahlzeit.handlers.WebPartHandlerManager;
+import org.wahlzeit.model.AccessRights;
+import org.wahlzeit.model.EnglishModelConfig;
+import org.wahlzeit.model.GermanModelConfig;
+import org.wahlzeit.model.LanguageConfigs;
+import org.wahlzeit.services.ConfigDir;
+import org.wahlzeit.services.Language;
+import org.wahlzeit.services.SysConfig;
+import org.wahlzeit.webparts.WebPartTemplateService;
 
 /**
  * A Main class that runs a Wahlzeit web server.

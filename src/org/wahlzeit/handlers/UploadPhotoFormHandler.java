@@ -20,13 +20,24 @@
 
 package org.wahlzeit.handlers;
 
-import java.util.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Map;
 
-import org.wahlzeit.model.*;
-import org.wahlzeit.services.*;
-import org.wahlzeit.utils.*;
-import org.wahlzeit.webparts.*;
+import org.wahlzeit.model.AccessRights;
+import org.wahlzeit.model.Photo;
+import org.wahlzeit.model.PhotoManager;
+import org.wahlzeit.model.Tags;
+import org.wahlzeit.model.User;
+import org.wahlzeit.model.UserLog;
+import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.SysConfig;
+import org.wahlzeit.services.SysLog;
+import org.wahlzeit.utils.StringUtil;
+import org.wahlzeit.webparts.WebPart;
 
 /**
  * 
@@ -57,7 +68,23 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 	 */
 	protected String doHandlePost(UserSession us, Map args) {
 		String tags = us.getAndSaveAsString(args, Photo.TAGS);
-
+		
+		// adap-ws14-hw02:
+		double lat;
+		double lon;
+		boolean isEmpty = true;
+		String mapcode;
+		// Werte einholen
+		try {
+			lat = Double.parseDouble(us.getAndSaveAsString(args, Photo.LAT));
+			lon = Double.parseDouble(us.getAndSaveAsString(args, Photo.LON));
+			isEmpty = false;
+		} catch (Exception e) {
+			lat = 0;
+			lon = 0;
+		}
+		mapcode = us.getAndSaveAsString(args, Photo.MAPCODE);
+		
 		if (!StringUtil.isLegalTagsString(tags)) {
 			us.setMessage(us.cfg().getInputIsInvalid());
 			return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
@@ -74,6 +101,11 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		
 			User user = (User) us.getClient();
 			user.addPhoto(photo); 
+			//Location uebergeben
+			if (isEmpty == false)
+				photo.setLocation(lat, lon);
+			else
+				photo.setLocation(mapcode);
 			
 			photo.setTags(new Tags(tags));
 

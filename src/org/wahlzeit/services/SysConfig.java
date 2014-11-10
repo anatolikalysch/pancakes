@@ -20,9 +20,7 @@
 
 package org.wahlzeit.services;
 
-import java.io.*;
-
-import org.wahlzeit.utils.*;
+import java.io.File;
 
 /**
  * A basic set of system configuration data
@@ -130,9 +128,9 @@ public class SysConfig extends AbstractConfig {
 		
 		// Database connection
 		doSetValue(SysConfig.DB_DRIVER, "org.postgresql.Driver");
-		doSetValue(SysConfig.DB_CONNECTION, "jdbc:postgresql://localhost:5432/wahlzeit");
-		doSetValue(SysConfig.DB_USER, "wahlzeit");
-		doSetValue(SysConfig.DB_PASSWORD, "wahlzeit");
+		doSetValue(SysConfig.DB_CONNECTION, "jdbc:postgresql://localhost:5432/kalysch");
+		doSetValue(SysConfig.DB_USER, "kalysch");
+		doSetValue(SysConfig.DB_PASSWORD, "PZUeweSmfqeZFRsX");
 	}
 	
 	/**

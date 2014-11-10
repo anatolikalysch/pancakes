@@ -20,10 +20,16 @@
 
 package org.wahlzeit.handlers;
 
-import java.util.*;
+import java.util.Map;
 
-import org.wahlzeit.model.*;
-import org.wahlzeit.webparts.*;
+import org.wahlzeit.model.AccessRights;
+import org.wahlzeit.model.Photo;
+import org.wahlzeit.model.PhotoManager;
+import org.wahlzeit.model.PhotoStatus;
+import org.wahlzeit.model.Tags;
+import org.wahlzeit.model.UserLog;
+import org.wahlzeit.model.UserSession;
+import org.wahlzeit.webparts.WebPart;
 
 /**
  * 
@@ -67,7 +73,28 @@ public class AdminUserPhotoFormHandler extends AbstractWebFormHandler {
 		photo.setTags(new Tags(tags));
 		String status = us.getAndSaveAsString(args, Photo.STATUS);
 		photo.setStatus(PhotoStatus.getFromString(status));
-
+		
+		// adap-ws14-hw02:
+		double lat;
+		double lon;
+		boolean isEmpty = true;
+		String mapcode;
+		// Werte einholen
+		try {
+			lat = Double.parseDouble(us.getAndSaveAsString(args, Photo.LAT));
+			lon = Double.parseDouble(us.getAndSaveAsString(args, Photo.LON));
+			isEmpty = false;
+		} catch (Exception e) {
+			lat = 0;
+			lon = 0;
+		}
+		mapcode = us.getAndSaveAsString(args, Photo.MAPCODE);
+		//Location uebergeben
+		if (isEmpty == false)
+			photo.setLocation(lat, lon);
+		else
+			photo.setLocation(mapcode);
+		
 		PhotoManager pm = PhotoManager.getInstance();
 		pm.savePhoto(photo);
 		

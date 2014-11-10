@@ -20,11 +20,18 @@
 
 package org.wahlzeit.model;
 
-import java.sql.*;
-import java.net.*;
+import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import org.wahlzeit.services.*;
-import org.wahlzeit.utils.*;
+import org.wahlzeit.location.AbstractLocation;
+import org.wahlzeit.location.GPSLocation;
+import org.wahlzeit.location.MapcodeLocation;
+import org.wahlzeit.services.DataObject;
+import org.wahlzeit.services.EmailAddress;
+import org.wahlzeit.services.Language;
+import org.wahlzeit.utils.StringUtil;
 
 /**
  * A photo represents a user-provided (uploaded) photo.
@@ -47,6 +54,11 @@ public class Photo extends DataObject {
 	public static final String KEYWORDS = "keywords";
 
 	public static final String TAGS = "tags";
+	
+	public static final String LAT = "lat";
+	public static final String LON = "lon";
+	public static final String MAPCODE = "mapcode";
+	public static final String LOCATION = "location";
 
 	public static final String STATUS = "status";
 	public static final String IS_INVISIBLE = "isInvisible";
@@ -59,6 +71,7 @@ public class Photo extends DataObject {
 	public static final int MAX_PHOTO_HEIGHT = 600;
 	public static final int MAX_THUMB_PHOTO_WIDTH = 105;
 	public static final int MAX_THUMB_PHOTO_HEIGHT = 150;
+	
 	
 	/**
 	 * 
@@ -106,6 +119,12 @@ public class Photo extends DataObject {
 	 * 
 	 */
 	protected long creationTime = System.currentTimeMillis();
+	
+	/**
+	 * 
+	 */
+	protected AbstractLocation location;
+	
 	
 	/**
 	 * 
@@ -165,6 +184,8 @@ public class Photo extends DataObject {
 		noVotes = rset.getInt("no_votes");
 
 		creationTime = rset.getLong("creation_time");
+		
+		setLocation(rset.getDouble("lat"), rset.getDouble("lon"));
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 	}
@@ -186,7 +207,9 @@ public class Photo extends DataObject {
 		rset.updateInt("status", status.asInt());
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
-		rset.updateLong("creation_time", creationTime);		
+		rset.updateLong("creation_time", creationTime);	
+		rset.updateDouble("lat", location.getLatitude());
+		rset.updateDouble("lon", location.getLongtitude());
 	}
 
 	/**
@@ -479,6 +502,34 @@ public class Photo extends DataObject {
 	 */
 	public long getCreationTime() {
 		return creationTime;
+	}
+
+	/**
+	 * 
+	 * @param lat
+	 * @param lon
+	 * @methodtype set
+	 */
+	public void setLocation(double lat, double lon) {
+		location = new GPSLocation(lat, lon);
+	}
+	
+	/**
+	 * 
+	 * @param mapcode
+	 * @methodtype set
+	 */
+	public void setLocation(String mapcode){
+		location = new MapcodeLocation(mapcode);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @methodtype get
+	 */
+	public String getLocationAsString() {
+		return location.asString();
 	}
 	
 }

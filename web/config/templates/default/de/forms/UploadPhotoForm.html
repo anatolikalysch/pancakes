@@ -6,12 +6,25 @@
 	<table class="border"><tr><td class="spacer"><table class="form">
 		<tr>
 			<td class="twoCol1">Dateiname:&nbsp;</td>
-			<td class="twoCol2"><input type="file" name="file" value="" size="32" /></td>
+			<td class="twoCol2"><input type="file" name="file" value="" size="40" /></td>
 		</tr>
 		<tr>
 			<td class="twoCol1">Foto-Tags:&nbsp;</td>
-			<td class="twoCol2"><input type="text" name="tags" value="{$tags}" size="48" /></td>
+			<td class="twoCol2"><input type="text" name="tags" value="{$tags}" size="50" /></td>
 		</tr>
+		<tr>
+			<td class="twoCol1">Latitude:&nbsp;</td>
+			<td class="twoCol2"><input type="text" name="lat" value="{$lat}" size="25" /></td>
+		</tr>
+		<tr>
+			<td class="twoCol1">Longtitude:&nbsp;</td>
+			<td class="twoCol2"><input type="text" name="lon" value="{$lon}" size="25" /></td>
+		</tr>
+		<tr>
+			<td class="twoCol1">Mapcode:&nbsp;</td>
+			<td class="twoCol2"><input type="text" name="mapcode" value="{$mapcode}" size="50" /></td>
+		</tr>
+		
 		<tr>
 			<td class="twoCol1">&nbsp;</td>
 			<td class="twoCol2"><input type="submit" name="upload" value="Upload!" /></td>
