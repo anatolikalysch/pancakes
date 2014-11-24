@@ -61,7 +61,7 @@ public class PancakeAdditions {
 	*/
 	public void setSirup(boolean sirup) {
 		this.sirup = sirup;
-		assert(feast == this.feast);
+		assert(sirup == this.sirup);
 	}
 	/**
 	*
