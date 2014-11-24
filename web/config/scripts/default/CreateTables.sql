@@ -31,7 +31,17 @@ CREATE TABLE photos (
 	no_votes integer,
 	creation_time bigint,
 	lat decimal,
-	lon decimal
+	lon decimal,
+	sirup boolean,
+	feast boolean, 
+	fruits boolean,
+	butter boolean,
+	hazelnut boolean,
+	flour boolean,
+	eggs boolean,
+	milk boolean,
+	sojmilk boolean,
+	salt boolean
 );
 
 CREATE TABLE tags (

@@ -34,6 +34,11 @@ import org.wahlzeit.model.Tags;
 import org.wahlzeit.model.User;
 import org.wahlzeit.model.UserLog;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.model.extension.PancakeAdditions;
+import org.wahlzeit.model.extension.PancakeNumber;
+import org.wahlzeit.model.extension.PancakePhoto;
+import org.wahlzeit.model.extension.PancakeRecipe;
+import org.wahlzeit.model.extension.PreparationTime;
 import org.wahlzeit.services.SysConfig;
 import org.wahlzeit.services.SysLog;
 import org.wahlzeit.utils.StringUtil;
@@ -109,7 +114,9 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 				photo.setLocation(mapcode);
 			
 			photo.setTags(new Tags(tags));
-
+			
+			doHandlePancakePhoto(photo, us, args);
+			
 			pm.savePhoto(photo);
 
 			StringBuffer sb = UserLog.createActionEntry("UploadPhoto");
@@ -123,6 +130,32 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		}
 		
 		return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
+	}
+	
+	/**
+	 * 
+	 */
+	public void doHandlePancakePhoto(Photo photo, UserSession us, Map args){
+		if(photo instanceof PancakePhoto) {
+			PancakePhoto pancakePhoto = (PancakePhoto) photo;
+			
+			boolean feast = Boolean.parseBoolean(us.getAndSaveAsString(args, PancakePhoto.FEAST));
+			boolean sirup = Boolean.parseBoolean(us.getAndSaveAsString(args, PancakePhoto.SIRUP));
+			boolean fruits = Boolean.parseBoolean(us.getAndSaveAsString(args, PancakePhoto.FRUITS));
+			boolean butter = Boolean.parseBoolean(us.getAndSaveAsString(args, PancakePhoto.BUTTER));
+			boolean hazelnut = Boolean.parseBoolean(us.getAndSaveAsString(args, PancakePhoto.HAZELNUT));
+			PancakeAdditions additions = new PancakeAdditions(feast, sirup, fruits, butter, hazelnut);
+			
+			boolean flour = Boolean.parseBoolean(us.getAndSaveAsString(args, PancakePhoto.FLOUR));
+			boolean eggs = Boolean.parseBoolean(us.getAndSaveAsString(args, PancakePhoto.EGGS));
+			boolean milk = Boolean.parseBoolean(us.getAndSaveAsString(args, PancakePhoto.MILK));
+			boolean sojmilk = Boolean.parseBoolean(us.getAndSaveAsString(args, PancakePhoto.SOJMILK));
+			boolean salt = Boolean.parseBoolean(us.getAndSaveAsString(args, PancakePhoto.SALT));
+			PancakeRecipe recipe = new PancakeRecipe(flour, eggs, milk, sojmilk, salt);
+			
+			pancakePhoto.setAdditions(additions);
+			pancakePhoto.setRecipe(recipe);
+		}
 	}
 	
 	/**

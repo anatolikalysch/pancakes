@@ -8,8 +8,8 @@ import com.mapcode.UnknownMapcodeException;
 
 
 public class MapcodeLocation extends AbstractLocation {
-	protected Point location;
-	protected Mapcode mapcode;
+	protected Point location = null;
+	protected Mapcode mapcode = null;
 
 	public MapcodeLocation(String mapcode) {
 		try {
@@ -62,7 +62,6 @@ public class MapcodeLocation extends AbstractLocation {
 		hasLocation = true;
 	}
 
-	@Override
 	public void setLocation(Mapcode mapcode) {
 		try {
 			location = MapcodeCodec.decode(mapcode.asInternationalFullName());

@@ -10,10 +10,6 @@ public abstract class AbstractLocation implements InterfaceLocation {
 	protected double lat;
 	protected double lon;
 
-	@Override
-	public double[] getLocation() {
-		return null;
-	}
 	
 	@Override
 	public String getFormat() {
@@ -21,10 +17,10 @@ public abstract class AbstractLocation implements InterfaceLocation {
 	}
 
 	@Override
-	public void setLocation(double lat, double lon) {}
-
-	@Override
-	public void setLocation(Mapcode mapcode) {}
+	public void setLocation(double lat, double lon) {
+		this.lat = lat;
+		this.lon = lon;
+	}
 
 	@Override
 	public boolean isEqual(Mapcode mapcode) {

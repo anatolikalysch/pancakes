@@ -26,6 +26,19 @@ public class GPSLocation extends AbstractLocation {
 		return location;
 	}
 	
+	protected void assertIsValidLocation(String location) throws AssertionError {
+		if (location != null){
+			String[] components = location.split(",");
+			for (String component : components) {
+				component.trim();
+			}
+			assert(components.length == 2);
+			double x = Double.parseDouble(components[0]);
+			double y = Double.parseDouble(components[1]);
+			assert ((x <= 90 && x >= -90) && (y <= 180 && y >= -180));
+		}
+	}
+	
 	public double getLatitude() {
 		return latitude;
 	}

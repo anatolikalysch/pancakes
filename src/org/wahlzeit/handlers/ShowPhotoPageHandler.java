@@ -23,6 +23,7 @@ package org.wahlzeit.handlers;
 import java.util.*;
 
 import org.wahlzeit.model.*;
+import org.wahlzeit.model.extension.PancakePhoto;
 import org.wahlzeit.utils.*;
 import org.wahlzeit.webparts.*;
 
@@ -163,9 +164,20 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 		WebPart caption = createWebPart(us, PartUtil.CAPTION_INFO_FILE);
 		caption.addString(Photo.CAPTION, getPhotoCaption(us, photo));
 		caption.addString(Photo.LOCATION, photo.getLocationAsString());
+		makePancakePhotoCaption(caption, photo);
 		page.addWritable(Photo.CAPTION, caption);
 	}
-
+	
+	/**
+	 * 
+	 */
+	private void makePancakePhotoCaption(WebPart caption, Photo photo) {
+		if(photo instanceof PancakePhoto) {
+			PancakePhoto pancakePhoto = (PancakePhoto) photo;
+			caption.addString(PancakePhoto.ADDITIONS, pancakePhoto.getAsStringAdditions());
+			caption.addString(PancakePhoto.RECIPE, pancakePhoto.getAsStringRecipe());
+		}
+	}
 	/**
 	 * 
 	 */
