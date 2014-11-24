@@ -7,23 +7,26 @@ public class PancakeAdditions {
 	private boolean fruits;
 	private boolean butter;
 	private boolean hazelnut;
-	
+	/**
+	 * 
+	 * @methodtype constructor
+	 */
 	public PancakeAdditions() {
 		
 	}
 	
 	/**
 	*
-	* @pre feast only true with PancakeNumber many or load
+	* @pre feast only true with all enabled
 	* @post no null or wrong values will be set
 	* @methodtype constructor
 	*/
 	public PancakeAdditions(boolean feast, boolean sirup, boolean fruits, boolean butter, boolean hazelnut) {
-		setFeast(feast);
 		setSirup(sirup);
 		setFruits(fruits);
 		setButter(butter);
 		setHazelnut(hazelnut);
+		setFeast(feast);
 	}
 	/**
 	*
@@ -39,8 +42,8 @@ public class PancakeAdditions {
 	* @methodtype set method
 	*/
 	public void setFeast(boolean feast) throws RuntimeException {
-		//if(feast && (!number.equals(PancakeNumber.load) || !number.equals(PancakeNumber.many)))
-			//throw new RuntimeException("invariant violated");
+		if(feast && !fruits && !butter && !hazelnut && !sirup)
+			throw new RuntimeException("invariant violated");
 		this.feast = feast;
 		assert(feast == this.feast);
 	}
@@ -58,6 +61,7 @@ public class PancakeAdditions {
 	*/
 	public void setSirup(boolean sirup) {
 		this.sirup = sirup;
+		assert(feast == this.feast);
 	}
 	/**
 	*
@@ -72,6 +76,7 @@ public class PancakeAdditions {
 	*/
 	public void setFruits(boolean fruits) {
 		this.fruits = fruits;
+		assert(fruits == this.fruits);
 	}
 	/**
 	*
@@ -86,6 +91,7 @@ public class PancakeAdditions {
 	*/
 	public void setButter(boolean butter) {
 		this.butter = butter;
+		assert(butter == this.butter);
 	}
 	
 	/**
@@ -101,6 +107,7 @@ public class PancakeAdditions {
 	*/
 	public void setHazelnut(boolean hazelnut) {
 		this.hazelnut = hazelnut;
+		assert(hazelnut == this.hazelnut);
 	}
 	
 }

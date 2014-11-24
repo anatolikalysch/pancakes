@@ -83,8 +83,7 @@ public class PancakeRecipe {
 	* @methodtype set method
 	*/
 	public void setSojmilk(boolean sojmilk) {
-		if(milk)
-			throw new RuntimeException("invariant violated");
+		if(milk) throw new RuntimeException("invariant violated");
 		this.sojmilk = sojmilk;
 		assert(this.sojmilk == sojmilk);
 	}/**
@@ -102,5 +101,4 @@ public class PancakeRecipe {
 		this.salt = salt;
 		assert(this.salt == salt);
 	}
-
 }
