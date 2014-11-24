@@ -54,5 +54,10 @@ public abstract class AbstractLocation implements InterfaceLocation {
 	public double getLongtitude() {
 		return lon;
 	}
+
+	public void setLocation(Mapcode mapcode) {
+		// TODO Auto-generated method stub
+		
+	}
 		
 }

@@ -8,6 +8,7 @@ public interface InterfaceLocation {
 	public String getFormat();
 	
 	void setLocation(double lat, double lon);
+	void setLocation(Mapcode mapcode);
 	
 	public boolean hasLocation();
 	public boolean isEqual(Mapcode mapcode);
