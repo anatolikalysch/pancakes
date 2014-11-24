@@ -59,7 +59,7 @@ public class PancakePhoto extends Photo {
 		boolean butter = rset.getBoolean(BUTTER);
 		boolean hazelnut = rset.getBoolean(HAZELNUT);
 		this.additions = new PancakeAdditions(feast, sirup, fruits, butter, hazelnut);
-				
+		
 		boolean flour = rset.getBoolean(FLOUR);
 		boolean eggs = rset.getBoolean(EGGS);
 		boolean milk = rset.getBoolean(MILK);
@@ -115,43 +115,48 @@ public class PancakePhoto extends Photo {
 		this.recipe = recipe;
 	}
 	/**
-	 * 
+	 * @pre booleans should not be null
+	 * @post temp should not be null
 	 * @methodtype get method
 	 */
 	public String getAsStringAdditions(){
 		String temp = "";
-		if(this.getAdditions().isFeast())
+		if(additions.isFeast())
 			temp += "It's a feast: ";
-		if(this.getAdditions().isSirup())
+		if(additions.isSirup())
 			temp += "sirup, ";
-		if(this.getAdditions().isButter())
+		if(additions.isButter())
 			temp += "butter, ";
-		if(this.getAdditions().isFruits())
+		if(additions.isFruits())
 			temp += "fruits, ";
-		if(this.getAdditions().isHazelnut())
+		if(additions.isHazelnut())
 			temp += "hazelnuts, ";
 		temp = temp.substring(0, temp.length()); // deletes last comma
 		temp += "!";
+		assert(temp != null);
 		return temp;
 	}
 	/**
 	 * 
+	 * @pre booleans should not be null
+	 * @post temp should not be null
 	 * @methodtype get method
 	 */
 	public String getAsStringRecipe(){
 		String temp ="";
-		temp += "Those require ";
-		if(this.getRecipe().isFlour())
+		temp += "Pancakes require ";
+		if(recipe.isFlour())
 			temp += "flour, ";
-		if(this.getRecipe().isEggs())
+		if(recipe.isEggs())
 			temp += "eggs, ";
-		if(this.getRecipe().isMilk())
+		if(recipe.isMilk())
 			temp += "milk, ";
-		if(this.getRecipe().isSojmilk())
+		if(recipe.isSojmilk())
 			temp += "sojmilk, ";
-		if(this.getRecipe().isSalt())
+		if(recipe.isSalt())
 			temp += "salt, ";
 		temp = temp.substring(0, temp.length()); // deletes last comma
+		assert(temp != null);
 		temp += "!";
 		return temp;
 	}

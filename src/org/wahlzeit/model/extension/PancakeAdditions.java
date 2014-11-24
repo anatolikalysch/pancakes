@@ -56,7 +56,7 @@ public class PancakeAdditions {
 		return sirup;
 	}
 	/**
-	*
+	* @post no null value will be set
 	* @methodtype set method
 	*/
 	public void setSirup(boolean sirup) {
@@ -71,7 +71,7 @@ public class PancakeAdditions {
 		return fruits;
 	}
 	/**
-	*
+	*@post no null value will be set
 	* @methodtype set method
 	*/
 	public void setFruits(boolean fruits) {
@@ -86,7 +86,7 @@ public class PancakeAdditions {
 		return butter;
 	}
 	/**
-	*
+	*@post no null value will be set
 	* @methodtype set method
 	*/
 	public void setButter(boolean butter) {
@@ -102,7 +102,7 @@ public class PancakeAdditions {
 		return hazelnut;
 	}
 	/**
-	*
+	*@post no null value will be set
 	* @methodtype set method
 	*/
 	public void setHazelnut(boolean hazelnut) {

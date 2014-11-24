@@ -33,13 +33,14 @@ public class PancakeRecipe {
 		return flour;
 	}
 	/**
-	*
+	* @post correct values will be set
 	* @methodtype set method
 	*/
 	public void setFlour(boolean flour) {
 		this.flour = flour;
 		assert(this.flour == flour);
-	}/**
+	}
+	/**
 	*
 	* @methodtype boolean query method
 	*/ 
@@ -47,13 +48,14 @@ public class PancakeRecipe {
 		return eggs;
 	}
 	/**
-	*
+	* @post correct values will be set
 	* @methodtype set method
 	*/
 	public void setEggs(boolean eggs) {
 		this.eggs = eggs;
 		assert(this.eggs == eggs);
-	}/**
+	}
+	/**
 	*
 	* @methodtype boolean query method
 	*/
@@ -70,7 +72,8 @@ public class PancakeRecipe {
 			throw new RuntimeException("invariant violated");
 		this.milk = milk;
 		assert(this.milk == milk);
-	}/**
+	}
+	/**
 	*
 	* @methodtype boolean query method
 	*/
@@ -86,7 +89,8 @@ public class PancakeRecipe {
 		if(milk) throw new RuntimeException("invariant violated");
 		this.sojmilk = sojmilk;
 		assert(this.sojmilk == sojmilk);
-	}/**
+	}
+	/**
 	*
 	* @methodtype boolean query method
 	*/
@@ -94,7 +98,7 @@ public class PancakeRecipe {
 		return salt;
 	}
 	/**
-	*
+	* @post correct values will be set
 	* @methodtype set method
 	*/
 	public void setSalt(boolean salt) {
