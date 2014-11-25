@@ -25,6 +25,7 @@ import java.sql.*;
 import java.util.*;
 
 import org.wahlzeit.main.*;
+import org.wahlzeit.model.extension.PancakePhoto;
 import org.wahlzeit.services.*;
 
 /**
@@ -344,9 +345,9 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * 
 	 */
-	public Photo createPhoto(File file) throws Exception {
+	public PancakePhoto createPhoto(File file) throws Exception {
 		PhotoId id = PhotoId.getNextId();
-		Photo result = PhotoUtil.createPhoto(file, id);
+		PancakePhoto result = (PancakePhoto) PhotoUtil.createPhoto(file, id);
 		addPhoto(result);
 		return result;
 	}

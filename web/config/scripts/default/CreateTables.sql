@@ -32,16 +32,11 @@ CREATE TABLE photos (
 	creation_time bigint,
 	lat decimal,
 	lon decimal,
-	sirup boolean,
-	feast boolean, 
-	fruits boolean,
-	butter boolean,
-	hazelnut boolean,
-	flour boolean,
-	eggs boolean,
-	milk boolean,
-	sojmilk boolean,
-	salt boolean
+	ingredient1 text,
+	ingredient2 text,
+	ingredient3 text,
+	ingredient4 text,
+	ingredient5 text
 );
 
 CREATE TABLE tags (

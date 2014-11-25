@@ -158,26 +158,16 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 	 * 
 	 */
 	protected void makePhotoCaption(UserSession us, WebPart page) {
-		Photo photo = us.getPhoto();
+		PancakePhoto photo = (PancakePhoto) us.getPhoto();
 		// String photoId = photo.getId().asString();
 			
 		WebPart caption = createWebPart(us, PartUtil.CAPTION_INFO_FILE);
 		caption.addString(Photo.CAPTION, getPhotoCaption(us, photo));
 		caption.addString(Photo.LOCATION, photo.getLocationAsString());
-		makePancakePhotoCaption(caption, photo);
+		caption.addString(PancakePhoto.RECIPE, photo.getAsStringRecipe());
 		page.addWritable(Photo.CAPTION, caption);
 	}
 	
-	/**
-	 * 
-	 */
-	private void makePancakePhotoCaption(WebPart caption, Photo photo) {
-		if(photo instanceof PancakePhoto) {
-			PancakePhoto pancakePhoto = (PancakePhoto) photo;
-			caption.addString(PancakePhoto.ADDITIONS, pancakePhoto.getAsStringAdditions());
-			caption.addString(PancakePhoto.RECIPE, pancakePhoto.getAsStringRecipe());
-		}
-	}
 	/**
 	 * 
 	 */

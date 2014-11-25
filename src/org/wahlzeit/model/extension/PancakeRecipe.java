@@ -1,108 +1,135 @@
 package org.wahlzeit.model.extension;
 
+/**
+ * This is a value Object. The only way to set the components is via constructor.
+ * Further methods to change its state should not exist.
+ * @author qwert
+ *
+ */
 public class PancakeRecipe {
-	private boolean flour;
-	private boolean eggs;
-	private boolean milk;
-	private boolean sojmilk;
-	private boolean salt;
+	private String ingredient1;
+	private String ingredient2;
+	private String ingredient3;
+	private String ingredient4;
+	private String ingredient5;
 	/**
 	* @methodtype constructor
 	*/
-	public PancakeRecipe() {
-		
-	}
+	public PancakeRecipe() {}
+	
 	/**
-	* @pre milk can not be combined with sojmilk
-	* @post correct values will be set
 	* @methodtype constructor
 	*/
-	public PancakeRecipe(boolean flour, boolean eggs, boolean milk, boolean sojmilk, boolean salt) {
-		setFlour(flour);
-		setEggs(eggs);
-		setMilk(milk);
-		setSojmilk(sojmilk);
-		setSalt(salt);
+	public PancakeRecipe(String ingredient1, String ingredient2,
+			String ingredient3, String ingredient4, String ingredient5) {
+		this.ingredient1 = ingredient1;
+		this.ingredient2 = ingredient2;
+		this.ingredient3 = ingredient3;
+		this.ingredient4 = ingredient4;
+		this.ingredient5 = ingredient5;
 	}
 	
 	/**
-	*
-	* @methodtype boolean query method
-	*/
-	public boolean isFlour() {
-		return flour;
+	 * @pre ingredients should not be empty
+	 * @post recipe should not be changed
+	 * @methodtype query method
+	 * @return
+	 */
+	public boolean isEmpty(){
+		return this.doEvaluateIsEmpty();
 	}
+	
 	/**
-	* @post correct values will be set
-	* @methodtype set method
-	*/
-	public void setFlour(boolean flour) {
-		this.flour = flour;
-		assert(this.flour == flour);
+	 * 
+	 * @return
+	 */
+	protected boolean doEvaluateIsEmpty(){
+		if (ingredient1.length() + ingredient2.length() + ingredient3.length() + 
+				ingredient4.length() + ingredient5.length() != 0)
+			return true;
+		else 
+			return false;
 	}
+	
 	/**
-	*
-	* @methodtype boolean query method
-	*/ 
-	public boolean isEggs() {
-		return eggs;
+	 * @pre ingredients should not be empty
+	 * @post temp should not be empty
+	 * @return
+	 */
+	public String asStringIngredients() {
+		if (this.isEmpty())
+			return "";
+		else {
+			String temp = "";
+			if (!this.doEvaluateIsIngredientEmpty(ingredient1))
+				temp += ingredient1 + ", ";
+			if (!this.doEvaluateIsIngredientEmpty(ingredient2))
+				temp += ingredient2 + ", ";
+			if (!this.doEvaluateIsIngredientEmpty(ingredient3))
+				temp += ingredient3 + ", ";
+			if (!this.doEvaluateIsIngredientEmpty(ingredient4))
+				temp += ingredient4 + ", ";
+			if (temp.length() > 1)
+				temp = temp.substring(0, temp.length());		//removes the ","
+			if (!this.doEvaluateIsIngredientEmpty(ingredient5))
+				temp += ingredient5;
+			temp += ".";
+			assert(temp.length() > 1);
+			return temp;
+		}
 	}
-	/**
-	* @post correct values will be set
-	* @methodtype set method
-	*/
-	public void setEggs(boolean eggs) {
-		this.eggs = eggs;
-		assert(this.eggs == eggs);
+	
+	public boolean isIngredientEmpty(String ingredient){
+		return this.doEvaluateIsIngredientEmpty(ingredient);
 	}
+	
 	/**
-	*
-	* @methodtype boolean query method
-	*/
-	public boolean isMilk() {
-		return milk;
+	 * @methodtype assertion method
+	 */
+	protected boolean doEvaluateIsIngredientEmpty(String ingredient){
+		if (ingredient == null || ingredient.isEmpty())
+			return true;
+		else 
+			return false;
 	}
+	
 	/**
-	* @pre milk can not be combined with sojmilk
-	* @post correct values will be set
-	* @methodtype set method
-	*/
-	public void setMilk(boolean milk) {
-		if(sojmilk)
-			throw new RuntimeException("invariant violated");
-		this.milk = milk;
-		assert(this.milk == milk);
+	 * @methodtype get method
+	 * @return
+	 */
+	public String getIngredien1() {
+		return ingredient1;
 	}
+
 	/**
-	*
-	* @methodtype boolean query method
-	*/
-	public boolean isSojmilk() {
-		return sojmilk;
+	 * @methodtype get method
+	 * @return
+	 */
+	public String getIngredien2() {
+		return ingredient2;
 	}
+
 	/**
-	* @pre sojmilk can not be combined with milk
-	* @post correct values will be set
-	* @methodtype set method
-	*/
-	public void setSojmilk(boolean sojmilk) {
-		if(milk) throw new RuntimeException("invariant violated");
-		this.sojmilk = sojmilk;
-		assert(this.sojmilk == sojmilk);
+	 * @methodtype get method
+	 * @return
+	 */
+	public String getIngredien3() {
+		return ingredient3;
 	}
+
 	/**
-	*
-	* @methodtype boolean query method
-	*/
-	public boolean isSalt() {
-		return salt;
+	 * @methodtype get method
+	 * @return
+	 */
+	public String getIngredien4() {
+		return ingredient4;
 	}
+
 	/**
-	* @post correct values will be set
-	* @methodtype set method
-	*/
-	public void setSalt(boolean salt) {
-		this.salt = salt;
-		assert(this.salt == salt);
+	 * @methodtype get method
+	 * @return
+	 */
+	public String getIngredien5() {
+		return ingredient5;
 	}
 }

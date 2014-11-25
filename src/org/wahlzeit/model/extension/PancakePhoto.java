@@ -6,23 +6,27 @@ import java.sql.SQLException;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoId;
 
+/**
+ * This Class extends the Photo.java class and is supposed to be part of the "design
+ * by contract" architecture.
+ * @author qwert
+ *
+ */
 public class PancakePhoto extends Photo {
-	public static final String ADDITIONS = "none";
-	public static final String FEAST = "feast";
-	public static final String SIRUP = "sirup";
-	public static final String FRUITS = "fruits";
-	public static final String BUTTER = "butter";
-	public static final String HAZELNUT = "hazelnut";
-	
 	public static final String RECIPE = "recipe";
-	public static final String FLOUR = "flour";
-	public static final String EGGS = "eggs";
-	public static final String MILK = "milk";
-	public static final String SOJMILK = "sojmilk";
-	public static final String SALT = "salt";
+	public static final String INGREDIENT1 = "ingredient1";
+	public static final String INGREDIENT2 = "ingredient2";
+	public static final String INGREDIENT3 = "ingredient3";
+	public static final String INGREDIENT4 = "ingredient4";
+	public static final String INGREDIENT5 = "ingredient5";
 	
-	public PancakeAdditions additions = new PancakeAdditions();
-	public PancakeRecipe recipe = new PancakeRecipe();
+	protected String ingredient1;
+	protected String ingredient2;
+	protected String ingredient3;
+	protected String ingredient4;
+	protected String ingredient5;
+	
+	protected PancakeRecipe recipe = new PancakeRecipe();
 	
 	/**
 	*
@@ -53,52 +57,26 @@ public class PancakePhoto extends Photo {
 	@Override
 	public void readFrom(ResultSet rset) throws SQLException {
 		super.readFrom(rset);
-		boolean feast = rset.getBoolean(FEAST);
-		boolean sirup = rset.getBoolean(SIRUP);
-		boolean fruits = rset.getBoolean(FRUITS);
-		boolean butter = rset.getBoolean(BUTTER);
-		boolean hazelnut = rset.getBoolean(HAZELNUT);
-		this.additions = new PancakeAdditions(feast, sirup, fruits, butter, hazelnut);
-		
-		boolean flour = rset.getBoolean(FLOUR);
-		boolean eggs = rset.getBoolean(EGGS);
-		boolean milk = rset.getBoolean(MILK);
-		boolean sojmilk = rset.getBoolean(SOJMILK);
-		boolean salt = rset.getBoolean(SALT);
-		this.recipe = new PancakeRecipe(flour, eggs, milk, sojmilk, salt);
+		ingredient1 = rset.getString("ingredient1");
+		ingredient2 = rset.getString("ingredient2");
+		ingredient3 = rset.getString("ingredient3");
+		ingredient4 = rset.getString("ingredient4");
+		ingredient5 = rset.getString("ingredient5");
+		recipe = new PancakeRecipe(ingredient1, ingredient2, ingredient3,
+				ingredient4, ingredient5);
 	}
 	/**
 	*
 	* @methodtype command method
 	*/
 	@Override
-	public void writeOn(ResultSet rset) throws SQLException
-	{
+	public void writeOn(ResultSet rset) throws SQLException {
 		super.writeOn(rset);
-		rset.updateBoolean(FEAST, additions.isFeast());
-		rset.updateBoolean(SIRUP, additions.isSirup());
-		rset.updateBoolean(FRUITS, additions.isFruits());
-		rset.updateBoolean(BUTTER, additions.isButter());
-		rset.updateBoolean(HAZELNUT, additions.isHazelnut());
-		rset.updateBoolean(FLOUR, recipe.isFlour());
-		rset.updateBoolean(EGGS, recipe.isEggs());
-		rset.updateBoolean(MILK, recipe.isMilk());
-		rset.updateBoolean(SOJMILK, recipe.isSojmilk());
-		rset.updateBoolean(SALT, recipe.isSalt());
-	}
-	/**
-	*
-	* @methodtype get method
-	*/
-	public PancakeAdditions getAdditions() {
-		return additions;
-	}
-	/**
-	*
-	* @methodtype set method
-	*/
-	public void setAdditions(PancakeAdditions technique) {
-		this.additions = technique;
+		rset.updateString("ingredient1", recipe.getIngredien1());
+		rset.updateString("ingredient2", recipe.getIngredien2());
+		rset.updateString("ingredient3", recipe.getIngredien3());
+		rset.updateString("ingredient4", recipe.getIngredien4());
+		rset.updateString("ingredient5", recipe.getIngredien5());
 	}
 	/**
 	*
@@ -111,53 +89,26 @@ public class PancakePhoto extends Photo {
 	*
 	* @methodtype set method
 	*/
-	public void setRecipe(PancakeRecipe recipe) {
-		this.recipe = recipe;
+	public void setRecipe(String ingredient1, String ingredient2,
+			String ingredient3, String ingredient4, String ingredient5) {
+		this.recipe = new PancakeRecipe(ingredient1, ingredient2,
+			ingredient3, ingredient4, ingredient5);
 	}
-	/**
-	 * @pre booleans should not be null
-	 * @post temp should not be null
-	 * @methodtype get method
-	 */
-	public String getAsStringAdditions(){
-		String temp = "";
-		if(additions.isFeast())
-			temp += "It's a feast: ";
-		if(additions.isSirup())
-			temp += "sirup, ";
-		if(additions.isButter())
-			temp += "butter, ";
-		if(additions.isFruits())
-			temp += "fruits, ";
-		if(additions.isHazelnut())
-			temp += "hazelnuts, ";
-		temp = temp.substring(0, temp.length()); // deletes last comma
-		temp += "!";
-		assert(temp != null);
-		return temp;
-	}
+	
 	/**
 	 * 
-	 * @pre booleans should not be null
-	 * @post temp should not be null
+	 * @pre Recipe should not be null or empty
+	 * @post Recipe not changed, temp not empty
 	 * @methodtype get method
 	 */
 	public String getAsStringRecipe(){
-		String temp ="";
-		temp += "Pancakes require ";
-		if(recipe.isFlour())
-			temp += "flour, ";
-		if(recipe.isEggs())
-			temp += "eggs, ";
-		if(recipe.isMilk())
-			temp += "milk, ";
-		if(recipe.isSojmilk())
-			temp += "sojmilk, ";
-		if(recipe.isSalt())
-			temp += "salt, ";
-		temp = temp.substring(0, temp.length()); // deletes last comma
-		assert(temp != null);
-		temp += "!";
-		return temp;
+		if(!recipe.isEmpty()) {
+			String temp = recipe.asStringIngredients();
+			assert(temp != null);
+			return temp;
+		} else 
+			return "";
+		
+		
 	}
 }

@@ -39,7 +39,7 @@ import org.wahlzeit.utils.StringUtil;
  * @author dirkriehle
  *
  */
-public class Photo extends DataObject {
+public abstract class Photo extends DataObject {
 
 	/**
 	 * 
@@ -208,8 +208,10 @@ public class Photo extends DataObject {
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
 		rset.updateLong("creation_time", creationTime);	
-		rset.updateDouble("lat", location.getLatitude());
-		rset.updateDouble("lon", location.getLongtitude());
+		if (location != null){
+			rset.updateDouble("lat", location.getLatitude());
+			rset.updateDouble("lon", location.getLongtitude());
+		}
 	}
 
 	/**

@@ -11,7 +11,7 @@ public class GPSLocation extends AbstractLocation {
 	protected double latitude;
 	protected double longtitude;
 	
-	
+
 	public GPSLocation(double latitude, double longtitude) {
 		this.latitude = latitude;
 		this.longtitude = longtitude;
@@ -89,18 +89,5 @@ public class GPSLocation extends AbstractLocation {
 		super.deleteLocation();
 		latitude = 0;
 		longtitude = 0;
-	}
-	
-	protected void assertIsValidLocation(String location) throws AssertionError {
-		if (location != null){
-			String[] components = location.split(",");
-			for (String component : components) {
-				component.trim();
-			}
-			assert(components.length == 2);
-			double x = Double.parseDouble(components[0]);
-			double y = Double.parseDouble(components[1]);
-			assert ((x <= 90 && x >= -90) && (y <= 180 && y >= -180));
-		}
 	}
 }
