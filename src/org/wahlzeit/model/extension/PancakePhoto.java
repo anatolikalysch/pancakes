@@ -72,11 +72,11 @@ public class PancakePhoto extends Photo {
 	@Override
 	public void writeOn(ResultSet rset) throws SQLException {
 		super.writeOn(rset);
-		rset.updateString("ingredient1", recipe.getIngredien1());
-		rset.updateString("ingredient2", recipe.getIngredien2());
-		rset.updateString("ingredient3", recipe.getIngredien3());
-		rset.updateString("ingredient4", recipe.getIngredien4());
-		rset.updateString("ingredient5", recipe.getIngredien5());
+		rset.updateString("ingredient1", recipe.getIngredient1());
+		rset.updateString("ingredient2", recipe.getIngredient2());
+		rset.updateString("ingredient3", recipe.getIngredient3());
+		rset.updateString("ingredient4", recipe.getIngredient4());
+		rset.updateString("ingredient5", recipe.getIngredient5());
 	}
 	/**
 	*

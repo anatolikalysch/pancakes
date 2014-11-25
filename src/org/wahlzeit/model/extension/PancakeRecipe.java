@@ -104,7 +104,7 @@ public class PancakeRecipe {
 	 * @methodtype get method
 	 * @return
 	 */
-	public String getIngredien1() {
+	public String getIngredient1() {
 		return ingredient1;
 	}
 
@@ -112,7 +112,7 @@ public class PancakeRecipe {
 	 * @methodtype get method
 	 * @return
 	 */
-	public String getIngredien2() {
+	public String getIngredient2() {
 		return ingredient2;
 	}
 
@@ -120,7 +120,7 @@ public class PancakeRecipe {
 	 * @methodtype get method
 	 * @return
 	 */
-	public String getIngredien3() {
+	public String getIngredient3() {
 		return ingredient3;
 	}
 
@@ -128,7 +128,7 @@ public class PancakeRecipe {
 	 * @methodtype get method
 	 * @return
 	 */
-	public String getIngredien4() {
+	public String getIngredient4() {
 		return ingredient4;
 	}
 
@@ -136,7 +136,7 @@ public class PancakeRecipe {
 	 * @methodtype get method
 	 * @return
 	 */
-	public String getIngredien5() {
+	public String getIngredient5() {
 		return ingredient5;
 	}
 }

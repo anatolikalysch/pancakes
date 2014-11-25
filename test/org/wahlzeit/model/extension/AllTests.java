@@ -10,10 +10,7 @@ public class AllTests extends TestSuite {
 	 */
 	public static Test suite() {
 		TestSuite suite = new TestSuite();
-		
-		suite.addTestSuite(PancakeAdditionTests.class);
 		suite.addTestSuite(PancakeRecipeTests.class);
-		
 		return suite;
 	}
 
