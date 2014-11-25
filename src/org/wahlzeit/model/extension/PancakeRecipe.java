@@ -57,6 +57,7 @@ public class PancakeRecipe {
 	 * @return
 	 */
 	public String asStringIngredients() {
+		//pre
 		if (this.isEmpty())
 			return "";
 		else {
@@ -74,11 +75,17 @@ public class PancakeRecipe {
 			if (!this.doEvaluateIsIngredientEmpty(ingredient5))
 				temp += ingredient5;
 			temp += ".";
+			//post
 			assert(temp.length() > 1);
 			return temp;
 		}
 	}
 	
+	/**
+	 * 
+	 * @param ingredient
+	 * @return
+	 */
 	public boolean isIngredientEmpty(String ingredient){
 		return this.doEvaluateIsIngredientEmpty(ingredient);
 	}

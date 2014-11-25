@@ -26,7 +26,7 @@ public class PancakePhoto extends Photo {
 	protected String ingredient4;
 	protected String ingredient5;
 	
-	protected PancakeRecipe recipe = new PancakeRecipe();
+	protected PancakeRecipe recipe;
 	
 	/**
 	*
@@ -87,28 +87,32 @@ public class PancakePhoto extends Photo {
 	}
 	/**
 	*
+	* @pre ingredients should not be empty
+	* @post recipe should not be empty
 	* @methodtype set method
 	*/
 	public void setRecipe(String ingredient1, String ingredient2,
 			String ingredient3, String ingredient4, String ingredient5) {
 		this.recipe = new PancakeRecipe(ingredient1, ingredient2,
 			ingredient3, ingredient4, ingredient5);
+		//post
+		assert(this.recipe.isEmpty() == false);
 	}
 	
 	/**
 	 * 
 	 * @pre Recipe should not be null or empty
-	 * @post Recipe not changed, temp not empty
+	 * @post temp not empty
 	 * @methodtype get method
 	 */
-	public String getAsStringRecipe(){
+	public String getRecipeAsString(){
+		//pre
 		if(!recipe.isEmpty()) {
 			String temp = recipe.asStringIngredients();
+			//post
 			assert(temp != null);
 			return temp;
 		} else 
 			return "";
-		
-		
 	}
 }
