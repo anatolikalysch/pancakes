@@ -345,9 +345,9 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * 
 	 */
-	public PancakePhoto createPhoto(File file) throws Exception {
+	public Photo createPhoto(File file) throws Exception {
 		PhotoId id = PhotoId.getNextId();
-		PancakePhoto result = (PancakePhoto) PhotoUtil.createPhoto(file, id);
+		Photo result = (PancakePhoto) PhotoUtil.createPhoto(file, id);
 		addPhoto(result);
 		return result;
 	}
