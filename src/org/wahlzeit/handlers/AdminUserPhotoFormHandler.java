@@ -29,7 +29,13 @@ import org.wahlzeit.model.PhotoStatus;
 import org.wahlzeit.model.Tags;
 import org.wahlzeit.model.UserLog;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.model.extension.PancakePhoto;
 import org.wahlzeit.webparts.WebPart;
+
+import com.mapcode.Mapcode;
+import com.mapcode.MapcodeCodec;
+import com.mapcode.Point;
+import com.mapcode.UnknownMapcodeException;
 
 /**
  * 
@@ -53,12 +59,13 @@ public class AdminUserPhotoFormHandler extends AbstractWebFormHandler {
 
 		String photoId = us.getAndSaveAsString(args, "photoId");
 
-		Photo photo = PhotoManager.getPhoto(photoId);
+		PancakePhoto photo = (PancakePhoto) PhotoManager.getPhoto(photoId);
 		part.addString(Photo.THUMB, getPhotoThumb(us, photo));
 
 		part.addString("photoId", photoId);
 		part.addString(Photo.ID, photo.getId().asString());
 		part.addSelect(Photo.STATUS, PhotoStatus.class, (String) args.get(Photo.STATUS));
+		part.addString(PancakePhoto.RECIPE, photo.getRecipeAsString());
 		part.maskAndAddStringFromArgsWithDefault(args, Photo.TAGS, photo.getTags().asString());
 	}
 	
@@ -67,35 +74,15 @@ public class AdminUserPhotoFormHandler extends AbstractWebFormHandler {
 	 */
 	protected String doHandlePost(UserSession us, Map args) {
 		String id = us.getAndSaveAsString(args, "photoId");
-		Photo photo = PhotoManager.getPhoto(id);
+		PancakePhoto photo = (PancakePhoto) PhotoManager.getPhoto(id);
 	
 		String tags = us.getAndSaveAsString(args, Photo.TAGS);
 		photo.setTags(new Tags(tags));
 		String status = us.getAndSaveAsString(args, Photo.STATUS);
 		photo.setStatus(PhotoStatus.getFromString(status));
 		
-		// adap-ws14-hw02:
-		double lat;
-		double lon;
-		boolean isEmpty = true;
-		String mapcode;
-		// Werte einholen
-		try {
-			lat = Double.parseDouble(us.getAndSaveAsString(args, Photo.LAT));
-			lon = Double.parseDouble(us.getAndSaveAsString(args, Photo.LON));
-			isEmpty = false;
-		} catch (Exception e) {
-			lat = 0;
-			lon = 0;
-		}
-		mapcode = us.getAndSaveAsString(args, Photo.MAPCODE);
-		if (isEmpty == false && mapcode.length() > 5)
-			isEmpty = true;
-		//Location uebergeben
-		if (isEmpty == false)
-			photo.setLocation(lat, lon);
-		else
-			photo.setLocation(mapcode);
+		doHandlePancakePhotoLocation(photo, us, args);
+		doHandlePancakePhoto(photo, us, args);
 		
 		PhotoManager pm = PhotoManager.getInstance();
 		pm.savePhoto(photo);
@@ -108,5 +95,49 @@ public class AdminUserPhotoFormHandler extends AbstractWebFormHandler {
 
 		return PartUtil.SHOW_ADMIN_PAGE_NAME;
 	}
-	
+
+	private void doHandlePancakePhoto(PancakePhoto photo, UserSession us, Map args) {
+		double[] gps = new double[2];
+		boolean isEmpty = true;
+		Point point = null;
+		Mapcode mapcode;
+		// Werte einholen
+		try {
+			gps[0] = Double.parseDouble(us.getAndSaveAsString(args, Photo.LAT));
+			gps[1] = Double.parseDouble(us.getAndSaveAsString(args, Photo.LON));
+			isEmpty = false;
+		} catch (Exception e) {
+			gps[0] = 0;
+			gps[1] = 0;
+		}
+		
+		//Location uebergeben
+		if (isEmpty == false)
+			photo.setLocation(gps);
+		else {
+			try {
+				point = MapcodeCodec.decode(us.getAndSaveAsString(args, Photo.MAPCODE));
+				mapcode = MapcodeCodec.encodeToInternational(point.getLatDeg(), 
+						point.getLonDeg());
+			} catch (IllegalArgumentException | UnknownMapcodeException e) {
+				e.printStackTrace();
+				mapcode = MapcodeCodec.encodeToInternational(0, 0);
+			}
+			
+			photo.setLocation(mapcode);
+		}
+		
+	}
+
+	private void doHandlePancakePhotoLocation(PancakePhoto photo, UserSession us,
+			Map args) {
+
+		String ingredient1 = us.getAndSaveAsString(args, PancakePhoto.INGREDIENT1);
+		String ingredient2 = us.getAndSaveAsString(args, PancakePhoto.INGREDIENT2);
+		String ingredient3 = us.getAndSaveAsString(args, PancakePhoto.INGREDIENT3);
+		String ingredient4 = us.getAndSaveAsString(args, PancakePhoto.INGREDIENT4);
+		String ingredient5 = us.getAndSaveAsString(args, PancakePhoto.INGREDIENT5);
+			
+		photo.setRecipe(ingredient1, ingredient2, ingredient3, ingredient4, ingredient5);
+	}
 }

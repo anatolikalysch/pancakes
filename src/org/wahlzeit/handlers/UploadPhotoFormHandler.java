@@ -40,6 +40,11 @@ import org.wahlzeit.services.SysLog;
 import org.wahlzeit.utils.StringUtil;
 import org.wahlzeit.webparts.WebPart;
 
+import com.mapcode.Mapcode;
+import com.mapcode.MapcodeCodec;
+import com.mapcode.Point;
+import com.mapcode.UnknownMapcodeException;
+
 /**
  * 
  * @author dirkriehle
@@ -60,8 +65,8 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		Map<String, Object> args = us.getSavedArgs();
 		part.addStringFromArgs(args, UserSession.MESSAGE);
-
 		part.maskAndAddStringFromArgs(args, Photo.TAGS);
+		
 	}
 	
 	/**
@@ -113,29 +118,36 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 	 * @param args
 	 */
 	public void doHandlePancakePhotoLocation(PancakePhoto photo, UserSession us, Map args){
-		// adap-ws14-hw02:
-		double lat;
-		double lon;
+		double[] gps = new double[2];
 		boolean isEmpty = true;
-		String mapcode;
+		Point point = null;
+		Mapcode mapcode;
 		// Werte einholen
 		try {
-			lat = Double.parseDouble(us.getAndSaveAsString(args, Photo.LAT));
-			lon = Double.parseDouble(us.getAndSaveAsString(args, Photo.LON));
+			gps[0] = Double.parseDouble(us.getAndSaveAsString(args, Photo.LAT));
+			gps[1] = Double.parseDouble(us.getAndSaveAsString(args, Photo.LON));
 			isEmpty = false;
 		} catch (Exception e) {
-			lat = 0;
-			lon = 0;
+			gps[0] = 0;
+			gps[1] = 0;
 		}
-		mapcode = us.getAndSaveAsString(args, Photo.MAPCODE);
-		if (isEmpty == false && mapcode.length() > 5)
-			isEmpty = true;
 		
 		//Location uebergeben
 		if (isEmpty == false)
-			photo.setLocation(lat, lon);
-		else
+			photo.setLocation(gps);
+		else {
+			try {
+				point = MapcodeCodec.decode(us.getAndSaveAsString(args, Photo.MAPCODE));
+				mapcode = MapcodeCodec.encodeToInternational(point.getLatDeg(), 
+						point.getLonDeg());
+			} catch (IllegalArgumentException | UnknownMapcodeException e) {
+				e.printStackTrace();
+				mapcode = MapcodeCodec.encodeToInternational(0, 0);
+			}
+			
 			photo.setLocation(mapcode);
+		}
+			
 	}	
 	
 	/**

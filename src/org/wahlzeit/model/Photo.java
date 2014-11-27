@@ -33,6 +33,8 @@ import org.wahlzeit.services.EmailAddress;
 import org.wahlzeit.services.Language;
 import org.wahlzeit.utils.StringUtil;
 
+import com.mapcode.Mapcode;
+
 /**
  * A photo represents a user-provided (uploaded) photo.
  * 
@@ -164,6 +166,7 @@ public abstract class Photo extends DataObject {
 	 * 
 	 */
 	public void readFrom(ResultSet rset) throws SQLException {
+		double[] gps = new double[2];
 		id = PhotoId.getIdFromInt(rset.getInt("id"));
 
 		ownerId = rset.getInt("owner_id");
@@ -184,8 +187,9 @@ public abstract class Photo extends DataObject {
 		noVotes = rset.getInt("no_votes");
 
 		creationTime = rset.getLong("creation_time");
-		
-		setLocation(rset.getDouble("lat"), rset.getDouble("lon"));
+		gps[0] = rset.getDouble("lat");
+		gps[1] = rset.getDouble("lon");
+		setLocation(gps);
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 	}
@@ -512,8 +516,8 @@ public abstract class Photo extends DataObject {
 	 * @param lon
 	 * @methodtype set
 	 */
-	public void setLocation(double lat, double lon) {
-		location = new GPSLocation(lat, lon);
+	public void setLocation(double[] gps) {
+		location = new GPSLocation(gps);
 	}
 	
 	/**
@@ -521,7 +525,7 @@ public abstract class Photo extends DataObject {
 	 * @param mapcode
 	 * @methodtype set
 	 */
-	public void setLocation(String mapcode){
+	public void setLocation(Mapcode mapcode){
 		location = new MapcodeLocation(mapcode);
 	}
 	

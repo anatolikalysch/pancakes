@@ -1,18 +1,19 @@
 package org.wahlzeit.location;
 
-import com.mapcode.Mapcode;
 
-
-
-public abstract class AbstractLocation implements InterfaceLocation {
+public abstract class AbstractLocation implements LocationInterface {
 
 	protected boolean hasLocation = false;
-	protected double lat;
-	protected double lon;
+	protected double[] coord;
+	
+	@Override
+	public void setLocation(double[] coord) {
+		this.coord = coord;
+	}
 
 	@Override
 	public double[] getLocation() {
-		return null;
+		return coord;
 	}
 	
 	@Override
@@ -21,29 +22,8 @@ public abstract class AbstractLocation implements InterfaceLocation {
 	}
 
 	@Override
-	public void setLocation(double lat, double lon) {}
-
-	@Override
-	public void setLocation(Mapcode mapcode) {}
-
-	@Override
-	public boolean isEqual(Mapcode mapcode) {
-		return false;
-	}
-
-	@Override
-	public boolean isEqual(double lat, double lon) {
-		return false;
-	}
-
-	@Override
 	public boolean hasLocation() {
 		return hasLocation;
-	}
-
-	@Override
-	public String asString() {
-		return null;
 	}
 	
 	@Override
@@ -52,11 +32,11 @@ public abstract class AbstractLocation implements InterfaceLocation {
 	}
 
 	public double getLatitude() {
-		return lat;
+		return coord[0];
 	}
 
 	public double getLongtitude() {
-		return lon;
+		return coord[1];
 	}
 		
 }

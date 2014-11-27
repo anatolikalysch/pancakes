@@ -234,8 +234,8 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * 
 	 */
-	public Photo getVisiblePhoto(PhotoFilter filter) {
-		Photo result = getPhotoFromFilter(filter);
+	public PancakePhoto getVisiblePhoto(PhotoFilter filter) {
+		PancakePhoto result = getPhotoFromFilter(filter);
 		
 		if(result == null) {
 			java.util.List<PhotoId> list = getFilteredPhotoIds(filter);
@@ -249,12 +249,12 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * 
 	 */
-	protected Photo getPhotoFromFilter(PhotoFilter filter) {
+	protected PancakePhoto getPhotoFromFilter(PhotoFilter filter) {
 		PhotoId id = filter.getRandomDisplayablePhotoId();
-		Photo result = getPhotoFromId(id);
+		PancakePhoto result = (PancakePhoto) getPhotoFromId(id);
 		while((result != null) && !result.isVisible()) {
 			id = filter.getRandomDisplayablePhotoId();
-			result = getPhotoFromId(id);
+			result = (PancakePhoto) getPhotoFromId(id);
 			if ((result != null) && !result.isVisible()) {
 				filter.addProcessedPhoto(result);
 			}
@@ -347,7 +347,7 @@ public class PhotoManager extends ObjectManager {
 	 */
 	public Photo createPhoto(File file) throws Exception {
 		PhotoId id = PhotoId.getNextId();
-		Photo result = (PancakePhoto) PhotoUtil.createPhoto(file, id);
+		PancakePhoto result = (PancakePhoto) PhotoUtil.createPhoto(file, id);
 		addPhoto(result);
 		return result;
 	}
