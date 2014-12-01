@@ -29,6 +29,7 @@ import org.wahlzeit.model.User;
 import org.wahlzeit.model.UserLog;
 import org.wahlzeit.model.UserManager;
 import org.wahlzeit.model.UserSession;
+import org.wahlzeit.model.extension.PancakePhoto;
 import org.wahlzeit.utils.HtmlUtil;
 import org.wahlzeit.utils.StringUtil;
 import org.wahlzeit.webparts.WebPart;
@@ -51,7 +52,7 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 	 * 
 	 */
 	protected void doMakeWebPart(UserSession us, WebPart part) {
-		Photo photo = us.getPhoto();
+		PancakePhoto photo = (PancakePhoto) us.getPhoto();
 		String id = photo.getId().asString();
 		part.addString(Photo.ID, id);
 		part.addString(Photo.THUMB, getPhotoThumb(us, photo));
@@ -61,6 +62,13 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 		String tags = photo.getTags().asString();
 		tags = !StringUtil.isNullOrEmptyString(tags) ? tags : us.cfg().getNoTags();
 		part.maskAndAddString(Photo.TAGS, tags);
+		
+		part.addString(Photo.LOCATION, photo.getLocationAsString());
+		part.addString(PancakePhoto.INGREDIENT1, photo.getIngredient(1));
+		part.addString(PancakePhoto.INGREDIENT2, photo.getIngredient(2));
+		part.addString(PancakePhoto.INGREDIENT3, photo.getIngredient(3));
+		part.addString(PancakePhoto.INGREDIENT4, photo.getIngredient(4));
+		part.addString(PancakePhoto.INGREDIENT5, photo.getIngredient(5));
 		
 		String photoStatus = us.cfg().asValueString(photo.getStatus());
 		part.addString(Photo.STATUS, photoStatus);

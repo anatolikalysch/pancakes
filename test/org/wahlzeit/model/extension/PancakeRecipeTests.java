@@ -68,13 +68,13 @@ public class PancakeRecipeTests extends TestCase{
 	}
 	
 	public void testGetMethod() {
-		assertEquals(fullRecipe.getIngredient1(), "42");
+		assertEquals(fullRecipe.getIngredient(1), "42");
 
-		assertEquals(fullRecipe.getIngredient3(), "42");
+		assertEquals(fullRecipe.getIngredient(3), "42");
 
-		assertEquals(fullRecipe.getIngredient5(), "42");
+		assertEquals(fullRecipe.getIngredient(5), "42");
 
-		assertEquals(mixedRecipe.getIngredient3(), "qwert");
+		assertEquals(mixedRecipe.getIngredient(3), "qwert");
 	}
 	
 }

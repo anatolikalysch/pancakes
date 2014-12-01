@@ -65,6 +65,8 @@ public class PancakePhoto extends Photo {
 		recipe = new PancakeRecipe(ingredient1, ingredient2, ingredient3,
 				ingredient4, ingredient5);
 	}
+	
+	
 	/**
 	*
 	* @methodtype command method
@@ -72,11 +74,11 @@ public class PancakePhoto extends Photo {
 	@Override
 	public void writeOn(ResultSet rset) throws SQLException {
 		super.writeOn(rset);
-		rset.updateString("ingredient1", recipe.getIngredient1());
-		rset.updateString("ingredient2", recipe.getIngredient2());
-		rset.updateString("ingredient3", recipe.getIngredient3());
-		rset.updateString("ingredient4", recipe.getIngredient4());
-		rset.updateString("ingredient5", recipe.getIngredient5());
+		rset.updateString("ingredient1", recipe.getIngredient(1));
+		rset.updateString("ingredient2", recipe.getIngredient(2));
+		rset.updateString("ingredient3", recipe.getIngredient(3));
+		rset.updateString("ingredient4", recipe.getIngredient(4));
+		rset.updateString("ingredient5", recipe.getIngredient(5));
 	}
 	/**
 	*
@@ -95,8 +97,35 @@ public class PancakePhoto extends Photo {
 			String ingredient3, String ingredient4, String ingredient5) {
 		this.recipe = new PancakeRecipe(ingredient1, ingredient2,
 			ingredient3, ingredient4, ingredient5);
+		this.ingredient1 = ingredient1;
+		this.ingredient2 = ingredient2;
+		this.ingredient3 = ingredient3;
+		this.ingredient4 = ingredient4;
+		this.ingredient5 = ingredient5;
 		//post
 		assert(this.recipe.isEmpty() == false);
+	}
+	
+	/**
+	 * @methodtype get method
+	 * @param i
+	 * @return
+	 */
+	public String getIngredient(int i){
+		switch (i) {
+		case 1: 
+			return ingredient1;
+		case 2:
+			return ingredient2;
+		case 3:
+			return ingredient3;
+		case 4:
+			return ingredient4;
+		case 5:
+			return ingredient5;
+		default:
+			return "";
+		}
 	}
 	
 	/**

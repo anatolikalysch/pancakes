@@ -2,7 +2,7 @@ package org.wahlzeit.model.extension;
 
 /**
  * This is a value Object. The only way to set the components is via constructor.
- * Further methods to change its state should not exist.
+ * Further methods to change its state should not exist, e.g. any mutation methods.
  * @author qwert
  *
  */
@@ -12,16 +12,7 @@ public class PancakeRecipe {
 	private final String ingredient3;
 	private final String ingredient4;
 	private final String ingredient5;
-	/**
-	* @methodtype constructor
-	*/
-	public PancakeRecipe() {
-		this.ingredient1 = "";
-		this.ingredient2 = "";
-		this.ingredient3 = "";
-		this.ingredient4 = "";
-		this.ingredient5 = "";
-	}
+	
 	
 	/**
 	* @methodtype constructor
@@ -46,8 +37,9 @@ public class PancakeRecipe {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * @pre ingredients should not be empty
+	 * @post recipe should not be changed
+	 * @methodtype query method 
 	 */
 	protected boolean EvaluateIsEmpty(){
 		if (!this.isIngredientEmpty(ingredient1) && !this.isIngredientEmpty(ingredient2) && !this.isIngredientEmpty(ingredient3) &&
@@ -60,29 +52,40 @@ public class PancakeRecipe {
 	/**
 	 * Values don’t have identity, so it is important to properly implement anything
 	 *  that has to do with equality. In Java this means the Methods equals and hashCode.
+	 * @pre recipe not null
 	 * @post if the objects are equal, their hashCode should be too
+	 * @methodtype comparison method
 	 */
-	public boolean equals(Object obj) {
-		if (this.equals(obj)) {
-			assert(this.hashCode() == obj.hashCode());
-			return this.equals(obj);	
+	public boolean equals(PancakeRecipe recipe) {
+		assert(recipe != null);
+		if (this.equals(recipe)) {
+			assert(this.hashCode() == recipe.hashCode());
+			return this.equals(recipe);	
 		} else 
 			return false;
-			
 	}
 	
 	/**
 	 * Values don’t have identity, so it is important to properly implement anything
 	 * that has to do with equality. In Java this means the Methods equals and hashCode.
+	 * @methodtype conversion method
 	 */
 	public int hashCode() {
 		return this.hashCode();
 	}
 	
 	/**
+	 * This makes it possible for System.out.print to print the Object
+	 * @methodtype conversion method
+	 */
+	public String toString() {
+		return this.asStringIngredients();
+	}
+	
+	/**
 	 * @pre ingredients should not be empty
 	 * @post temp should not be empty
-	 * @return
+	 * @methodtype conversion method
 	 */
 	public String asStringIngredients() {
 		//pre
@@ -99,7 +102,7 @@ public class PancakeRecipe {
 			if (!this.isIngredientEmpty(ingredient4))
 				temp += ingredient4 + ", ";
 			if (temp.length() > 1)
-				temp = temp.substring(0, temp.length());		//removes the ","
+				temp = temp.substring(0, temp.length()-1);		//removes the ","
 			if (!this.isIngredientEmpty(ingredient5))
 				temp += ingredient5;
 			temp += ".";
@@ -111,18 +114,19 @@ public class PancakeRecipe {
 	
 	/**
 	 * 
-	 * @param ingredient
-	 * @return
+	 * @methodtype query method
+	 * @property composed
 	 */
 	public boolean isIngredientEmpty(String ingredient){
 		return this.doEvaluateIsIngredientEmpty(ingredient);
 	}
 	
 	/**
-	 * @methodtype assertion method
+	 * @methodtype query method
+	 * @property primitive
 	 */
 	protected boolean doEvaluateIsIngredientEmpty(String ingredient){
-		if (ingredient == null || ingredient.isEmpty())
+		if (ingredient == null || ingredient == "")
 			return true;
 		else 
 			return false;
@@ -130,41 +134,21 @@ public class PancakeRecipe {
 	
 	/**
 	 * @methodtype get method
-	 * @return
 	 */
-	public String getIngredient1() {
-		return ingredient1;
-	}
-
-	/**
-	 * @methodtype get method
-	 * @return
-	 */
-	public String getIngredient2() {
-		return ingredient2;
-	}
-
-	/**
-	 * @methodtype get method
-	 * @return
-	 */
-	public String getIngredient3() {
-		return ingredient3;
-	}
-
-	/**
-	 * @methodtype get method
-	 * @return
-	 */
-	public String getIngredient4() {
-		return ingredient4;
-	}
-
-	/**
-	 * @methodtype get method
-	 * @return
-	 */
-	public String getIngredient5() {
-		return ingredient5;
+	public String getIngredient(int i){
+		switch (i) {
+		case 1: 
+			return ingredient1;
+		case 2:
+			return ingredient2;
+		case 3:
+			return ingredient3;
+		case 4:
+			return ingredient4;
+		case 5:
+			return ingredient5;
+		default:
+			return "";
+		}
 	}
 }

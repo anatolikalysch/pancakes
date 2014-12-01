@@ -65,7 +65,14 @@ public class AdminUserPhotoFormHandler extends AbstractWebFormHandler {
 		part.addString("photoId", photoId);
 		part.addString(Photo.ID, photo.getId().asString());
 		part.addSelect(Photo.STATUS, PhotoStatus.class, (String) args.get(Photo.STATUS));
-		part.addString(PancakePhoto.RECIPE, photo.getRecipeAsString());
+		
+		part.addString(Photo.LOCATION, photo.getLocationAsString());
+		part.addString(PancakePhoto.INGREDIENT1, photo.getIngredient(1));
+		part.addString(PancakePhoto.INGREDIENT2, photo.getIngredient(2));
+		part.addString(PancakePhoto.INGREDIENT3, photo.getIngredient(3));
+		part.addString(PancakePhoto.INGREDIENT4, photo.getIngredient(4));
+		part.addString(PancakePhoto.INGREDIENT5, photo.getIngredient(5));
+		
 		part.maskAndAddStringFromArgsWithDefault(args, Photo.TAGS, photo.getTags().asString());
 	}
 	

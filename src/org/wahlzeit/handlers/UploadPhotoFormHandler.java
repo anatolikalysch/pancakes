@@ -66,6 +66,11 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		Map<String, Object> args = us.getSavedArgs();
 		part.addStringFromArgs(args, UserSession.MESSAGE);
 		part.maskAndAddStringFromArgs(args, Photo.TAGS);
+		part.maskAndAddStringFromArgs(args, PancakePhoto.INGREDIENT1);
+		part.maskAndAddStringFromArgs(args, PancakePhoto.INGREDIENT2);
+		part.maskAndAddStringFromArgs(args, PancakePhoto.INGREDIENT3);
+		part.maskAndAddStringFromArgs(args, PancakePhoto.INGREDIENT4);
+		part.maskAndAddStringFromArgs(args, PancakePhoto.INGREDIENT5);
 		
 	}
 	
@@ -90,7 +95,7 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			createBackup(sourceFileName, targetFileName);
 		
 			User user = (User) us.getClient();
-			user.addPhoto(photo); 
+			user.addPhoto(photo);
 			
 			photo.setTags(new Tags(tags));
 			doHandlePancakePhotoLocation(photo, us, args);
@@ -124,8 +129,8 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		Mapcode mapcode;
 		// Werte einholen
 		try {
-			gps[0] = Double.parseDouble(us.getAndSaveAsString(args, Photo.LAT));
-			gps[1] = Double.parseDouble(us.getAndSaveAsString(args, Photo.LON));
+			gps[0] = Double.parseDouble(us.getAndSaveAsString(args, "lat"));
+			gps[1] = Double.parseDouble(us.getAndSaveAsString(args, "lon"));
 			isEmpty = false;
 		} catch (Exception e) {
 			gps[0] = 0;
@@ -137,7 +142,7 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 			photo.setLocation(gps);
 		else {
 			try {
-				point = MapcodeCodec.decode(us.getAndSaveAsString(args, Photo.MAPCODE));
+				point = MapcodeCodec.decode(us.getAndSaveAsString(args, "mapcode"));
 				mapcode = MapcodeCodec.encodeToInternational(point.getLatDeg(), 
 						point.getLonDeg());
 			} catch (IllegalArgumentException | UnknownMapcodeException e) {
@@ -155,12 +160,12 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 	 */
 	public void doHandlePancakePhoto(PancakePhoto photo, UserSession us, Map args){
 	
-		String ingredient1 = us.getAndSaveAsString(args, PancakePhoto.INGREDIENT1);
-		String ingredient2 = us.getAndSaveAsString(args, PancakePhoto.INGREDIENT2);
-		String ingredient3 = us.getAndSaveAsString(args, PancakePhoto.INGREDIENT3);
-		String ingredient4 = us.getAndSaveAsString(args, PancakePhoto.INGREDIENT4);
-		String ingredient5 = us.getAndSaveAsString(args, PancakePhoto.INGREDIENT5);
-			
+		String ingredient1 = us.getAndSaveAsString(args, "ingredient1");
+		String ingredient2 = us.getAndSaveAsString(args, "ingredient2");
+		String ingredient3 = us.getAndSaveAsString(args, "ingredient3");
+		String ingredient4 = us.getAndSaveAsString(args, "ingredient4");
+		String ingredient5 = us.getAndSaveAsString(args, "ingredient5");
+					
 		photo.setRecipe(ingredient1, ingredient2, ingredient3, ingredient4, ingredient5);
 	}
 	

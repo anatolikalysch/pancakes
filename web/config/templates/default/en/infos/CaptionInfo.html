@@ -2,8 +2,20 @@
 
 <p>Location: {$location}</p>
 
-<p>Recipe: {$recipe}</p>
+<p><a href="javascript:showHideDiv('pancakeRecipe');">Click to show/hide recipe!</a></p>
+
+<div id="pancakeRecipe">
+	<p>First Ingredient: {$ingredient1}</p>
+	<p>Second Ingredient: {$ingredient2}</p>
+	<p>Third Ingredient: {$ingredient3}</p>
+	<p>Fourth Ingredient: {$ingredient4}</p>
+	<p>Fifth Ingredient: {$ingredient5}</p>
+</div>
+
 
 <p><a href="javascript:showHideDiv('imageCaption');">Click to show/hide description!</a></p>
 
-<div id="imageCaption"><p>{$caption}</p></div>
+<div id="imageCaption">
+	<p>{$caption}</p>
+</div>
+

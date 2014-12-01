@@ -71,6 +71,10 @@ div#imageCaption {
 	display: none;
 }
 
+div#pancakeRecipe {
+	display: none;
+}
+
 div#basicFilter {
 	display: block;
 }
