@@ -10,27 +10,14 @@ import java.util.HashMap;
  */
 public class Recipe {
 	
+	/**
+	 * 
+	 */
 	private final String recipe;
+	/**
+	 * 
+	 */
 	private static final HashMap<String,Recipe> map = new HashMap<String,Recipe>();
-	
-	/**
-	* @methodtype get method
-	* @return recipe
-	*/
-	public String getRecipe() {
-		return recipe;
-	}
-	
-	/**
-	* @methodtype assertion method
-	* @throws IllegalStateException
-	*/
-	protected void assertInvariants() throws IllegalStateException {
-		boolean isValid = (this.recipe != null);
-		if (!isValid) {
-			throw new IllegalStateException("class invariant violated");
-		}
-	}
 	
 	/**
 	* @methodtype constructor
@@ -67,10 +54,10 @@ public class Recipe {
 	}
 	
 	/**
-	* @methodtype conversion method
-	* @return
+	* @methodtype get method
+	* @return recipe
 	*/
-	public String asString() {
+	public String getRecipe() {
 		return recipe;
 	}
 	
@@ -80,6 +67,25 @@ public class Recipe {
 	*/
 	public String toString() {
 		return asString();
+	}
+	
+	/**
+	* @methodtype conversion method
+	* @return
+	*/
+	public String asString() {
+		return recipe;
+	}
+	
+	/**
+	* @methodtype assertion method
+	* @throws IllegalStateException
+	*/
+	protected void assertInvariants() throws IllegalStateException {
+		boolean isValid = (this.recipe != null);
+		if (!isValid) {
+			throw new IllegalStateException("class invariant violated");
+		}
 	}
 	
 }

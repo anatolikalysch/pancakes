@@ -7,19 +7,59 @@ import java.sql.SQLException;
 import org.wahlzeit.services.DataObject;
 
 public class Pancake extends DataObject {
-
+	
+	/**
+	 * 
+	 */
 	protected Integer id;
+	
+	/**
+	 * 
+	 */
 	protected String name;
+	
+	/**
+	 * 
+	 */
 	protected Recipe recipe = Recipe.getInstance("");
 	
+	/**
+	 * 
+	 * @methodtype constructor
+	 */
+	public Pancake(Integer id) {
+		this.id = id;
+		incWriteCount();
+	}
+	
+	/**
+	 * 
+	 * @methodtype constructor
+	 */
+	public Pancake(ResultSet rset) throws SQLException{
+		this.readFrom(rset);
+	}
+	
+	/**
+	 * 
+	 * @methodtype get method
+	 */
 	public Integer getId() {
 		return id;
 	}
 	
+	/**
+	 * 
+	 * @methodtype get method
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * 
+	 * @methodtype set method
+	 */
 	public void setName(String name) {
 		//precondition
 		if(name == null)
@@ -29,10 +69,18 @@ public class Pancake extends DataObject {
 		incWriteCount();
 	}
 	
+	/**
+	 * 
+	 * @methodtype get method
+	 */
 	public Recipe getRecipe() {
 		return recipe;
 	}
 	
+	/**
+	 * 
+	 * @methodtype set method
+	 */
 	public void setRecipe(Recipe recipe) {
 		//precondition
 		if(recipe == null)
@@ -42,24 +90,35 @@ public class Pancake extends DataObject {
 		incWriteCount();
 	}
 	
-	public Pancake(Integer id) {
-		this.id = id;
-		incWriteCount();
+	
+	
+	/**
+	 * @methodtype conversion method
+	 */
+	@Override
+	public String toString() {
+		return asString();
 	}
 	
-	public Pancake(ResultSet rset) throws SQLException{
-		this.readFrom(rset);
-	}
-	
+	/**
+	 * 
+	 * @methodtype conversion method
+	 */
 	public String asString() {
 		return "ID: " + this.id + ", Recipe: " + this.recipe.asString();
 	}
 	
+	/**
+	 * 
+	 */
 	@Override
 	public String getIdAsString() {
 		return String.valueOf(this.id);
 	}
 	
+	/**
+	 * @methotype command method
+	 */
 	@Override
 	public void readFrom(ResultSet rset) throws SQLException {
 		this.id = rset.getInt("id");
@@ -67,6 +126,9 @@ public class Pancake extends DataObject {
 		this.recipe = Recipe.getInstance(rset.getString("recipe"));
 	}
 	
+	/**
+	 * @methodtype command method
+	 */
 	@Override
 	public void writeOn(ResultSet rset) throws SQLException {
 		rset.updateInt("id", this.id);
@@ -74,6 +136,9 @@ public class Pancake extends DataObject {
 		rset.updateString("recipe", this.recipe.asString());
 	}
 	
+	/**
+	 * 
+	 */
 	@Override
 	public void writeId(PreparedStatement stmt, int pos) throws SQLException {
 		stmt.setInt(pos, this.id);

@@ -183,8 +183,8 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 			caption.addString("location", temp.getLocation().asString());
 		} else {
 			caption.addString("recipe", "N/A");
-			//wegen GPSLocation.EMPTY_LOCATION ist dies eigentlich bloat
-			caption.addString("location", "n/a"); 
+			//wegen GPSLocation.EMPTY_LOCATION ist folgendes eigentlich bloat
+			caption.addString("location", "N/A"); 
 		}
 		
 		page.addWritable(Photo.CAPTION, caption);

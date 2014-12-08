@@ -38,22 +38,28 @@ public class PancakeFactory extends PhotoFactory {
 	}
 	
 	/**
-	*
+	* @methodtype constuctor
 	*/
 	protected PancakeFactory() {
 		super();
 	}
 	
+	/**
+	 * @methodtype factory method
+	 */
 	public Pancake createPancake(Integer id) {
 		return new Pancake(id);
 	}
 	
+	/**
+	 * @methodtype factory method
+	 */
 	public Pancake createPancake(ResultSet rset) throws SQLException {
 		return new Pancake(rset);
 	}
 	
 	/**
-	* @methodtype factory
+	* @methodtype factory method
 	*/
 	@Override
 	public Photo createPhoto() {
@@ -61,7 +67,7 @@ public class PancakeFactory extends PhotoFactory {
 	}
 	
 	/**
-	*
+	* @methodtype factory method
 	*/
 	@Override
 	public Photo createPhoto(PhotoId id) {
@@ -69,7 +75,7 @@ public class PancakeFactory extends PhotoFactory {
 	}
 	
 	/**
-	*
+	* @methodtype factory method
 	*/
 	@Override
 	public Photo createPhoto(ResultSet rset) throws SQLException {
