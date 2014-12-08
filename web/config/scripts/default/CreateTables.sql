@@ -15,6 +15,12 @@ CREATE TABLE users (
 	creation_time bigint
 );
 
+CREATE TABLE pancakes(
+	id integer PRIMARY KEY,
+	name text,
+	recipe text
+);
+
 CREATE TABLE photos (
 	id integer PRIMARY KEY,
 	owner_id integer REFERENCES users(id),
@@ -30,13 +36,10 @@ CREATE TABLE photos (
 	praise_sum integer,
 	no_votes integer,
 	creation_time bigint,
-	lat decimal,
-	lon decimal,
-	ingredient1 text,
-	ingredient2 text,
-	ingredient3 text,
-	ingredient4 text,
-	ingredient5 text
+	location_type text,
+	location text,
+	pancake_id integer REFERENCES pancakes(id),
+	recipe text
 );
 
 CREATE TABLE tags (
@@ -60,12 +63,16 @@ CREATE TABLE globals (
 	last_user_id integer,
 	last_photo_id integer,
 	last_case_id integer,
-	last_session_id integer
+	last_session_id integer,
+	last_pancake_id integer
 );
 
-INSERT INTO globals (id, last_user_id, last_photo_id, last_case_id, last_session_id)
-	VALUES (0, 1, 0, 0, 0);
+INSERT INTO globals (id, last_user_id, last_photo_id, last_case_id, last_session_id, last_pancake_id)
+	VALUES (0, 1, 0, 0, 0, 0);
 
 INSERT INTO users (id, name, name_as_tag, email_address, "password", rights, status)
 	VALUES (1, 'admin', 'admin', 'root@localhost', 'admin', 4, 1);
+	
+INSERT INTO pancakes (id, name, recipe)
+	VALUES (-1, 'None', 'n/a');
 

@@ -21,6 +21,7 @@
 package org.wahlzeit.main;
 
 import org.wahlzeit.agents.AgentManager;
+import org.wahlzeit.handlers.AdminUserPhotoFormHandler;
 import org.wahlzeit.handlers.AdminUserProfileFormHandler;
 import org.wahlzeit.handlers.ChangePasswordFormHandler;
 import org.wahlzeit.handlers.ConfirmAccountPageHandler;
@@ -49,15 +50,13 @@ import org.wahlzeit.handlers.ShowPartPageHandler;
 import org.wahlzeit.handlers.ShowPhotoCasesPageHandler;
 import org.wahlzeit.handlers.ShowPhotoPageHandler;
 import org.wahlzeit.handlers.ShowUserHomePageHandler;
+import org.wahlzeit.handlers.ShowUserPhotoFormHandler;
 import org.wahlzeit.handlers.ShowUserProfileFormHandler;
 import org.wahlzeit.handlers.SignupFormHandler;
 import org.wahlzeit.handlers.TellFriendFormHandler;
+import org.wahlzeit.handlers.UploadPhotoFormHandler;
 import org.wahlzeit.handlers.WebPartHandler;
 import org.wahlzeit.handlers.WebPartHandlerManager;
-import org.wahlzeit.handlers.extension.AdminUserPancakePhotoFormHandler;
-import org.wahlzeit.handlers.extension.PancakePartUtil;
-import org.wahlzeit.handlers.extension.ShowUserPancakePhotoFormHandler;
-import org.wahlzeit.handlers.extension.UploadPancakePhotoFormHandler;
 import org.wahlzeit.model.AccessRights;
 import org.wahlzeit.model.EnglishModelConfig;
 import org.wahlzeit.model.GermanModelConfig;
@@ -162,93 +161,93 @@ public class ServiceMain extends ModelMain {
 		WebPartHandlerManager manager = WebPartHandlerManager.getInstance();
 		
 		// NullInfo and NullForm
-		manager.addWebPartHandler(PancakePartUtil.NULL_FORM_NAME, new NullFormHandler());
+		manager.addWebPartHandler(PartUtil.NULL_FORM_NAME, new NullFormHandler());
 		
 		// Note page
-		manager.addWebPartHandler(PancakePartUtil.SHOW_NOTE_PAGE_NAME, new ShowNotePageHandler());
+		manager.addWebPartHandler(PartUtil.SHOW_NOTE_PAGE_NAME, new ShowNotePageHandler());
 
 		// ShowPhoto page
-		manager.addWebPartHandler(PancakePartUtil.FILTER_PHOTOS_FORM_NAME, new FilterPhotosFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.PRAISE_PHOTO_FORM_NAME, new PraisePhotoFormHandler());
+		manager.addWebPartHandler(PartUtil.FILTER_PHOTOS_FORM_NAME, new FilterPhotosFormHandler());
+		manager.addWebPartHandler(PartUtil.PRAISE_PHOTO_FORM_NAME, new PraisePhotoFormHandler());
 
 		temp = new ShowPhotoPageHandler();
-		manager.addWebPartHandler(PancakePartUtil.SHOW_PHOTO_PAGE_NAME, temp);
-		manager.addWebPartHandler(PancakePartUtil.ENGAGE_GUEST_FORM_NAME, temp);
+		manager.addWebPartHandler(PartUtil.SHOW_PHOTO_PAGE_NAME, temp);
+		manager.addWebPartHandler(PartUtil.ENGAGE_GUEST_FORM_NAME, temp);
 		
-		manager.addWebPartHandler(PancakePartUtil.FILTER_PHOTOS_PAGE_NAME, new FilterPhotosPageHandler());
+		manager.addWebPartHandler(PartUtil.FILTER_PHOTOS_PAGE_NAME, new FilterPhotosPageHandler());
 
-		manager.addWebPartHandler(PancakePartUtil.RESET_SESSION_PAGE_NAME, new ResetSessionPageHandler());
+		manager.addWebPartHandler(PartUtil.RESET_SESSION_PAGE_NAME, new ResetSessionPageHandler());
 		
 		// About and Terms pages
-		manager.addWebPartHandler(PancakePartUtil.ABOUT_PAGE_NAME, new ShowInfoPageHandler(AccessRights.GUEST, PartUtil.ABOUT_INFO_FILE));
-		manager.addWebPartHandler(PancakePartUtil.CONTACT_PAGE_NAME, new ShowInfoPageHandler(AccessRights.GUEST, PartUtil.CONTACT_INFO_FILE));
-		manager.addWebPartHandler(PancakePartUtil.IMPRINT_PAGE_NAME, new ShowInfoPageHandler(AccessRights.GUEST, PartUtil.IMPRINT_INFO_FILE));
-		manager.addWebPartHandler(PancakePartUtil.TERMS_PAGE_NAME, new ShowInfoPageHandler(AccessRights.GUEST, PartUtil.TERMS_INFO_FILE));
+		manager.addWebPartHandler(PartUtil.ABOUT_PAGE_NAME, new ShowInfoPageHandler(AccessRights.GUEST, PartUtil.ABOUT_INFO_FILE));
+		manager.addWebPartHandler(PartUtil.CONTACT_PAGE_NAME, new ShowInfoPageHandler(AccessRights.GUEST, PartUtil.CONTACT_INFO_FILE));
+		manager.addWebPartHandler(PartUtil.IMPRINT_PAGE_NAME, new ShowInfoPageHandler(AccessRights.GUEST, PartUtil.IMPRINT_INFO_FILE));
+		manager.addWebPartHandler(PartUtil.TERMS_PAGE_NAME, new ShowInfoPageHandler(AccessRights.GUEST, PartUtil.TERMS_INFO_FILE));
 
 		// Flag, Send, Tell, and Options pages
-		temp = manager.addWebPartHandler(PancakePartUtil.FLAG_PHOTO_FORM_NAME, new FlagPhotoFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.FLAG_PHOTO_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
-		temp = manager.addWebPartHandler(PancakePartUtil.SEND_EMAIL_FORM_NAME, new SendEmailFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.SEND_EMAIL_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
-		temp = manager.addWebPartHandler(PancakePartUtil.TELL_FRIEND_FORM_NAME, new TellFriendFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.TELL_FRIEND_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
-		temp = manager.addWebPartHandler(PancakePartUtil.SET_OPTIONS_FORM_NAME, new SetOptionsFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.SET_OPTIONS_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
+		temp = manager.addWebPartHandler(PartUtil.FLAG_PHOTO_FORM_NAME, new FlagPhotoFormHandler());
+		manager.addWebPartHandler(PartUtil.FLAG_PHOTO_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
+		temp = manager.addWebPartHandler(PartUtil.SEND_EMAIL_FORM_NAME, new SendEmailFormHandler());
+		manager.addWebPartHandler(PartUtil.SEND_EMAIL_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
+		temp = manager.addWebPartHandler(PartUtil.TELL_FRIEND_FORM_NAME, new TellFriendFormHandler());
+		manager.addWebPartHandler(PartUtil.TELL_FRIEND_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
+		temp = manager.addWebPartHandler(PartUtil.SET_OPTIONS_FORM_NAME, new SetOptionsFormHandler());
+		manager.addWebPartHandler(PartUtil.SET_OPTIONS_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
 		
 		// Signup, Login, EmailUserName/Password, and Logout pages
-		temp = manager.addWebPartHandler(PancakePartUtil.SIGNUP_FORM_NAME, new SignupFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.SIGNUP_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
+		temp = manager.addWebPartHandler(PartUtil.SIGNUP_FORM_NAME, new SignupFormHandler());
+		manager.addWebPartHandler(PartUtil.SIGNUP_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
 
-		manager.addWebPartHandler(PancakePartUtil.CONFIRM_ACCOUNT_PAGE_NAME, new ConfirmAccountPageHandler());
+		manager.addWebPartHandler(PartUtil.CONFIRM_ACCOUNT_PAGE_NAME, new ConfirmAccountPageHandler());
 
-		temp = manager.addWebPartHandler(PancakePartUtil.LOGIN_FORM_NAME, new LoginFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.LOGIN_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
-		temp = manager.addWebPartHandler(PancakePartUtil.EMAIL_USER_NAME_FORM_NAME, new EmailUserNameFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.EMAIL_USER_NAME_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
-		temp = manager.addWebPartHandler(PancakePartUtil.EMAIL_PASSWORD_FORM_NAME, new EmailPasswordFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.EMAIL_PASSWORD_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
+		temp = manager.addWebPartHandler(PartUtil.LOGIN_FORM_NAME, new LoginFormHandler());
+		manager.addWebPartHandler(PartUtil.LOGIN_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
+		temp = manager.addWebPartHandler(PartUtil.EMAIL_USER_NAME_FORM_NAME, new EmailUserNameFormHandler());
+		manager.addWebPartHandler(PartUtil.EMAIL_USER_NAME_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
+		temp = manager.addWebPartHandler(PartUtil.EMAIL_PASSWORD_FORM_NAME, new EmailPasswordFormHandler());
+		manager.addWebPartHandler(PartUtil.EMAIL_PASSWORD_PAGE_NAME, new ShowPartPageHandler(AccessRights.GUEST, temp));
 
-		manager.addWebPartHandler(PancakePartUtil.LOGOUT_PAGE_NAME, new LogoutPageHandler());
+		manager.addWebPartHandler(PartUtil.LOGOUT_PAGE_NAME, new LogoutPageHandler());
 		
 		// SetLanguage pages
 		temp = new SetLanguagePageHandler();
-		manager.addWebPartHandler(PancakePartUtil.SET_ENGLISH_LANGUAGE_PAGE_NAME, temp);
-		manager.addWebPartHandler(PancakePartUtil.SET_GERMAN_LANGUAGE_PAGE_NAME, temp);
-		manager.addWebPartHandler(PancakePartUtil.SET_SPANISH_LANGUAGE_PAGE_NAME, temp);
-		manager.addWebPartHandler(PancakePartUtil.SET_JAPANESE_LANGUAGE_PAGE_NAME, temp);
+		manager.addWebPartHandler(PartUtil.SET_ENGLISH_LANGUAGE_PAGE_NAME, temp);
+		manager.addWebPartHandler(PartUtil.SET_GERMAN_LANGUAGE_PAGE_NAME, temp);
+		manager.addWebPartHandler(PartUtil.SET_SPANISH_LANGUAGE_PAGE_NAME, temp);
+		manager.addWebPartHandler(PartUtil.SET_JAPANESE_LANGUAGE_PAGE_NAME, temp);
 
 		// SetPhotoSize pages
 		temp = new SetPhotoSizePageHandler();
-		manager.addWebPartHandler(PancakePartUtil.SET_EXTRA_SMALL_PHOTO_SIZE_PAGE_NAME, temp);
-		manager.addWebPartHandler(PancakePartUtil.SET_SMALL_PHOTO_SIZE_PAGE_NAME, temp);
-		manager.addWebPartHandler(PancakePartUtil.SET_MEDIUM_PHOTO_SIZE_PAGE_NAME, temp);
-		manager.addWebPartHandler(PancakePartUtil.SET_LARGE_PHOTO_SIZE_PAGE_NAME, temp);
-		manager.addWebPartHandler(PancakePartUtil.SET_EXTRA_LARGE_PHOTO_SIZE_PAGE_NAME, temp);
+		manager.addWebPartHandler(PartUtil.SET_EXTRA_SMALL_PHOTO_SIZE_PAGE_NAME, temp);
+		manager.addWebPartHandler(PartUtil.SET_SMALL_PHOTO_SIZE_PAGE_NAME, temp);
+		manager.addWebPartHandler(PartUtil.SET_MEDIUM_PHOTO_SIZE_PAGE_NAME, temp);
+		manager.addWebPartHandler(PartUtil.SET_LARGE_PHOTO_SIZE_PAGE_NAME, temp);
+		manager.addWebPartHandler(PartUtil.SET_EXTRA_LARGE_PHOTO_SIZE_PAGE_NAME, temp);
 
 		// ShowHome page
-		manager.addWebPartHandler(PancakePartUtil.SHOW_USER_PROFILE_FORM_NAME, new ShowUserProfileFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.SHOW_USER_PANCAKEPHOTO_FORM_NAME, new ShowUserPancakePhotoFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.SHOW_USER_HOME_PAGE_NAME, new ShowUserHomePageHandler());
+		manager.addWebPartHandler(PartUtil.SHOW_USER_PROFILE_FORM_NAME, new ShowUserProfileFormHandler());
+		manager.addWebPartHandler(PartUtil.SHOW_USER_PHOTO_FORM_NAME, new ShowUserPhotoFormHandler());
+		manager.addWebPartHandler(PartUtil.SHOW_USER_HOME_PAGE_NAME, new ShowUserHomePageHandler());
 		
 		// EditProfile, ChangePassword, EditPhoto, and UploadPhoto pages
-		temp = manager.addWebPartHandler(PancakePartUtil.EDIT_USER_PROFILE_FORM_NAME, new EditUserProfileFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.EDIT_USER_PROFILE_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
-		temp = manager.addWebPartHandler(PancakePartUtil.CHANGE_PASSWORD_FORM_NAME, new ChangePasswordFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.CHANGE_PASSWORD_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
-		temp = manager.addWebPartHandler(PancakePartUtil.EDIT_USER_PHOTO_FORM_NAME, new EditUserPhotoFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.EDIT_USER_PHOTO_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
-		temp = manager.addWebPartHandler(PancakePartUtil.UPLOAD_PANCAKEPHOTO_FORM_NAME, new UploadPancakePhotoFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.UPLOAD_PHOTO_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
+		temp = manager.addWebPartHandler(PartUtil.EDIT_USER_PROFILE_FORM_NAME, new EditUserProfileFormHandler());
+		manager.addWebPartHandler(PartUtil.EDIT_USER_PROFILE_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
+		temp = manager.addWebPartHandler(PartUtil.CHANGE_PASSWORD_FORM_NAME, new ChangePasswordFormHandler());
+		manager.addWebPartHandler(PartUtil.CHANGE_PASSWORD_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
+		temp = manager.addWebPartHandler(PartUtil.EDIT_USER_PHOTO_FORM_NAME, new EditUserPhotoFormHandler());
+		manager.addWebPartHandler(PartUtil.EDIT_USER_PHOTO_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
+		temp = manager.addWebPartHandler(PartUtil.UPLOAD_PHOTO_FORM_NAME, new UploadPhotoFormHandler());
+		manager.addWebPartHandler(PartUtil.UPLOAD_PHOTO_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
 		
-		manager.addWebPartHandler(PancakePartUtil.EDIT_PHOTO_CASE_FORM_NAME, new EditPhotoCaseFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.SHOW_PHOTO_CASES_PAGE_NAME, new ShowPhotoCasesPageHandler());
+		manager.addWebPartHandler(PartUtil.EDIT_PHOTO_CASE_FORM_NAME, new EditPhotoCaseFormHandler());
+		manager.addWebPartHandler(PartUtil.SHOW_PHOTO_CASES_PAGE_NAME, new ShowPhotoCasesPageHandler());
 
 		// Admin page incl. AdminUserProfile and AdminUserPhoto
 		temp = new ShowAdminPageHandler();
-		manager.addWebPartHandler(PancakePartUtil.SHOW_ADMIN_PAGE_NAME, temp);
-		manager.addWebPartHandler(PancakePartUtil.SHOW_ADMIN_MENU_FORM_NAME, temp);
-		manager.addWebPartHandler(PancakePartUtil.ADMIN_USER_PROFILE_FORM_NAME, new AdminUserProfileFormHandler());
-		manager.addWebPartHandler(PancakePartUtil.ADMIN_USER_PANCAKEPHOTO_FORM_NAME, new AdminUserPancakePhotoFormHandler());
+		manager.addWebPartHandler(PartUtil.SHOW_ADMIN_PAGE_NAME, temp);
+		manager.addWebPartHandler(PartUtil.SHOW_ADMIN_MENU_FORM_NAME, temp);
+		manager.addWebPartHandler(PartUtil.ADMIN_USER_PROFILE_FORM_NAME, new AdminUserProfileFormHandler());
+		manager.addWebPartHandler(PartUtil.ADMIN_USER_PHOTO_FORM_NAME, new AdminUserPhotoFormHandler());
 	}
 	
 	/**

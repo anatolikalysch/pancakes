@@ -20,19 +20,12 @@
 
 package org.wahlzeit.handlers;
 
-import java.util.Map;
+import java.util.*;
 
-import org.wahlzeit.model.AccessRights;
-import org.wahlzeit.model.Photo;
-import org.wahlzeit.model.PhotoManager;
-import org.wahlzeit.model.User;
-import org.wahlzeit.model.UserLog;
-import org.wahlzeit.model.UserManager;
-import org.wahlzeit.model.UserSession;
-import org.wahlzeit.model.extension.PancakePhoto;
-import org.wahlzeit.utils.HtmlUtil;
-import org.wahlzeit.utils.StringUtil;
-import org.wahlzeit.webparts.WebPart;
+import org.wahlzeit.model.*;
+import org.wahlzeit.services.*;
+import org.wahlzeit.utils.*;
+import org.wahlzeit.webparts.*;
 
 /**
  * 
@@ -52,7 +45,7 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 	 * 
 	 */
 	protected void doMakeWebPart(UserSession us, WebPart part) {
-		PancakePhoto photo = (PancakePhoto) us.getPhoto();
+		Photo photo = us.getPhoto();
 		String id = photo.getId().asString();
 		part.addString(Photo.ID, id);
 		part.addString(Photo.THUMB, getPhotoThumb(us, photo));
@@ -62,13 +55,6 @@ public class ShowUserPhotoFormHandler extends AbstractWebFormHandler {
 		String tags = photo.getTags().asString();
 		tags = !StringUtil.isNullOrEmptyString(tags) ? tags : us.cfg().getNoTags();
 		part.maskAndAddString(Photo.TAGS, tags);
-		
-		part.addString(Photo.LOCATION, photo.getLocationAsString());
-		part.addString(PancakePhoto.INGREDIENT1, photo.getIngredient(1));
-		part.addString(PancakePhoto.INGREDIENT2, photo.getIngredient(2));
-		part.addString(PancakePhoto.INGREDIENT3, photo.getIngredient(3));
-		part.addString(PancakePhoto.INGREDIENT4, photo.getIngredient(4));
-		part.addString(PancakePhoto.INGREDIENT5, photo.getIngredient(5));
 		
 		String photoStatus = us.cfg().asValueString(photo.getStatus());
 		part.addString(Photo.STATUS, photoStatus);

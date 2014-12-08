@@ -20,12 +20,22 @@
 
 package org.wahlzeit.handlers;
 
-import java.util.*;
+import java.util.Map;
 
-import org.wahlzeit.model.*;
-import org.wahlzeit.model.extension.PancakePhoto;
-import org.wahlzeit.utils.*;
-import org.wahlzeit.webparts.*;
+import org.wahlzeit.extension.model.PancakePhoto;
+import org.wahlzeit.model.AccessRights;
+import org.wahlzeit.model.Client;
+import org.wahlzeit.model.Photo;
+import org.wahlzeit.model.PhotoFilter;
+import org.wahlzeit.model.PhotoManager;
+import org.wahlzeit.model.PhotoSize;
+import org.wahlzeit.model.Tags;
+import org.wahlzeit.model.UserSession;
+import org.wahlzeit.utils.HtmlUtil;
+import org.wahlzeit.utils.StringUtil;
+import org.wahlzeit.webparts.WebPart;
+import org.wahlzeit.webparts.Writable;
+import org.wahlzeit.webparts.WritableList;
 
 /**
  * 
@@ -158,20 +168,28 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 	 * 
 	 */
 	protected void makePhotoCaption(UserSession us, WebPart page) {
-		PancakePhoto photo = (PancakePhoto) us.getPhoto();
+		Photo photo = us.getPhoto();
 		// String photoId = photo.getId().asString();
 			
 		WebPart caption = createWebPart(us, PartUtil.CAPTION_INFO_FILE);
 		caption.addString(Photo.CAPTION, getPhotoCaption(us, photo));
-		caption.addString(Photo.LOCATION, photo.getLocationAsString());
-		caption.addString(PancakePhoto.INGREDIENT1, photo.getIngredient(1));
-		caption.addString(PancakePhoto.INGREDIENT2, photo.getIngredient(2));
-		caption.addString(PancakePhoto.INGREDIENT3, photo.getIngredient(3));
-		caption.addString(PancakePhoto.INGREDIENT4, photo.getIngredient(4));
-		caption.addString(PancakePhoto.INGREDIENT5, photo.getIngredient(5));
+		
+		// pass over the domain data to be shown in the caption
+		if (photo instanceof PancakePhoto) {
+			PancakePhoto temp = (PancakePhoto) photo;
+			caption.addString("pancakeId", temp.getPancake().getId().toString());
+			caption.addString("name", temp.getPancake().getName());
+			caption.addString("recipe", temp.getPancake().getRecipe().asString());
+			caption.addString("location", temp.getLocation().asString());
+		} else {
+			caption.addString("recipe", "N/A");
+			//wegen GPSLocation.EMPTY_LOCATION ist dies eigentlich bloat
+			caption.addString("location", "n/a"); 
+		}
+		
 		page.addWritable(Photo.CAPTION, caption);
 	}
-	
+
 	/**
 	 * 
 	 */

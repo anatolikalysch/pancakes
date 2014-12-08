@@ -1,52 +1,53 @@
 <form action="uploadPhotoForm.form" method="post" enctype="multipart/form-data" name="uploadPhotoForm">
 
-	<h2>Upload a photo!</h2>
+	<h2>Upload photo!</h2>
 	<p><b>{$message}</b></p>
 
 	<table class="border"><tr><td class="spacer"><table class="form">
+	<tr>
+		<td class="twoCol1">Browse:&nbsp;</td>
+		<td class="twoCol2"><input type="file" name="file" value="" size="32" /></td>
+	</tr>
+	<tr>
+		<td class="twoCol1">Photo-Tags:&nbsp;</td>
+		<td class="twoCol2"><input type="text" name="tags" value="{$tags}" size="48" /></td>
+	</tr>
+	<tr>
+		<td class="twoCol1">Latitude:&nbsp;</td>
+		<td class="twoCol2"><input type="text" name="lat" value="{$lat}" size="48" /></td>
+	</tr>
+	<tr>
+		<td class="twoCol1">Longtitude:&nbsp;</td>
+		<td class="twoCol2"><input type="text" name="long" value="{$long}" size="48" /></td>
+	</tr>
+	<tr>
+		<td class="twoCol1">Mapcode:&nbsp;</td>
+		<td class="twoCol2"><input type="text" name="mapcode" value="{$mapcode}" size="48" /></td>
+	</tr>
+	<tr>
+		<td class="twoCol1"><input type="radio" name="newPancake" value="0" checked>Old Pancakes:&nbsp;</td>
+		<td class="twoCol2"><select name="pancakeId">{$pancake}</select></td>
+	</tr>
+	<tr>
+		<td class="twoCol1"><input type="radio" name="newPancake" value="1">New Pancake:&nbsp;</td>
+		<td class="twoCol2">
+		<table>
 		<tr>
-			<td class="twoCol1">File name:&nbsp;</td>
-			<td class="twoCol2"><input type="file" name="file" value="" size="32" /></td>
+		<td class="twoCol1">Name:&nbsp;</td>
+		<td class="twoCol2"><input type="text" name="pancakeName" value="" size="24" /></td>
 		</tr>
 		<tr>
-			<td class="twoCol1">Photo tags:&nbsp;</td>
-			<td class="twoCol2"><input type="text" name="tags" value="{$tags}" size="48" /></td>
+		<td class="twoCol1">Recipe:&nbsp;</td>
+		<td class="twoCol2"><input type="text" name="pancakeRecipe" value="" size="24" /></td>
 		</tr>
-		<tr>
-			<td class="twoCol1">Latitude:&nbsp;</td>
-			<td class="twoCol2"><input type="text" name="lat" value="{$lat}" size="25" /></td>
-		</tr>
-		<tr>
-			<td class="twoCol1">Longtitude:&nbsp;</td>
-			<td class="twoCol2"><input type="text" name="lon" value="{$lon}" size="25" /></td>
-		</tr>
-		<tr>
-			<td class="twoCol1">Mapcode:&nbsp;</td>
-			<td class="twoCol2"><input type="text" name="mapcode" value="{$mapcode}" size="50" /></td>
-		</tr>
-		<tr>
-			<td class="twoCol1">First Ingredient:&nbsp;</td>
-			<td class="twoCol2"><input type="text" name="ingredient1" value="{$ingredient1}" size="50" /></td>
-		</tr><tr>
-			<td class="twoCol1">Second Ingredient:&nbsp;</td>
-			<td class="twoCol2"><input type="text" name="ingredient2" value="{$ingredient2}" size="50" /></td>
-		</tr><tr>
-			<td class="twoCol1">Third Ingredient:&nbsp;</td>
-			<td class="twoCol2"><input type="text" name="ingredient3" value="{$ingredient3}" size="50" /></td>
-		</tr><tr>
-			<td class="twoCol1">Fourth Ingredient:&nbsp;</td>
-			<td class="twoCol2"><input type="text" name="ingredient4" value="{$ingredient4}" size="50" /></td>
-		</tr><tr>
-			<td class="twoCol1">Fifth Ingredient:&nbsp;</td>
-			<td class="twoCol2"><input type="text" name="ingredient5" value="{$ingredient5}" size="50" /></td>
-		</tr>
-		<tr>
-			<td class="twoCol1">&nbsp;</td>
-			<td class="twoCol2"><input type="submit" name="upload" value="Upload!" /></td>
-		</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td class="twoCol1">&nbsp;</td>
+		<td class="twoCol2"><input type="submit" name="upload" value="Upload!" /></td>
+	</tr>
 	</table></td></tr></table>
-	
-	
 	
 	<p>
 		If you need to upload many photos at once, 

@@ -67,11 +67,11 @@ img {
 	border: none;
 }
 
-div#imageCaption {
+div#imageInfo {
 	display: none;
 }
 
-div#pancakeRecipe {
+div#imageCaption {
 	display: none;
 }
 

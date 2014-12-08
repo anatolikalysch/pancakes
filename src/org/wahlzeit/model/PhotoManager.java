@@ -20,13 +20,23 @@
 
 package org.wahlzeit.model;
 
-import java.io.*;
-import java.sql.*;
-import java.util.*;
+import java.io.File;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 
-import org.wahlzeit.main.*;
-import org.wahlzeit.model.extension.PancakePhoto;
-import org.wahlzeit.services.*;
+import org.wahlzeit.extension.model.PancakeFactory;
+import org.wahlzeit.main.ServiceMain;
+import org.wahlzeit.services.ObjectManager;
+import org.wahlzeit.services.Persistent;
+import org.wahlzeit.services.SysLog;
 
 /**
  * A photo manager provides access to and manages photos.
@@ -138,7 +148,7 @@ public class PhotoManager extends ObjectManager {
 	 * 
 	 */
 	protected Photo createObject(ResultSet rset) throws SQLException {
-		return PhotoFactory.getInstance().createPhoto(rset);
+		return PancakeFactory.getInstance().createPhoto(rset);
 	}
 	
 	/**
@@ -347,7 +357,7 @@ public class PhotoManager extends ObjectManager {
 	 */
 	public Photo createPhoto(File file) throws Exception {
 		PhotoId id = PhotoId.getNextId();
-		PancakePhoto result = (PancakePhoto) PhotoUtil.createPhoto(file, id);
+		Photo result = PhotoUtil.createPhoto(file, id);
 		addPhoto(result);
 		return result;
 	}

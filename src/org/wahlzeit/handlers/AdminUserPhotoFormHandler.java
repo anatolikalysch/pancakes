@@ -20,23 +20,10 @@
 
 package org.wahlzeit.handlers;
 
-import java.util.Map;
+import java.util.*;
 
-import org.wahlzeit.model.AccessRights;
-import org.wahlzeit.model.Photo;
-import org.wahlzeit.model.PhotoManager;
-import org.wahlzeit.model.PhotoStatus;
-import org.wahlzeit.model.Tags;
-import org.wahlzeit.model.UserLog;
-import org.wahlzeit.model.UserSession;
-import org.wahlzeit.model.extension.PancakePhoto;
-import org.wahlzeit.model.extension.PancakePhotoManager;
-import org.wahlzeit.webparts.WebPart;
-
-import com.mapcode.Mapcode;
-import com.mapcode.MapcodeCodec;
-import com.mapcode.Point;
-import com.mapcode.UnknownMapcodeException;
+import org.wahlzeit.model.*;
+import org.wahlzeit.webparts.*;
 
 /**
  * 
@@ -80,7 +67,7 @@ public class AdminUserPhotoFormHandler extends AbstractWebFormHandler {
 		photo.setTags(new Tags(tags));
 		String status = us.getAndSaveAsString(args, Photo.STATUS);
 		photo.setStatus(PhotoStatus.getFromString(status));
-		
+
 		PhotoManager pm = PhotoManager.getInstance();
 		pm.savePhoto(photo);
 		
@@ -92,4 +79,5 @@ public class AdminUserPhotoFormHandler extends AbstractWebFormHandler {
 
 		return PartUtil.SHOW_ADMIN_PAGE_NAME;
 	}
+	
 }

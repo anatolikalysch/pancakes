@@ -22,7 +22,6 @@ package org.wahlzeit.model;
 
 import java.sql.*;
 
-import org.wahlzeit.model.extension.PancakePhoto;
 import org.wahlzeit.services.*;
 
 /**
@@ -79,21 +78,21 @@ public class PhotoFactory {
 	 * @methodtype factory
 	 */
 	public Photo createPhoto() {
-		return new PancakePhoto();
+		return new Photo();
 	}
 	
 	/**
 	 * 
 	 */
 	public Photo createPhoto(PhotoId id) {
-		return new PancakePhoto(id);
+		return new Photo(id);
 	}
 	
 	/**
 	 * 
 	 */
 	public Photo createPhoto(ResultSet rs) throws SQLException {
-		return new PancakePhoto(rs);
+		return new Photo(rs);
 	}
 	
 	/**

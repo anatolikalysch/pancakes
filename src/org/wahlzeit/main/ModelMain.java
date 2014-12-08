@@ -22,12 +22,29 @@ package org.wahlzeit.main;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-import org.wahlzeit.model.*;
-import org.wahlzeit.services.*;
+import org.wahlzeit.extension.model.PancakeManager;
+import org.wahlzeit.model.Case;
+import org.wahlzeit.model.CaseId;
+import org.wahlzeit.model.Photo;
+import org.wahlzeit.model.PhotoCaseManager;
+import org.wahlzeit.model.PhotoFactory;
+import org.wahlzeit.model.PhotoId;
+import org.wahlzeit.model.PhotoManager;
+import org.wahlzeit.model.User;
+import org.wahlzeit.model.UserManager;
+import org.wahlzeit.services.ConfigDir;
+import org.wahlzeit.services.DatabaseConnection;
+import org.wahlzeit.services.FileUtil;
+import org.wahlzeit.services.SessionManager;
+import org.wahlzeit.services.SysConfig;
+import org.wahlzeit.services.SysLog;
 import org.wahlzeit.servlets.AbstractServlet;
-import org.wahlzeit.webparts.*;
 
 /**
  * A single-threaded Main class with database connection.
@@ -138,6 +155,9 @@ public abstract class ModelMain extends AbstractMain {
 			int lastSessionId = result.getInt("last_session_id");
 			AbstractServlet.setLastSessionId(lastSessionId);		
 			SysLog.logSysInfo("loaded global variable lastSessionId: " + lastSessionId);
+			int lastPancakeId = result.getInt("last_pancake_id");
+			PancakeManager.getInstance().setCurrentId(lastPancakeId);
+			SysLog.logSysInfo("loaded global variable lastGuitarId: " + lastPancakeId);
 		} else {
 			SysLog.logSysError("Could not load globals!");
 		}
@@ -170,6 +190,9 @@ public abstract class ModelMain extends AbstractMain {
 			int lastSessionId = AbstractServlet.getLastSessionId();
 			rset.updateInt("last_session_id", lastSessionId);
 			SysLog.logSysInfo("saved global variable lastSessionId: " + lastSessionId);
+			int lastPancakeId = PancakeManager.getInstance().getCurrentId();
+			rset.updateInt("last_pancake_id", lastPancakeId);
+			SysLog.logSysInfo("saved global variable lastPancakeId: " + lastPancakeId);
 			rset.updateRow();
 		} else {
 			SysLog.logSysError("Could not save globals!");
@@ -185,7 +208,7 @@ public abstract class ModelMain extends AbstractMain {
 		PhotoCaseManager.getInstance().savePhotoCases();
 		PhotoManager.getInstance().savePhotos();			
 		UserManager.getInstance().saveUsers();
-
+		PancakeManager.getInstance().savePancakes();
 		saveGlobals();
 	}
 	

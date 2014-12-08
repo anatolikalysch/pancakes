@@ -20,10 +20,14 @@
 
 package org.wahlzeit;
 
-import junit.extensions.TestSetup;
-import junit.framework.Test;
+import java.util.*;
 
-import org.wahlzeit.main.ServiceMain;
+import org.wahlzeit.main.*;
+import org.wahlzeit.model.*;
+import org.wahlzeit.services.*;
+
+import junit.framework.*;
+import junit.extensions.*;
 
 public class WahlzeitTestSetup extends TestSetup {
 	

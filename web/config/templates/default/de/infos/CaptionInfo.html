@@ -1,20 +1,24 @@
 <p>Wer/was/wo ist das?</p>
 
-<p>Ort: {$location}</p>
+<p><a href="javascript:showHideDiv('imageInfo');">Weitere Informationen anzeigen!</a></p>
 
-<p><a href="javascript:showHideDiv('pancakeRecipe');">Klicken Sie, um das Rezept zu zeigen/verstecken!</a></p>
-
-<div id="pancakeRecipe">
-	<p>Erste Zutat: {$ingredient1}</p>
-	<p>Zweite Zutat: {$ingredient2}</p>
-	<p>Dritte Zutat: {$ingredient3}</p>
-	<p>Vierte Zutat: {$ingredient4}</p>
-	<p>Fünfte Zutat: {$ingredient5}</p>
+<div id="imageInfo">
+	<table id="infoTable">
+	<tr>
+		<td>{$location_type} Ort:</td>
+		<td>{$location}</td>
+	</tr>
+	<tr>
+		<td>Name:</td>
+		<td>{$name}</td>
+	</tr>
+	<tr>
+		<td>Rezept:</td>
+		<td>{$recipe}</td>
+	</tr>
+	</table>
 </div>
 
 <p><a href="javascript:showHideDiv('imageCaption');">Klicken Sie, um das Foto zu zeigen/verstecken!</a></p>
 
-<div id="imageCaption">
-	<p>{$caption}</p>
-</div>
-
+<div id="imageCaption"><p>{$caption}</p></div>

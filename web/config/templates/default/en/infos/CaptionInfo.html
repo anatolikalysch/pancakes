@@ -1,21 +1,23 @@
 <p>Who/what/where is that?<p>
 
-<p>Location: {$location}</p>
-
-<p><a href="javascript:showHideDiv('pancakeRecipe');">Click to show/hide recipe!</a></p>
-
-<div id="pancakeRecipe">
-	<p>First Ingredient: {$ingredient1}</p>
-	<p>Second Ingredient: {$ingredient2}</p>
-	<p>Third Ingredient: {$ingredient3}</p>
-	<p>Fourth Ingredient: {$ingredient4}</p>
-	<p>Fifth Ingredient: {$ingredient5}</p>
+<p><a href="javascript:showHideDiv('imageInfo');">Show me more info!</a></p>
+<div id="imageInfo">
+	<table id="infoTable">
+	<tr>
+		<td>{$location_type} Location:</td>
+		<td>{$location}</td>
+	</tr>
+	<tr>
+		<td>Name:</td>
+		<td>{$name}</td>
+	</tr>
+	<tr>
+		<td>Recipe:</td>
+		<td>{$recipe}</td>
+	</tr>
+	</table>
 </div>
-
 
 <p><a href="javascript:showHideDiv('imageCaption');">Click to show/hide description!</a></p>
 
-<div id="imageCaption">
-	<p>{$caption}</p>
-</div>
-
+<div id="imageCaption"><p>{$caption}</p></div>

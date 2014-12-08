@@ -20,20 +20,11 @@
 
 package org.wahlzeit.model;
 
-import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.net.*;
 
-import org.wahlzeit.location.AbstractLocation;
-import org.wahlzeit.location.GPSLocation;
-import org.wahlzeit.location.MapcodeLocation;
-import org.wahlzeit.services.DataObject;
-import org.wahlzeit.services.EmailAddress;
-import org.wahlzeit.services.Language;
-import org.wahlzeit.utils.StringUtil;
-
-import com.mapcode.Mapcode;
+import org.wahlzeit.services.*;
+import org.wahlzeit.utils.*;
 
 /**
  * A photo represents a user-provided (uploaded) photo.
@@ -41,7 +32,7 @@ import com.mapcode.Mapcode;
  * @author dirkriehle
  *
  */
-public abstract class Photo extends DataObject {
+public class Photo extends DataObject {
 
 	/**
 	 * 
@@ -56,11 +47,6 @@ public abstract class Photo extends DataObject {
 	public static final String KEYWORDS = "keywords";
 
 	public static final String TAGS = "tags";
-	
-	public static final String LAT = "lat";
-	public static final String LON = "lon";
-	public static final String MAPCODE = "mapcode";
-	public static final String LOCATION = "location";
 
 	public static final String STATUS = "status";
 	public static final String IS_INVISIBLE = "isInvisible";
@@ -73,7 +59,6 @@ public abstract class Photo extends DataObject {
 	public static final int MAX_PHOTO_HEIGHT = 600;
 	public static final int MAX_THUMB_PHOTO_WIDTH = 105;
 	public static final int MAX_THUMB_PHOTO_HEIGHT = 150;
-	
 	
 	/**
 	 * 
@@ -125,12 +110,6 @@ public abstract class Photo extends DataObject {
 	/**
 	 * 
 	 */
-	protected AbstractLocation location;
-	
-	
-	/**
-	 * 
-	 */
 	public Photo() {
 		id = PhotoId.getNextId();
 		incWriteCount();
@@ -166,7 +145,6 @@ public abstract class Photo extends DataObject {
 	 * 
 	 */
 	public void readFrom(ResultSet rset) throws SQLException {
-		double[] gps = new double[2];
 		id = PhotoId.getIdFromInt(rset.getInt("id"));
 
 		ownerId = rset.getInt("owner_id");
@@ -187,9 +165,6 @@ public abstract class Photo extends DataObject {
 		noVotes = rset.getInt("no_votes");
 
 		creationTime = rset.getLong("creation_time");
-		gps[0] = rset.getDouble("lat");
-		gps[1] = rset.getDouble("lon");
-		setLocation(gps);
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 	}
@@ -211,11 +186,7 @@ public abstract class Photo extends DataObject {
 		rset.updateInt("status", status.asInt());
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
-		rset.updateLong("creation_time", creationTime);	
-		if (location != null){
-			rset.updateDouble("lat", location.getLatitude());
-			rset.updateDouble("lon", location.getLongtitude());
-		}
+		rset.updateLong("creation_time", creationTime);		
 	}
 
 	/**
@@ -508,34 +479,6 @@ public abstract class Photo extends DataObject {
 	 */
 	public long getCreationTime() {
 		return creationTime;
-	}
-
-	/**
-	 * 
-	 * @param lat
-	 * @param lon
-	 * @methodtype set
-	 */
-	public void setLocation(double[] gps) {
-		location = new GPSLocation(gps);
-	}
-	
-	/**
-	 * 
-	 * @param mapcode
-	 * @methodtype set
-	 */
-	public void setLocation(Mapcode mapcode){
-		location = new MapcodeLocation(mapcode);
-	}
-	
-	/**
-	 * 
-	 * @return
-	 * @methodtype get
-	 */
-	public String getLocationAsString() {
-		return location.asString();
 	}
 	
 }
