@@ -13,46 +13,46 @@ public class GPSLocationTest extends TestCase {
 	* @param args
 	*/
 	public static void main(final String[] args) {
-	junit.textui.TestRunner.run(GPSLocationTest.class);
+		junit.textui.TestRunner.run(GPSLocationTest.class);
 	}
 	/**
 	*
 	* @param name
 	*/
 	public GPSLocationTest(final String name) {
-	super(name);
+		super(name);
 	}
 	/**
 	*
 	*/
 	public void testGetFormat() {
-	assertEquals(location1.getLocationFormat(), "GPS");
-	assertEquals(location2.getLocationFormat(), "GPS");
+		assertEquals(location1.getLocationFormat(), "GPS");
+		assertEquals(location2.getLocationFormat(), "GPS");
 	}
 	/**
 	*
 	*/
 	public void testGetLatGetLon() {
-	double latitude = location1.latitude;
-	double longitude = location1.longitude;
-	assertTrue(latitude == 9.6);
-	assertTrue(longitude == 9.7);
+		double latitude = location1.latitude;
+		double longitude = location1.longitude;
+		assertTrue(latitude == 9.6);
+		assertTrue(longitude == 9.7);
 	}
 	/**
 	*
 	*/
 	public void testAsMapcode() {
-	GPSLocation location3 = new GPSLocation("8.799984, 8.799993");
-	assertEquals(location3.asMapcodeString(), "International KJ7YB.7TPB");
+		GPSLocation location3 = new GPSLocation("8.799984, 8.799993");
+		assertEquals(location3.asMapcodeString(), "International KJ7YB.7TPB");
 	}
 	
 	/**
 	*
 	*/
 	public void testAsString() {
-	assertSame(location1.asString().length(), ("9.6, 9.7; "+
-	location1.asMapcodeString()).length());
-	assertEquals(location1.toString(), location1.asString());
+		assertSame(location1.asString().length(), ("9.6, 9.7; "+
+				location1.asMapcodeString()).length());
+		assertEquals(location1.toString(), location1.asString());
 	}
 	
 	public void testGPSCoordinates() {
