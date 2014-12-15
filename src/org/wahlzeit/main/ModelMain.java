@@ -51,12 +51,15 @@ import org.wahlzeit.servlets.AbstractServlet;
  * A single-threaded Main class with database connection.
  * Can be used by tools that don't want to start a server.
  * 
+ * 
  * @author dirkriehle
+ *
  *
  */
 public abstract class ModelMain extends AbstractMain {
 	
 	/**
+	 * 
 	 * 
 	 */
 	protected void startUp(String rootDir) throws Exception {
@@ -73,6 +76,7 @@ public abstract class ModelMain extends AbstractMain {
 	}
 	
 	/**
+	 * 
 	 * 
 	 */
 	protected boolean hasGlobals() throws SQLException {
@@ -107,6 +111,7 @@ public abstract class ModelMain extends AbstractMain {
 	}
 	
 	/**
+	 * 
 	 * 
 	 */
 	protected void createUser(String userName, String password, String emailAddress, String photoDir) throws Exception {
