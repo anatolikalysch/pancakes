@@ -29,7 +29,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-import org.wahlzeit.extension.model.PancakeFactory;
+import org.wahlzeit.extension.model.PancakePhotoFactory;
 import org.wahlzeit.services.SysConfig;
 import org.wahlzeit.services.SysLog;
 
@@ -46,7 +46,7 @@ public class PhotoUtil {
 	 * 
 	 */
 	public static Photo createPhoto(File source, PhotoId id) throws Exception {
-		Photo result = PancakeFactory.getInstance().createPhoto(id);
+		Photo result = PancakePhotoFactory.getInstance().createPhoto(id);
 		
 		Image sourceImage = createImageFiles(source, id);
 

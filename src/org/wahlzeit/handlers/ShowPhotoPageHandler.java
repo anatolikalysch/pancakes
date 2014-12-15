@@ -22,7 +22,6 @@ package org.wahlzeit.handlers;
 
 import java.util.Map;
 
-import org.wahlzeit.extension.model.PancakePhoto;
 import org.wahlzeit.model.AccessRights;
 import org.wahlzeit.model.Client;
 import org.wahlzeit.model.Photo;
@@ -173,20 +172,7 @@ public class ShowPhotoPageHandler extends AbstractWebPageHandler implements WebF
 			
 		WebPart caption = createWebPart(us, PartUtil.CAPTION_INFO_FILE);
 		caption.addString(Photo.CAPTION, getPhotoCaption(us, photo));
-		
-		// pass over the domain data to be shown in the caption
-		if (photo instanceof PancakePhoto) {
-			PancakePhoto temp = (PancakePhoto) photo;
-			caption.addString("pancakeId", temp.getPancake().getId().toString());
-			caption.addString("name", temp.getPancake().getName());
-			caption.addString("recipe", temp.getPancake().getRecipe().asString());
-			caption.addString("location", temp.getLocation().asString());
-		} else {
-			caption.addString("recipe", "N/A");
-			//wegen GPSLocation.EMPTY_LOCATION ist folgendes eigentlich bloat
-			caption.addString("location", "N/A"); 
-		}
-		
+				
 		page.addWritable(Photo.CAPTION, caption);
 	}
 

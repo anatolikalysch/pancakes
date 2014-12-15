@@ -2,24 +2,26 @@ package org.wahlzeit.extension.model;
 
 import junit.framework.TestCase;
 
-public class DomainPhotoTest extends TestCase {
-	public DomainPhotoTest (String name) {
+public class PancakeTest extends TestCase {
+	public PancakeTest (String name) {
 		super(name);
 	}
 	
 	public static void main(final String[] args) {
-		junit.textui.TestRunner.run(DomainPhotoTest.class);
+		junit.textui.TestRunner.run(PancakeTest.class);
 	}
 	
 	public void testNullAssignmentPancakePhoto(){
-		PancakePhoto photo = (PancakePhoto) PancakeFactory.getInstance().createPhoto();
+		PancakePhoto photo = PancakePhotoFactory.getInstance().createPhoto();
 		try {
-			photo.getPancake().setRecipe(null);
+			photo.getPancake().getType().setRecipe(null);
 		} catch (IllegalArgumentException as) {
 			return;
 		}
 		fail();
 	}
+	
+	
 	
 	public void testNewRecipe() {
 		Recipe recipe = Recipe.getInstance("");
@@ -31,7 +33,7 @@ public class DomainPhotoTest extends TestCase {
 		fail();
 	}
 	
-	public void testGuitarManufacturerEquality() {
+	public void testPancakeIsEqual() {
 		Recipe recipe = Recipe.getInstance("1");
 		Recipe recipeOther = Recipe.getInstance("1");
 		this.assertEquals(recipe, recipeOther);

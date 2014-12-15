@@ -27,7 +27,7 @@ public class PancakeManager extends ObjectManager {
 	protected Map<Integer, Pancake> pancakeCache = new HashMap<Integer, Pancake>();
 	
 	/**
-	 * 
+	 * meta-information 
 	 */
 	protected int currentId = 0;
 	

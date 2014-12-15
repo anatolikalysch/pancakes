@@ -21,6 +21,8 @@
 package org.wahlzeit.main;
 
 import org.wahlzeit.agents.AgentManager;
+import org.wahlzeit.extension.handlers.ShowPancakePhotoPageHandler;
+import org.wahlzeit.extension.handlers.UploadPancakePhotoFormHandler;
 import org.wahlzeit.handlers.AdminUserPhotoFormHandler;
 import org.wahlzeit.handlers.AdminUserProfileFormHandler;
 import org.wahlzeit.handlers.ChangePasswordFormHandler;
@@ -48,13 +50,11 @@ import org.wahlzeit.handlers.ShowInfoPageHandler;
 import org.wahlzeit.handlers.ShowNotePageHandler;
 import org.wahlzeit.handlers.ShowPartPageHandler;
 import org.wahlzeit.handlers.ShowPhotoCasesPageHandler;
-import org.wahlzeit.handlers.ShowPhotoPageHandler;
 import org.wahlzeit.handlers.ShowUserHomePageHandler;
 import org.wahlzeit.handlers.ShowUserPhotoFormHandler;
 import org.wahlzeit.handlers.ShowUserProfileFormHandler;
 import org.wahlzeit.handlers.SignupFormHandler;
 import org.wahlzeit.handlers.TellFriendFormHandler;
-import org.wahlzeit.handlers.UploadPhotoFormHandler;
 import org.wahlzeit.handlers.WebPartHandler;
 import org.wahlzeit.handlers.WebPartHandlerManager;
 import org.wahlzeit.model.AccessRights;
@@ -170,7 +170,7 @@ public class ServiceMain extends ModelMain {
 		manager.addWebPartHandler(PartUtil.FILTER_PHOTOS_FORM_NAME, new FilterPhotosFormHandler());
 		manager.addWebPartHandler(PartUtil.PRAISE_PHOTO_FORM_NAME, new PraisePhotoFormHandler());
 
-		temp = new ShowPhotoPageHandler();
+		temp = new ShowPancakePhotoPageHandler();
 		manager.addWebPartHandler(PartUtil.SHOW_PHOTO_PAGE_NAME, temp);
 		manager.addWebPartHandler(PartUtil.ENGAGE_GUEST_FORM_NAME, temp);
 		
@@ -236,7 +236,7 @@ public class ServiceMain extends ModelMain {
 		manager.addWebPartHandler(PartUtil.CHANGE_PASSWORD_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
 		temp = manager.addWebPartHandler(PartUtil.EDIT_USER_PHOTO_FORM_NAME, new EditUserPhotoFormHandler());
 		manager.addWebPartHandler(PartUtil.EDIT_USER_PHOTO_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
-		temp = manager.addWebPartHandler(PartUtil.UPLOAD_PHOTO_FORM_NAME, new UploadPhotoFormHandler());
+		temp = manager.addWebPartHandler(PartUtil.UPLOAD_PHOTO_FORM_NAME, new UploadPancakePhotoFormHandler());
 		manager.addWebPartHandler(PartUtil.UPLOAD_PHOTO_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
 		
 		manager.addWebPartHandler(PartUtil.EDIT_PHOTO_CASE_FORM_NAME, new EditPhotoCaseFormHandler());

@@ -32,7 +32,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
-import org.wahlzeit.extension.model.PancakeFactory;
+import org.wahlzeit.extension.model.PancakePhotoFactory;
 import org.wahlzeit.main.ServiceMain;
 import org.wahlzeit.services.ObjectManager;
 import org.wahlzeit.services.Persistent;
@@ -148,7 +148,7 @@ public class PhotoManager extends ObjectManager {
 	 * 
 	 */
 	protected Photo createObject(ResultSet rset) throws SQLException {
-		return PancakeFactory.getInstance().createPhoto(rset);
+		return PancakePhotoFactory.getInstance().createPhoto(rset);
 	}
 	
 	/**

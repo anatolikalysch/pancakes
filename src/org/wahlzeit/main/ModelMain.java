@@ -29,6 +29,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.wahlzeit.extension.model.PancakeManager;
+import org.wahlzeit.extension.model.PancakePhotoFactory;
 import org.wahlzeit.model.Case;
 import org.wahlzeit.model.CaseId;
 import org.wahlzeit.model.Photo;
@@ -68,7 +69,7 @@ public abstract class ModelMain extends AbstractMain {
 		
  		loadGlobals();
 
-		PhotoFactory.initialize();
+		PhotoFactory.setInstance(new PancakePhotoFactory());
 	}
 	
 	/**
@@ -157,7 +158,7 @@ public abstract class ModelMain extends AbstractMain {
 			SysLog.logSysInfo("loaded global variable lastSessionId: " + lastSessionId);
 			int lastPancakeId = result.getInt("last_pancake_id");
 			PancakeManager.getInstance().setCurrentId(lastPancakeId);
-			SysLog.logSysInfo("loaded global variable lastGuitarId: " + lastPancakeId);
+			SysLog.logSysInfo("loaded global variable lastPancakeId: " + lastPancakeId);
 		} else {
 			SysLog.logSysError("Could not load globals!");
 		}

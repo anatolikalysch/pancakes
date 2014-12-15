@@ -3,12 +3,9 @@ package org.wahlzeit.extension.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.wahlzeit.model.Photo;
-import org.wahlzeit.model.PhotoFactory;
-import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.services.SysLog;
 
-public class PancakeFactory extends PhotoFactory {
+public class PancakeFactory {
 	
 	/**
 	* Hidden singleton instance; needs to be initialized from the outside.
@@ -20,7 +17,7 @@ public class PancakeFactory extends PhotoFactory {
 	*/
 	public static synchronized PancakeFactory getInstance() {
 		if (instance == null) {
-			SysLog.logSysInfo("setting generic PhotoFactory");
+			SysLog.logSysInfo("setting generic PancakeFactory");
 			setInstance(new PancakeFactory());
 		}
 		
@@ -28,7 +25,7 @@ public class PancakeFactory extends PhotoFactory {
 	}
 	
 	/**
-	* Method to set the singleton instance of PhotoFactory.
+	* Method to set the singleton instance of PancakeFactory.
 	*/
 	protected static synchronized void setInstance(PancakeFactory pancakeFactory) {
 		if (instance != null) {
@@ -58,27 +55,4 @@ public class PancakeFactory extends PhotoFactory {
 		return new Pancake(rset);
 	}
 	
-	/**
-	* @methodtype factory method
-	*/
-	@Override
-	public Photo createPhoto() {
-		return new PancakePhoto();
-	}
-	
-	/**
-	* @methodtype factory method
-	*/
-	@Override
-	public Photo createPhoto(PhotoId id) {
-		return new PancakePhoto(id);
-	}
-	
-	/**
-	* @methodtype factory method
-	*/
-	@Override
-	public Photo createPhoto(ResultSet rset) throws SQLException {
-		return new PancakePhoto(rset);
-	}
 }
