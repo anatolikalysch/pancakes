@@ -20,11 +20,7 @@
 
 package org.wahlzeit.main;
 
-import java.io.*;
-import java.sql.*;
-
-import org.wahlzeit.model.*;
-import org.wahlzeit.services.*;
+import org.wahlzeit.services.SysLog;
 
 /**
  * A Main class that serves to run scripts (and exit afterwards).

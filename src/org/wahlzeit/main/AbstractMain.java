@@ -20,9 +20,9 @@
 
 package org.wahlzeit.main;
 
-import javax.servlet.http.*;
-
-import org.wahlzeit.services.*;
+import org.wahlzeit.services.SessionManager;
+import org.wahlzeit.services.SysConfig;
+import org.wahlzeit.services.SysSession;
 
 /**
  * 

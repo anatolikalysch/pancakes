@@ -169,7 +169,8 @@ public class ServiceMain extends ModelMain {
 		// ShowPhoto page
 		manager.addWebPartHandler(PartUtil.FILTER_PHOTOS_FORM_NAME, new FilterPhotosFormHandler());
 		manager.addWebPartHandler(PartUtil.PRAISE_PHOTO_FORM_NAME, new PraisePhotoFormHandler());
-
+		
+		//Changed to ShowPancakePhotoPageHandler
 		temp = new ShowPancakePhotoPageHandler();
 		manager.addWebPartHandler(PartUtil.SHOW_PHOTO_PAGE_NAME, temp);
 		manager.addWebPartHandler(PartUtil.ENGAGE_GUEST_FORM_NAME, temp);
@@ -236,6 +237,7 @@ public class ServiceMain extends ModelMain {
 		manager.addWebPartHandler(PartUtil.CHANGE_PASSWORD_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
 		temp = manager.addWebPartHandler(PartUtil.EDIT_USER_PHOTO_FORM_NAME, new EditUserPhotoFormHandler());
 		manager.addWebPartHandler(PartUtil.EDIT_USER_PHOTO_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
+		// Changed to UploadPancakePhotoPageHandler
 		temp = manager.addWebPartHandler(PartUtil.UPLOAD_PHOTO_FORM_NAME, new UploadPancakePhotoFormHandler());
 		manager.addWebPartHandler(PartUtil.UPLOAD_PHOTO_PAGE_NAME, new ShowPartPageHandler(AccessRights.USER, temp));
 		
