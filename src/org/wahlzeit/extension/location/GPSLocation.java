@@ -1,5 +1,8 @@
 package org.wahlzeit.extension.location;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.mapcode.MapcodeCodec;
 
 public class GPSLocation extends AbstractLocation {
@@ -9,7 +12,7 @@ public class GPSLocation extends AbstractLocation {
 	
 	public static final GPSLocation EMPTY_LOCATION = new GPSLocation();
 	
-	public GPSLocation() {
+	protected GPSLocation() {
 		setLocation("0, 0");
 	}
 	
@@ -17,21 +20,12 @@ public class GPSLocation extends AbstractLocation {
 		setLocation(location);
 	}
 	
-	@Override
-	protected void assertIsValidLocation(String location) throws AssertionError {
-		if (location != null) {
-			String[] components = location.split(",");
-			for (String component : components) {
-				component.trim();
-			}
-			assert(components.length == 2);
-			double x = Double.parseDouble(components[0]);
-			double y = Double.parseDouble(components[1]);
-			assert ((x <= 90.0 && x >= -90.0) && (y <= 180.0 && y >= -180.0));
-		}
+	
+	public GPSLocation(ResultSet rset) throws SQLException {
+		latitude = rset.getDouble("latitude");
+		longitude = rset.getDouble("longitude");
 	}
-	
-	
+
 	protected void doSetLocation(String location) {
 		String[] components = location.split(",");
 		for (String component : components) {
@@ -60,5 +54,10 @@ public class GPSLocation extends AbstractLocation {
 	protected String doLocationAsString() {
 		return latitude+", "+longitude;
 		
+	}
+
+	@Override
+	protected AbstractLocation doGetLocation() {
+		return this;
 	}
 }

@@ -1,5 +1,8 @@
 package org.wahlzeit.extension.location;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.mapcode.MapcodeCodec;
 import com.mapcode.Point;
 import com.mapcode.UnknownMapcodeException;
@@ -9,21 +12,16 @@ public class MapcodeLocation extends AbstractLocation {
 	protected String mapcode;
 	
 	public MapcodeLocation(String location) {
-		this.setLocation(location);
+		setLocation(location);
 	}
 	
+	public MapcodeLocation(ResultSet rset) throws SQLException {
+		mapcode = rset.getString("mapcode");
+	}
+
 	@Override
 	public void doSetLocation(String location) {
-		this.mapcode = location;
-	}
-	
-	@Override
-	protected void assertIsValidLocation(String location) throws AssertionError {
-		try {
-			MapcodeCodec.decode(location);
-		} catch (IllegalArgumentException | UnknownMapcodeException e) {
-			throw new AssertionError();
-		}
+		mapcode = location;
 	}
 	
 	public String asGPSString() {
@@ -56,6 +54,11 @@ public class MapcodeLocation extends AbstractLocation {
 	@Override
 	protected String doLocationAsString() {
 		return mapcode;
+	}
+
+	@Override
+	protected AbstractLocation doGetLocation() {
+		return this;
 	}
 
 }

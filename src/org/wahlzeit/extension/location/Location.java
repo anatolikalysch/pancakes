@@ -1,11 +1,8 @@
 package org.wahlzeit.extension.location;
 
 public interface Location {
-
-	public static final Location EMPTY_LOCATION = GPSLocation.EMPTY_LOCATION;
-	public String asString();
+	public String toString();
 	public double[] asGPSCoordinates();
-	public void setLocation(String location);
 	public String getLocationFormat();
-	
+	public AbstractLocation getLocation();
 }

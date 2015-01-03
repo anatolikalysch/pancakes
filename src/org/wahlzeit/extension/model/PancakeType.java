@@ -3,7 +3,8 @@ package org.wahlzeit.extension.model;
 public class PancakeType {
 
 	protected String name = "";
-	protected Recipe recipe = Recipe.getInstance("");
+	protected Ingredients ingredients = Ingredients.EMPTY_INGREDIENTS;
+	protected Recipe recipe = Recipe.EMPTY_RECIPE;
 	
 	public PancakeType(String name, Recipe recipe) {
 		this.name = name;
@@ -32,6 +33,10 @@ public class PancakeType {
 			throw new IllegalArgumentException();
 		
 		this.recipe = recipe;
+	}
+	
+	public Ingredients getIng() {
+		return ingredients;
 	}
 
 }

@@ -2,39 +2,43 @@ package org.wahlzeit.extension.model;
 
 import java.util.HashMap;
 
+import org.wahlzeit.model.Tags;
+
+
 /**
  * This is a value Object. The only way to set the components is via constructor.
  * Further methods to change its state should not exist, e.g. any mutation methods.
  * @author qwert
  *
  */
-public class Recipe {
+
+public class Ingredients {
 	
-	public static final Recipe EMPTY_RECIPE = new Recipe();
+	public static final Ingredients EMPTY_INGREDIENTS = new Ingredients();
 	/**
 	 * 
 	 */
-	private final String recipe;
+	private final String[] ingredients;
 	/**
 	 * 
 	 */
-	private static final HashMap<String,Recipe> map = new HashMap<String,Recipe>();
+	private static final HashMap<String[],Ingredients> map = new HashMap<String[],Ingredients>();
 	
 	/**
 	* @methodtype constructor
 	* @pre recipe != null
 	* @post this.recipe == recipe
-	* @param recipe
+	* @param ingredients
 	*/
-	private Recipe(String recipe){
+	private Ingredients(String[] ingredients){
 		// precondition
-		if(recipe == null)
+		if(ingredients == null)
 			throw new IllegalArgumentException();
 		
-		this.recipe = recipe;
+		this.ingredients = ingredients;
 		
 		//postcondition
-		assert(this.recipe == recipe);
+		assert(this.ingredients == ingredients);
 		//invariant
 		assertInvariants();
 	}
@@ -42,21 +46,21 @@ public class Recipe {
 	/**
 	 * @ convenience
 	 */
-	private Recipe(){
-		recipe = "";
+	private Ingredients() {
+		ingredients = new String[1];		
 	}
 	
 	/**
 	* @methodtype get method
-	* @param recipe
-	* @return Recipe instance
+	* @param ingredients
+	* @return Ingredients instance
 	*/
-	public static Recipe getInstance(String recipe) {
-		if (map.containsKey(recipe)) 
-			return map.get(recipe);
+	public static Ingredients getInstance(String[] ingredients) {
+		if (map.containsKey(ingredients)) 
+			return map.get(ingredients);
 		else {
-			Recipe result = new Recipe(recipe);
-			map.put(recipe, result);
+			Ingredients result = new Ingredients(ingredients);
+			map.put(ingredients, result);
 			return result;
 		}
 	}
@@ -65,8 +69,8 @@ public class Recipe {
 	* @methodtype get method
 	* @return recipe
 	*/
-	public String getRecipe() {
-		return recipe;
+	public String[] getIngredients() {
+		return ingredients;
 	}
 	
 	/**
@@ -82,7 +86,11 @@ public class Recipe {
 	* @return
 	*/
 	public String asString() {
-		return recipe;
+		String result = "";
+		for (int i=0; i < ingredients.length; i++) {
+			result = result.concat(ingredients[i]+", ");
+		}
+		return result;
 	}
 	
 	/**
@@ -90,7 +98,7 @@ public class Recipe {
 	* @throws IllegalStateException
 	*/
 	protected void assertInvariants() throws IllegalStateException {
-		boolean isValid = (this.recipe != null);
+		boolean isValid = (this.ingredients != null);
 		if (!isValid) {
 			throw new IllegalStateException("class invariant violated");
 		}

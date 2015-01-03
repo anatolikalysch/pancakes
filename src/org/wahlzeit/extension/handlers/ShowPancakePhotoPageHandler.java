@@ -41,7 +41,7 @@ public class ShowPancakePhotoPageHandler extends ShowPhotoPageHandler {
 		caption.addString("pancakeId", temp.getPancake().getId().toString());
 		caption.addString("name", temp.getPancake().getType().getName());
 		caption.addString("recipe", temp.getPancake().getType().getRecipe().asString());
-		caption.addString("location", temp.getLocation().asString());
+		caption.addString("location", temp.getLocation().toString());
 		
 		// write caption
 		page.addWritable(Photo.CAPTION, caption);

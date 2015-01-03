@@ -1,21 +1,32 @@
 package org.wahlzeit.extension.location;
 
 public abstract class AbstractLocation implements Location {
+	
+	boolean hasLocation = false;
 
 	@Override
 	public String toString() {
 		return asString();
 	}
 	
-	@Override
 	public String asString() {
-		return doLocationAsString();
+		if (hasLocation)
+			return doLocationAsString();
+		else
+			return "";
 	}
-
-	@Override
-	public void setLocation(String location) {
-		assertIsValidLocation(location);
+	
+	protected void setLocation(String location){
 		doSetLocation(location);
+		hasLocation = true;
+	}
+	
+	@Override
+	public AbstractLocation getLocation(){
+		if (hasLocation)
+			return doGetLocation();
+		else
+			return null;
 	}
 
 	@Override
@@ -23,10 +34,10 @@ public abstract class AbstractLocation implements Location {
 		return "Abstract";
 	}
 	
-	protected abstract void assertIsValidLocation(String location) throws AssertionError;
-	
 	protected abstract void doSetLocation(String location);
 	
 	protected abstract String doLocationAsString();
+	
+	protected abstract AbstractLocation doGetLocation();
 
 }

@@ -38,7 +38,7 @@ public class PancakeFactory {
 	* @methodtype constuctor
 	*/
 	protected PancakeFactory() {
-		super();
+		//nope
 	}
 	
 	/**

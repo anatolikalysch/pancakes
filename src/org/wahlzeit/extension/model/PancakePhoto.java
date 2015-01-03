@@ -3,9 +3,10 @@ package org.wahlzeit.extension.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.wahlzeit.extension.location.AbstractFactory;
+import org.wahlzeit.extension.location.FactoryProducer;
 import org.wahlzeit.extension.location.GPSLocation;
 import org.wahlzeit.extension.location.Location;
-import org.wahlzeit.extension.location.MapcodeLocation;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoId;
 
@@ -19,7 +20,7 @@ public class PancakePhoto extends Photo {
 	
 	protected Pancake pancake;
 	
-	protected Location location = Location.EMPTY_LOCATION;
+	protected Location location = GPSLocation.EMPTY_LOCATION;
 	
 	public Location getLocation() {
 		return location;
@@ -76,20 +77,15 @@ public class PancakePhoto extends Photo {
 	
 	public void readFrom(ResultSet rset) throws SQLException {
 		super.readFrom(rset);
+		
+		
 		// read the location data from the database
 		String locationType = rset.getString("location_type");
-		switch(locationType) {
-			case "GPS": 
-				location = new GPSLocation(rset.getString("location"));
-				break;
-			case "Mapcode": 
-				location = new MapcodeLocation(rset.getString("location"));
-				break;
-			default:
-				location = Location.EMPTY_LOCATION;
-				break;
-		}
+		FactoryProducer fp = new FactoryProducer();
+		AbstractFactory af = fp.getFactory(locationType);
+		location = af.createLocation(rset.getString("location"));
 		
+		//read pancake data from the databese
 		pancake = PancakeManager.getInstance().getPancakeFromId(rset.getInt("pancake_id"));
 	}
 	
@@ -97,7 +93,7 @@ public class PancakePhoto extends Photo {
 		super.writeOn(rset);
 		// write location data to database
 		rset.updateString("location_type", location.getLocationFormat());
-		rset.updateString("location", location.asString());
+		rset.updateString("location", location.toString());
 		rset.updateInt("pancake_id", pancake.getId());
 	}
 }

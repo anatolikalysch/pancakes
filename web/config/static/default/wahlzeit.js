@@ -61,3 +61,16 @@ function validate(form) {
 	
 	form.submit();
 }
+
+function addRow(Id){
+	var table = document.getElementById(Id);
+    var row = table.insertRow(2);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    cell1.innerHTML = "Zutaten: ";
+    cell2.innerHTML = "";
+}
+
+function deleteRow(Id){
+	
+}
