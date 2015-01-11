@@ -38,9 +38,10 @@ public class ShowPancakePhotoPageHandler extends ShowPhotoPageHandler {
 		
 		// pass over the domain data to be shown in the caption
 		PancakePhoto temp = (PancakePhoto) photo;
-		caption.addString("pancakeId", temp.getPancake().getId().toString());
+		caption.addString("pancakeId", temp.getPancake().getIdAsString());
 		caption.addString("name", temp.getPancake().getType().getName());
-		caption.addString("recipe", temp.getPancake().getType().getRecipe().asString());
+		caption.addString("ingredients", temp.getPancake().getType().getIng().toString());
+		caption.addString("recipe", temp.getPancake().getType().getRecipe().toString());
 		caption.addString("location", temp.getLocation().toString());
 		
 		// write caption

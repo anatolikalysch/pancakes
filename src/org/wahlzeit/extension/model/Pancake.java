@@ -16,7 +16,7 @@ public class Pancake extends DataObject {
 	/**
 	 * typeObject
 	 */
-	protected PancakeType type = new PancakeType("", Recipe.getInstance(""));
+	protected PancakeType type = new PancakeType("", Ingredients.EMPTY_INGREDIENTS, Recipe.getInstance(""));
 	/**
 	 * 
 	 * @methodtype constructor
@@ -72,6 +72,21 @@ public class Pancake extends DataObject {
 		incWriteCount();
 	}
 	
+	public Ingredients getIng(){
+		return this.type.getIng();
+	}
+	
+	public void setIng(Ingredients ingredients){
+		this.type.setIng(ingredients);
+	}
+	
+	public Recipe getRecipe(){
+		return this.type.getRecipe();
+	}
+	
+	public void setRecipe(Recipe recipe){
+		this.type.setRecipe(recipe);
+	}
 	
 	/**
 	 * @methodtype conversion method
@@ -86,7 +101,7 @@ public class Pancake extends DataObject {
 	 * @methodtype conversion method
 	 */
 	public String asString() {
-		return "ID: " + this.id + ", Recipe: " + this.getType().getRecipe().asString();
+		return "ID: " + id + ", Ingredients:" + getType().getIng().toString() +  ", Recipe: " + getType().getRecipe().asString();
 	}
 	
 	/**
@@ -104,6 +119,7 @@ public class Pancake extends DataObject {
 	public void readFrom(ResultSet rset) throws SQLException {
 		id = rset.getInt("id");
 		type.setName(rset.getString("name"));
+		type.setIng(Ingredients.getInstance(rset.getString("ingredients")));
 		type.setRecipe(Recipe.getInstance(rset.getString("recipe")));
 	}
 	
@@ -114,7 +130,8 @@ public class Pancake extends DataObject {
 	public void writeOn(ResultSet rset) throws SQLException {
 		rset.updateInt("id", this.id);
 		rset.updateString("name", type.getName());
-		rset.updateString("recipe", type.getRecipe().asString());
+		rset.updateString("ingredients", type.getIng().toString());
+		rset.updateString("recipe", type.getRecipe().toString());
 	}
 	
 	/**

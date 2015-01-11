@@ -25,11 +25,11 @@
 		<td class="twoCol2"><input type="text" name="mapcode" value="{$mapcode}" size="48" /></td>
 	</tr>
 	<tr>
-		<td class="twoCol1"><input type="radio" name="newPancake" value="0" checked>Alte Pancakes:&nbsp;</td>
+		<td class="twoCol1"><input type="radio" name="newPancake" value="0">Alte Pancakes:&nbsp;</td>
 		<td class="twoCol2"><select name="pancakeId">{$pancake}</select></td>
 	</tr>
 	<tr>
-		<td class="twoCol1"><input type="radio" name="newPancake" value="1">Neue Pancakes:&nbsp;</td>
+		<td class="twoCol1"><input type="radio" name="newPancake" value="1" checked>Neue Pancakes:&nbsp;</td>
 		<td class="twoCol2">
 		<div id="pancakeTable">
 		<table>
@@ -41,11 +41,6 @@
 			<td class="twoCol1">Zutaten:&nbsp;</td>
 			<td class="twoCol2"><input type="text" name="pancakeIngredients" value="" size="24" />
 				</td>
-		</tr>
-		<tr>
-			<td class="twoCol1"><a href="javascript:addRow('pancakeTable');">Mehr Zutaten!&nbsp;</a></td>
-			<td class="twoCol2"><a href="javascript:deleteRow('pancakeTable');">Weniger Zutaten!&nbsp;</a></td>
-		
 		</tr>
 		<tr>
 			<td class="twoCol1">Rezept:&nbsp;</td>

@@ -6,8 +6,9 @@ public class PancakeType {
 	protected Ingredients ingredients = Ingredients.EMPTY_INGREDIENTS;
 	protected Recipe recipe = Recipe.EMPTY_RECIPE;
 	
-	public PancakeType(String name, Recipe recipe) {
+	public PancakeType(String name,Ingredients ingredients, Recipe recipe) {
 		this.name = name;
+		this.ingredients = ingredients;
 		this.recipe = recipe;
 	}
 
@@ -37,6 +38,13 @@ public class PancakeType {
 	
 	public Ingredients getIng() {
 		return ingredients;
+	}
+	
+	public void setIng(Ingredients ingredients) {
+		if(ingredients == null)
+			throw new IllegalArgumentException();
+		
+		this.ingredients = ingredients;
 	}
 
 }

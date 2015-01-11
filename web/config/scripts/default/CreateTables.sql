@@ -18,6 +18,7 @@ CREATE TABLE users (
 CREATE TABLE pancakes(
 	id integer PRIMARY KEY,
 	name text,
+	ingredients text,
 	recipe text
 );
 
@@ -73,6 +74,6 @@ INSERT INTO globals (id, last_user_id, last_photo_id, last_case_id, last_session
 INSERT INTO users (id, name, name_as_tag, email_address, "password", rights, status)
 	VALUES (1, 'admin', 'admin', 'root@localhost', 'admin', 4, 1);
 	
-INSERT INTO pancakes (id, name, recipe)
-	VALUES (-1, 'None', 'n/a');
+INSERT INTO pancakes (id, name, ingredients, recipe)
+	VALUES (-1, 'None', 'n/a', 'n/a');
 

@@ -7,8 +7,12 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 
+import org.wahlzeit.extension.location.AbstractFactory;
+import org.wahlzeit.extension.location.FactoryProducer;
 import org.wahlzeit.extension.location.GPSLocation;
+import org.wahlzeit.extension.location.Location;
 import org.wahlzeit.extension.location.MapcodeLocation;
+import org.wahlzeit.extension.model.Ingredients;
 import org.wahlzeit.extension.model.Pancake;
 import org.wahlzeit.extension.model.PancakeManager;
 import org.wahlzeit.extension.model.PancakePhoto;
@@ -68,17 +72,6 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 	protected String doHandlePost(UserSession us, Map args) {
 		String tags = us.getAndSaveAsString(args, Photo.TAGS);
 		
-		// get the location data
-		String latitude = us.getAndSaveAsString(args, "lat");
-		String longitude = us.getAndSaveAsString(args, "long");
-		String mapcode = us.getAndSaveAsString(args, "mapcode");
-		
-		// get the domain data
-		String newPancake = us.getAndSaveAsString(args, "newPancake");
-		String pancakeId = us.getAndSaveAsString(args, "pancakeId");
-		String pancakeName = us.getAndSaveAsString(args, "pancakeName");
-		String pacakeRecipe = us.getAndSaveAsString(args, "pancakeRecipe");
-		
 		if (!StringUtil.isLegalTagsString(tags)) {
 			us.setMessage(us.cfg().getInputIsInvalid());
 			return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
@@ -96,36 +89,12 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 			photo.setTags(new Tags(tags));
 			
 			// add location data to the photo if correct data is given
-			if (!latitude.isEmpty() && !longitude.isEmpty()) {
-				try {
-					photo.setLocation(new GPSLocation(latitude+", "+longitude));
-				} catch (AssertionError e2) { //do nothing if invalid data is given
-						
-				}	
-			} else 
-				if (!mapcode.isEmpty()) {
-					try {
-						photo.setLocation(new MapcodeLocation(mapcode));
-					} catch (AssertionError e3) {//do nothing if invalid data is given
-							
-					}
-					
-				}
+			doHandleLocationData(photo, us, args);
+			
 				
 			// add domain data to the photo if correct data is given and the Photo is a domain Photo
-			PancakeManager panMgr = PancakeManager.getInstance();
-			if(newPancake.equals("0")) {
-				Pancake pancake = panMgr.getPancakeFromId(Integer.decode(pancakeId));
-				photo.setPancake(pancake);
-			} else 
-				if (newPancake.equals("1")){
-					Pancake pancake = panMgr.createPancake();
-					PancakeType type = new PancakeType(pancakeName, 
-							Recipe.getInstance(pacakeRecipe));
-					pancake.setType(type);
-					photo.setPancake(pancake);
-					panMgr.savePancake(pancake);
-				}
+			doHandleDomainData(photo, us, args);
+			
 			
 			pm.savePhoto(photo);
 			StringBuffer sb = UserLog.createActionEntry("UploadPhoto");
@@ -141,4 +110,69 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 		
 		return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
 	}
+	
+	private void doHandleLocationData(PancakePhoto photo, UserSession us, Map args){
+		FactoryProducer fp = new FactoryProducer();
+		AbstractFactory af;
+		Location temp;
+		// get the location data
+		String latitude = us.getAndSaveAsString(args, "lat");
+		String longitude = us.getAndSaveAsString(args, "long");
+		String mapcode = us.getAndSaveAsString(args, "mapcode");
+		
+		if (!latitude.isEmpty() && !longitude.isEmpty()) {
+			try {
+				af = fp.getFactory("GPS");
+				temp = af.createLocation(latitude+", "+longitude);
+				photo.setLocation(temp);
+			} catch (AssertionError e2) { 
+				//do nothing if invalid data is given because photo has
+				//EMPTY_LOCATION by default
+			}	
+		} else 
+			if (!mapcode.isEmpty()) {
+				try {
+					af = fp.getFactory("Mapcode");
+					temp = af.createLocation(mapcode);
+					photo.setLocation(temp);
+				} catch (AssertionError e3) {
+					//do nothing if invalid data is given because photo has
+					//EMPTY_LOCATION by default
+				}
+				
+			}
+	}
+	
+	private void doHandleDomainData(PancakePhoto photo, UserSession us, Map args) {
+		PancakeManager panMgr = PancakeManager.getInstance();
+		String newPancake = us.getAndSaveAsString(args, "newPancake");
+		
+		if(newPancake.equals("0")) {
+			String pancakeId = us.getAndSaveAsString(args, "pancakeId");
+			Pancake pancake = panMgr.getPancakeFromId(Integer.decode(pancakeId));
+			photo.setPancake(pancake);
+		} else 
+			if (newPancake.equals("1")){
+				String pancakeName = us.getAndSaveAsString(args, "pancakeName");
+				String pancakeIngredients = us.getAndSaveAsString(args, "pancakeIngredients");
+				String pacakeRecipe = us.getAndSaveAsString(args, "pancakeRecipe");
+				
+				Pancake pancake;
+				try {
+					pancake = panMgr.createPancake();
+					PancakeType type = new PancakeType(pancakeName, 
+							Ingredients.getInstance(pancakeIngredients),
+							Recipe.getInstance(pacakeRecipe));
+					pancake.setType(type);
+					photo.setPancake(pancake);
+					panMgr.savePancake(pancake);
+				} catch (Exception e) {
+					SysLog.logThrowable(e);
+					us.setMessage(us.cfg().getPhotoUploadFailed());
+				}
+				
+			}
+	}
 }
+
+

@@ -2,8 +2,6 @@ package org.wahlzeit.extension.model;
 
 import java.util.HashMap;
 
-import org.wahlzeit.model.Tags;
-
 
 /**
  * This is a value Object. The only way to set the components is via constructor.
@@ -22,7 +20,7 @@ public class Ingredients {
 	/**
 	 * 
 	 */
-	private static final HashMap<String[],Ingredients> map = new HashMap<String[],Ingredients>();
+	private static final HashMap<String,Ingredients> map = new HashMap<String,Ingredients>();
 	
 	/**
 	* @methodtype constructor
@@ -47,22 +45,71 @@ public class Ingredients {
 	 * @ convenience
 	 */
 	private Ingredients() {
-		ingredients = new String[1];		
+		ingredients = new String[] {"n/a"};		
 	}
 	
 	/**
 	* @methodtype get method
-	* @param ingredients
+	* @param pancakeIngredients
 	* @return Ingredients instance
 	*/
-	public static Ingredients getInstance(String[] ingredients) {
-		if (map.containsKey(ingredients)) 
-			return map.get(ingredients);
+	public static Ingredients getInstance(String pancakeIngredients) {
+		if (map.containsKey(pancakeIngredients)) 
+			return map.get(pancakeIngredients);
 		else {
-			Ingredients result = new Ingredients(ingredients);
-			map.put(ingredients, result);
+			String[] temp = asStringArray(pancakeIngredients);
+			Ingredients result = new Ingredients(temp);
+			map.put(pancakeIngredients, result);
 			return result;
 		}
+	}
+	
+	protected static String[] asStringArray(String ingredients){
+		String[] result = ingredients.split(",");
+		/*char separator = ',';
+		
+		int n = 0; //Counter for Ingredients
+		int j = 0;
+		for (int i = 0; i < ingredients.length(); i = j) {
+			for (; ((i < ingredients.length()) && (ingredients.charAt(i) == separator));) {
+				i++;
+			}
+
+			for (j = i; ((j < ingredients.length()) && (ingredients.charAt(j) != separator));) {
+				j++;
+			}
+
+			if (i != j) {
+				String ing = ingredients.substring(i, j).trim();
+				if (!StringUtil.isNullOrEmptyString(ing)) {
+					n = n + 1; // one more ingredient found
+					if (n > 1) {
+						String[] temp = new String[n];
+						for (int a = 0; a < (n-2); a++)
+							temp[a] = result[a];
+						temp[n-1] = ing;
+						result = temp;
+					} else 
+						result = new String[] {ing};
+				}
+			}
+		}*/
+		
+		//post
+		if (result == null)
+			result = new String[] {"n/a"};
+		return result;
+	}
+	
+	public Ingredients addIngredient(String ingredient) {
+		int temp = ingredients.length;
+		String[] result = new String[temp + 1];
+		for (int i=0; i < (temp-1); i++) {
+			result[i] = ingredients[i];
+		}
+		result[temp] = ingredient;
+		
+		return new Ingredients(result);
 	}
 	
 	/**
@@ -90,7 +137,8 @@ public class Ingredients {
 		for (int i=0; i < ingredients.length; i++) {
 			result = result.concat(ingredients[i]+", ");
 		}
-		return result;
+		
+		return result.substring(0, result.length()-2);
 	}
 	
 	/**

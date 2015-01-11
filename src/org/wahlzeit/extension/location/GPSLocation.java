@@ -3,6 +3,8 @@ package org.wahlzeit.extension.location;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.wahlzeit.utils.StringUtil;
+
 import com.mapcode.MapcodeCodec;
 
 public class GPSLocation extends AbstractLocation {
@@ -27,12 +29,14 @@ public class GPSLocation extends AbstractLocation {
 	}
 
 	protected void doSetLocation(String location) {
-		String[] components = location.split(",");
-		for (String component : components) {
-			component.trim();
+		if (!StringUtil.isNullOrEmptyString(location)) {
+			String[] components = location.split(",");
+			for (String component : components) {
+				component.trim();
+			}
+			this.latitude = Double.parseDouble(components[0]);
+			this.longitude = Double.parseDouble(components[1]);
 		}
-		this.latitude = Double.parseDouble(components[0]);
-		this.longitude = Double.parseDouble(components[1]);
 	}
 	
 	@Override
