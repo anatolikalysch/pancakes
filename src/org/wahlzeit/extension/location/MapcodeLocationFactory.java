@@ -49,8 +49,8 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 	}
 	
 	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodtype command
+	 * @methodproperty hook
 	 * @pre
 	 * @post
 	 */
@@ -60,8 +60,8 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 	}
 	
 	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodtype command
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -75,8 +75,8 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 	}
 
 	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodtype assertion
+	 * @methodproperty hook
 	 * @pre
 	 * @post
 	 */

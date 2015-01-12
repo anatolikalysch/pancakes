@@ -12,7 +12,7 @@ public abstract class AbstractLocationFactory {
 	
 	/**
 	 * @methodtype factory
-	 * @methodproperty
+	 * @methodproperty template
 	 * @pre
 	 * @post
 	 */
@@ -29,8 +29,8 @@ public abstract class AbstractLocationFactory {
 	
 	
 	/**
-	 * @methodtype
-	 * @methodproperty
+	 * @methodtype assertion
+	 * @methodproperty template
 	 * @pre location != null
 	 * @post location is a valid location
 	 */
@@ -44,7 +44,7 @@ public abstract class AbstractLocationFactory {
 	
 	/**
 	 * @methodtype factory
-	 * @methodproperty
+	 * @methodproperty template
 	 * @pre
 	 * @post
 	 */
@@ -52,11 +52,5 @@ public abstract class AbstractLocationFactory {
 		return doCreateLocation(rset);
 	}
 	
-	/**
-	 * @methodtype factory
-	 * @methodproperty
-	 * @pre
-	 * @post
-	 */
 	protected abstract AbstractLocation doCreateLocation(ResultSet rset);
 }

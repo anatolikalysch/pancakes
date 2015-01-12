@@ -22,7 +22,7 @@ import org.wahlzeit.model.PhotoId;
 public class PancakePhoto extends Photo {
 	
 	/**
-	 * @methodtype 
+	 * @methodtype constructor
 	 * @methodproperty
 	 * @pre
 	 * @post
@@ -33,7 +33,7 @@ public class PancakePhoto extends Photo {
 	}
 
 	/**
-	 * @methodtype 
+	 * @methodtype constructor
 	 * @methodproperty
 	 * @pre
 	 * @post
@@ -44,7 +44,7 @@ public class PancakePhoto extends Photo {
 	}
 
 	/**
-	 * @methodtype 
+	 * @methodtype constructor
 	 * @methodproperty
 	 * @pre
 	 * @post
@@ -60,7 +60,7 @@ public class PancakePhoto extends Photo {
 	protected Pancake pancake;
 	
 	/**
-	 * @methodtype 
+	 * @methodtype init
 	 * @methodproperty
 	 * @pre
 	 * @post
@@ -70,7 +70,7 @@ public class PancakePhoto extends Photo {
 	}
 	
 	/**
-	 * @methodtype 
+	 * @methodtype get
 	 * @methodproperty
 	 * @pre
 	 * @post
@@ -80,8 +80,8 @@ public class PancakePhoto extends Photo {
 	}
 
 	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodtype set
+	 * @methodproperty composed
 	 * @pre
 	 * @post
 	 */
@@ -97,8 +97,8 @@ public class PancakePhoto extends Photo {
 	}
 
 	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodtype assertion
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -115,7 +115,7 @@ public class PancakePhoto extends Photo {
 	protected Location location = GPSLocation.EMPTY_LOCATION;
 
 	/**
-	 * @methodtype 
+	 * @methodtype get
 	 * @methodproperty
 	 * @pre
 	 * @post
@@ -125,7 +125,7 @@ public class PancakePhoto extends Photo {
 	}
 
 	/**
-	 * @methodtype 
+	 * @methodtype set
 	 * @methodproperty
 	 * @pre
 	 * @post
@@ -141,7 +141,7 @@ public class PancakePhoto extends Photo {
 	 */
 	
 	/**
-	 * @methodtype 
+	 * @methodtype command
 	 * @methodproperty
 	 * @pre
 	 * @post
@@ -160,7 +160,7 @@ public class PancakePhoto extends Photo {
 	}
 
 	/**
-	 * @methodtype 
+	 * @methodtype command
 	 * @methodproperty
 	 * @pre
 	 * @post
