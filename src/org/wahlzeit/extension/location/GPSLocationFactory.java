@@ -17,11 +17,10 @@ public class GPSLocationFactory extends AbstractLocationFactory {
 	private static GPSLocationFactory instance = null;
 	
 	/**
-	* Public singleton access method.
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * Public singleton access method
+	 * 
+	 * @methodtype command
+	 * @methodproperty composed
 	 * @pre
 	 * @post
 	 */
@@ -35,11 +34,9 @@ public class GPSLocationFactory extends AbstractLocationFactory {
 	}
 	
 	/**
-	* Method to set the singleton instance of LocationFactory.
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * Method to set the singleton instance of LocationFactory
+	 * @methodtype set
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -51,10 +48,10 @@ public class GPSLocationFactory extends AbstractLocationFactory {
 	}
 
 	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
-	 * @post
+	 * @methodtype factory
+	 * @methodproperty hook
+	 * @pre location should be valid String (checked in teplate)
+	 * @post location should be valid location (checked in template)
 	 */
 	@Override
 	protected AbstractLocation doCreateLocation(String location) {
@@ -63,25 +60,28 @@ public class GPSLocationFactory extends AbstractLocationFactory {
 	
 
 	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
-	 * @post
+	 * @methodtype factory
+	 * @methodproperty hook
+	 * @pre rset should not be empty (checked in template)
+	 * @post location should be valid location 
 	 */
 	@Override
 	protected AbstractLocation doCreateLocation(ResultSet rset) {
 		try {
-			return new GPSLocation(rset);
-		} catch (SQLException e) {
+			GPSLocation result = new GPSLocation(rset);
+			//post
+			assertLocation(result.toString());
+			return result;
+		} catch (SQLException | AssertionError e) { //post
 			return GPSLocation.EMPTY_LOCATION;
 		}
 	}
 
 	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
-	 * @post
+	 * @methodtype assertion
+	 * @methodproperty hook
+	 * @pre location is valid String (checked in template)
+	 * @post latitude and longitude are set in the right interval for GPS-Coord
 	 */
 	@Override
 	protected void doAssertLocation(String location) {
@@ -89,9 +89,11 @@ public class GPSLocationFactory extends AbstractLocationFactory {
 		for (String component : components) {
 			component.trim();
 		}
+		//post
 		assert(components.length == 2);
 		double x = Double.parseDouble(components[0]);
 		double y = Double.parseDouble(components[1]);
+		//post
 		assert ((x <= 90.0 && x >= -90.0) && (y <= 180.0 && y >= -180.0));
 	}	
 }

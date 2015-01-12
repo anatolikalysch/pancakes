@@ -3,6 +3,8 @@ package org.wahlzeit.extension.location;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.wahlzeit.utils.StringUtil;
+
 /**
  * This class is part of the AbstractFactory collaboration and the PancakePhoto / Location collaboration.
  * @author qwert
@@ -13,13 +15,15 @@ public abstract class AbstractLocationFactory {
 	/**
 	 * @methodtype factory
 	 * @methodproperty template
-	 * @pre
-	 * @post
+	 * @pre location should be valid String
+	 * @post location should be valid location
 	 */
 	public AbstractLocation createLocation(String location) {
-		if (location == null)
+		//pre
+		if (StringUtil.isNullOrEmptyString(location))
 			return GPSLocation.EMPTY_LOCATION;
 		else {
+			//post
 			assertLocation(location);
 			return doCreateLocation(location);
 		}	
@@ -35,7 +39,7 @@ public abstract class AbstractLocationFactory {
 	 * @post location is a valid location
 	 */
 	protected void assertLocation(String location) throws AssertionError {
-		if (location == null)
+		if (StringUtil.isNullOrEmptyString(location))
 			throw new AssertionError();
 		doAssertLocation(location);
 	}
@@ -45,11 +49,14 @@ public abstract class AbstractLocationFactory {
 	/**
 	 * @methodtype factory
 	 * @methodproperty template
-	 * @pre
-	 * @post
+	 * @pre rset should not be empty
+	 * @post location should be valid location
 	 */
 	public AbstractLocation createLocation(ResultSet rset) throws SQLException {
-		return doCreateLocation(rset);
+		if (rset == null)
+			throw new SQLException();
+		else
+			return doCreateLocation(rset);
 	}
 	
 	protected abstract AbstractLocation doCreateLocation(ResultSet rset);

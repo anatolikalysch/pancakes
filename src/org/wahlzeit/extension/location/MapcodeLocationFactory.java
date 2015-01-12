@@ -20,8 +20,10 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 	private static MapcodeLocationFactory instance = null;
 	
 	/**
-	 * @methodtype Public singleton access method
-	 * @methodproperty
+	 * Public singleton access method
+	 * 
+	 * @methodtype command
+	 * @methodproperty composed
 	 * @pre
 	 * @post
 	 */
@@ -36,8 +38,9 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 	
 	
 	/**
-	 * @methodtype Method to set the singleton instance of LocationFactory
-	 * @methodproperty
+	 * Method to set the singleton instance of LocationFactory
+	 * @methodtype set
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -49,10 +52,10 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 	}
 	
 	/**
-	 * @methodtype command
+	 * @methodtype factory
 	 * @methodproperty hook
-	 * @pre
-	 * @post
+	 * @pre location should be valid String
+	 * @post location should be valid location
 	 */
 	@Override
 	protected AbstractLocation doCreateLocation(String location) {
@@ -60,16 +63,19 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 	}
 	
 	/**
-	 * @methodtype command
-	 * @methodproperty primitive
-	 * @pre
-	 * @post
+	 * @methodtype factory
+	 * @methodproperty hook
+	 * @pre rset should not be empty (checked in template)
+	 * @post location should be valid location 
 	 */
 	@Override
 	protected AbstractLocation doCreateLocation(ResultSet rset) {
 		try {
-			return new MapcodeLocation(rset);
-		} catch (SQLException e) {
+			MapcodeLocation result = new MapcodeLocation(rset);
+			//post
+			assertLocation(result.toString());
+			return result;
+		} catch (SQLException | AssertionError e) { //post
 			return GPSLocation.EMPTY_LOCATION;
 		}
 	}
@@ -77,14 +83,15 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 	/**
 	 * @methodtype assertion
 	 * @methodproperty hook
-	 * @pre
-	 * @post
+	 * @pre location is valid String (checked in template)
+	 * @post valid mapcode was generated
 	 */
 	@Override
 	protected void doAssertLocation(String location) {
 		try {
 			MapcodeCodec.decode(location);
 		} catch (IllegalArgumentException | UnknownMapcodeException e) {
+			//post
 				throw new AssertionError();
 		}			
 	}
