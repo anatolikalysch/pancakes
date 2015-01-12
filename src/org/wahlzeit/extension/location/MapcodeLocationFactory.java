@@ -8,15 +8,23 @@ import org.wahlzeit.services.SysLog;
 import com.mapcode.MapcodeCodec;
 import com.mapcode.UnknownMapcodeException;
 
-public class MapcodeLocationFactory extends AbstractFactory {
+/**
+ * This class is part of the AbstractFactory collaboration.
+ * @author qwert
+ *
+ */
+public class MapcodeLocationFactory extends AbstractLocationFactory {
 	/**
 	* Hidden singleton instance; needs to be initialized from the outside.
 	*/
 	private static MapcodeLocationFactory instance = null;
 	
 	/**
-	* Public singleton access method.
-	*/
+	 * @methodtype Public singleton access method
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public static synchronized MapcodeLocationFactory getInstance() {
 		if (instance == null) {
 			SysLog.logSysInfo("setting generic MapcodeLocationFactory");
@@ -26,21 +34,37 @@ public class MapcodeLocationFactory extends AbstractFactory {
 		return instance;
 	}
 	
+	
 	/**
-	* Method to set the singleton instance of LocationFactory.
-	*/
+	 * @methodtype Method to set the singleton instance of LocationFactory
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	protected static synchronized void setInstance(MapcodeLocationFactory mapcodeLocationFactory) {
 		if (instance != null) {
 			throw new IllegalStateException("attempt to initalize MapcodeLocationFactory twice");
 		}
 		instance = mapcodeLocationFactory;
 	}
-
+	
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	protected AbstractLocation doCreateLocation(String location) {
 		return new MapcodeLocation(location);
 	}
 	
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	protected AbstractLocation doCreateLocation(ResultSet rset) {
 		try {
@@ -50,6 +74,12 @@ public class MapcodeLocationFactory extends AbstractFactory {
 		}
 	}
 
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	protected void doAssertLocation(String location) {
 		try {
@@ -58,10 +88,4 @@ public class MapcodeLocationFactory extends AbstractFactory {
 				throw new AssertionError();
 		}			
 	}
-	
-	
-
-	
-		
-	
 }

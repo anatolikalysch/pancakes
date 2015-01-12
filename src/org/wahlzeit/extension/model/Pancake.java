@@ -6,20 +6,28 @@ import java.sql.SQLException;
 
 import org.wahlzeit.services.DataObject;
 
+/**
+ * This class is part of the PancakePhoto/Pancake, PancakeManager, Serializer and Type Object collaborations.
+ * @author qwert
+ *
+ */
 public class Pancake extends DataObject {
 	
 	/**
-	 * meta-inf
+	 * 
 	 */
 	protected Integer id;
 	
 	/**
-	 * typeObject
-	 */
-	protected PancakeType type = new PancakeType("", Ingredients.EMPTY_INGREDIENTS, Recipe.getInstance(""));
-	/**
 	 * 
+	 */
+	protected PancakeType type = new PancakeType("", Ingredients.EMPTY_INGREDIENTS, Recipe.EMPTY_RECIPE);
+	
+	/**
 	 * @methodtype constructor
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	public Pancake(Integer id) {
 		this.id = id;
@@ -27,30 +35,46 @@ public class Pancake extends DataObject {
 	}
 	
 	/**
-	 * 
 	 * @methodtype constructor
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	public Pancake(ResultSet rset) throws SQLException{
 		readFrom(rset);
 	}
 	
+	
 	/**
-	 * 
-	 * @methodtype get method
+	 * @methodtype get
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	public Integer getId() {
 		return id;
 	}
 	
 	/**
-	 * @methodtype get method
+	 * ---------- Type Object Collaboration ----------
+	 */
+	
+	/**
+	 * @methodtype get
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	public PancakeType getType() {
 		return type;
 	}
 	
+	
 	/**
-	 * @methodtype set method
+	 * @methodtype set
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	public void setType(PancakeType type) {
 		if(type == null)
@@ -59,9 +83,12 @@ public class Pancake extends DataObject {
 		incWriteCount();
 	}
 	
+	
 	/**
-	 * 
-	 * @methodtype set method
+	 * @methodtype set
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	public void setName(String name) {
 		//precondition
@@ -72,24 +99,51 @@ public class Pancake extends DataObject {
 		incWriteCount();
 	}
 	
+	/**
+	 * @methodtype get
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public Ingredients getIng(){
 		return this.type.getIng();
 	}
 	
+	/**
+	 * @methodtype set
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public void setIng(Ingredients ingredients){
 		this.type.setIng(ingredients);
 	}
 	
+	/**
+	 * @methodtype get
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public Recipe getRecipe(){
 		return this.type.getRecipe();
 	}
 	
+	/**
+	 * @methodtype set
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public void setRecipe(Recipe recipe){
 		this.type.setRecipe(recipe);
 	}
 	
 	/**
-	 * @methodtype conversion method
+	 * @methodtype conversion
+	 * @methodproperty composed
+	 * @pre
+	 * @post
 	 */
 	@Override
 	public String toString() {
@@ -97,23 +151,36 @@ public class Pancake extends DataObject {
 	}
 	
 	/**
-	 * 
-	 * @methodtype conversion method
+	 * @methodtype conversion
+	 * @methodproperty primitive
+	 * @pre
+	 * @post
 	 */
 	public String asString() {
 		return "ID: " + id + ", Ingredients:" + getType().getIng().toString() +  ", Recipe: " + getType().getRecipe().asString();
 	}
 	
 	/**
-	 * 
+	 * @methodtype get
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	@Override
 	public String getIdAsString() {
 		return String.valueOf(this.id);
 	}
 	
+	
 	/**
-	 * @methotype command method
+	 * ---------- Serializer collaboration ---------- 
+	 */
+	
+	/**
+	 * @methodtype command
+	 * @methodproperty hook
+	 * @pre
+	 * @post
 	 */
 	@Override
 	public void readFrom(ResultSet rset) throws SQLException {
@@ -124,7 +191,10 @@ public class Pancake extends DataObject {
 	}
 	
 	/**
-	 * @methodtype command method
+	 * @methodtype command
+	 * @methodproperty hook
+	 * @pre
+	 * @post
 	 */
 	@Override
 	public void writeOn(ResultSet rset) throws SQLException {
@@ -135,7 +205,10 @@ public class Pancake extends DataObject {
 	}
 	
 	/**
-	 * 
+	 * @methodtype command
+	 * @methodproperty hook
+	 * @pre
+	 * @post
 	 */
 	@Override
 	public void writeId(PreparedStatement stmt, int pos) throws SQLException {

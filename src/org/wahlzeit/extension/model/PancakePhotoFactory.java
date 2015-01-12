@@ -17,6 +17,12 @@ public class PancakePhotoFactory extends PhotoFactory {
 	/**
 	* Public singleton access method.
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public static synchronized PancakePhotoFactory getInstance() {
 		if (instance == null) {
 			SysLog.logSysInfo("setting generic PancakePhotoFactory");
@@ -29,6 +35,12 @@ public class PancakePhotoFactory extends PhotoFactory {
 	/**
 	* Method to set the singleton instance of PancakeFactory.
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	protected static synchronized void setInstance(PancakePhotoFactory pancakePhotoFactory) {
 		if (instance != null) {
 			throw new IllegalStateException("attempt to initalize PancakePhotoFactory twice");
@@ -40,6 +52,12 @@ public class PancakePhotoFactory extends PhotoFactory {
 	 * @methodtype constructor
 	 * 
 	 */
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public PancakePhotoFactory() {
 		super();
 	}
@@ -47,6 +65,12 @@ public class PancakePhotoFactory extends PhotoFactory {
 	/**
 	* @methodtype factory method
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	public PancakePhoto createPhoto() {
 		return new PancakePhoto();
@@ -55,6 +79,12 @@ public class PancakePhotoFactory extends PhotoFactory {
 	/**
 	* @methodtype factory method
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	public PancakePhoto createPhoto(PhotoId id) {
 		return new PancakePhoto(id);
@@ -63,6 +93,12 @@ public class PancakePhotoFactory extends PhotoFactory {
 	/**
 	* @methodtype factory method
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	public PancakePhoto createPhoto(ResultSet rset) throws SQLException {
 		return new PancakePhoto(rset);

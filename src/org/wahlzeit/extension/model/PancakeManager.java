@@ -14,6 +14,12 @@ import org.wahlzeit.services.ObjectManager;
 import org.wahlzeit.services.Persistent;
 import org.wahlzeit.services.SysLog;
 
+/**
+ * This class is part of the PancakeManager collaboration.
+ * 
+ * @author qwert
+ *
+ */
 public class PancakeManager extends ObjectManager {
 
 	/**
@@ -35,6 +41,12 @@ public class PancakeManager extends ObjectManager {
 	 * 
 	 * @methodtype set method
 	 */
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public void setCurrentId(int currentId) {
 		if (currentId < 0) 
 			throw new IllegalArgumentException();
@@ -46,6 +58,12 @@ public class PancakeManager extends ObjectManager {
 	 * 
 	 * @methodtype get method
 	 */
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public int getCurrentId() {
 		return currentId;
 	}
@@ -53,6 +71,12 @@ public class PancakeManager extends ObjectManager {
 	/**
 	*
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public static final PancakeManager getInstance() {
 		return instance;
 	}
@@ -60,6 +84,12 @@ public class PancakeManager extends ObjectManager {
 	/**
 	* @methodtype constructor
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	protected PancakeManager() {
 		//do nothing
 	}
@@ -69,6 +99,12 @@ public class PancakeManager extends ObjectManager {
 	 * @methodtype boolean-query
 	 * @methodproperties composed
 	 */
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public final boolean hasPancake(Integer id) {
 		return getPancakeFromId(id) != null;
 	}
@@ -76,21 +112,24 @@ public class PancakeManager extends ObjectManager {
 	/**
 	 * @methodtype boolean-query
 	 * @methodproperties primitive
+	 * @pre
+	 * @post
 	 */
 	protected boolean doHasPancake(Integer id) {
 		return this.pancakeCache.containsKey(id);
 	}
 	
 	/**
-	 * 
-	 * @methodtype get method
-	 * @methodproperties composed
+	 * @methodtype get
+	 * @methodproperty composed
+	 * @pre
+	 * @post
 	 */
 	public final Pancake getPancakeFromId(Integer id) {
 		if (id == null) 
 			throw new IllegalArgumentException();
 		
-		Pancake result = this.doGetPancakeFromId(id);
+		Pancake result = this.pancakeCache.get(id);
 		if (result == null) {
 			try {
 				PreparedStatement stmt = getReadingStatement("SELECT * FROM pancakes WHERE id = ?");
@@ -99,7 +138,7 @@ public class PancakeManager extends ObjectManager {
 				SysLog.logThrowable(sex);
 			}
 			if (result != null) {
-				doAddPancake(result);
+				addPancake(result);
 			}
 		}
 		
@@ -107,22 +146,14 @@ public class PancakeManager extends ObjectManager {
 	}
 	
 	/**
-	 * 
-	 * @methodtype get method
-	 * @methodproperties primitive
-	 */
-	protected Pancake doGetPancakeFromId(Integer id) {
-		return this.pancakeCache.get(id);
-	}
-	
-	/**
-	 * 
-	 * @methodtype command method
-	 * @methodproperties composed
+	 * @methodtype command
+	 * @methodproperty composed
+	 * @pre
+	 * @post
 	 */
 	public void addPancake(Pancake pancake){
 		assertIsNewPancake(pancake.getId());
-		doAddPancake(pancake);
+		this.pancakeCache.put(pancake.getId(), pancake);
 		try {
 			PreparedStatement stmt = getReadingStatement("INSERT INTO pancakes(id) VALUES(?)");
 			createObject(pancake, stmt, pancake.getId());
@@ -134,38 +165,22 @@ public class PancakeManager extends ObjectManager {
 	}
 	
 	/**
-	 * 
-	 * @methodtype assertion method
+	 * @methodtype assertion
+	 * @methodproperty primitive
+	 * @pre
+	 * @post
 	 */
 	private void assertIsNewPancake(Integer id) {
 		if (hasPancake(id)) 
 			throw new IllegalStateException("Pancake already exists!");
 	}
 	
-	/**
-	 * 
-	 * @methodtype command method
-	 * @methodproperties primitive
-	 */
-	protected void doAddPancake(Pancake pancake) {
-		this.pancakeCache.put(pancake.getId(), pancake);
-	}
 	
 	/**
-	 * 
-	 * @methodtype factory method
-	 */
-	public Pancake createPancake() throws Exception {
-		this.currentId++;
-		Integer id = Integer.valueOf(this.currentId);
-		Pancake result = PancakeFactory.getInstance().createPancake(id);
-		addPancake(result);
-		return result;
-	}
-	
-	/**
-	 * 
-	 * @methodtype command method
+	 * @methodtype command
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	public void savePancake(Pancake pancake) {
 		try {
@@ -177,7 +192,10 @@ public class PancakeManager extends ObjectManager {
 	}
 	
 	/**
-	 *  @methodtype command method
+	 * @methodtype command
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	public void savePancakes() {
 		try {
@@ -188,9 +206,12 @@ public class PancakeManager extends ObjectManager {
 		}
 	}
 	
+
 	/**
-	 * 
-	 * 
+	 * @methodtype command
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	public Collection<Pancake> loadPancakes() {
 		try {
@@ -201,7 +222,7 @@ public class PancakeManager extends ObjectManager {
 			for (Iterator<Pancake> i = list.iterator(); i.hasNext(); ) {
 				Pancake pancake = i.next();
 				if (!doHasPancake(pancake.getId())) 
-					doAddPancake(pancake);
+					addPancake(pancake);
 				else 
 					SysLog.logSysInfo("pancake", pancake.getId().toString(), "pancake had already been loaded");
 			}
@@ -214,11 +235,32 @@ public class PancakeManager extends ObjectManager {
 	}
 	
 	/**
-	 *  @methodtype factory method
+	 * 
+	 * ---------- PancakeFactory collaborytion ----------
+	 */
+	
+	/**
+	 * @methodtype factory
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
+	public Pancake createPancake() throws Exception {
+		this.currentId++;
+		Integer id = Integer.valueOf(this.currentId);
+		Pancake result = PancakeFactory.getInstance().createPancake(id);
+		addPancake(result);
+		return result;
+	}
+	
+	/**
+	 * @methodtype factory
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	@Override
 	protected Persistent createObject(ResultSet rset) throws SQLException {
 		return PancakeFactory.getInstance().createPancake(rset);
 	}
-
 }

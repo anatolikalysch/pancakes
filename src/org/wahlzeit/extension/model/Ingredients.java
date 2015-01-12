@@ -2,10 +2,14 @@ package org.wahlzeit.extension.model;
 
 import java.util.HashMap;
 
+import org.wahlzeit.utils.StringUtil;
+
 
 /**
  * This is a value Object. The only way to set the components is via constructor.
  * Further methods to change its state should not exist, e.g. any mutation methods.
+ * 
+ * This class is part of the TypeObject collaboration.
  * @author qwert
  *
  */
@@ -28,6 +32,12 @@ public class Ingredients {
 	* @post this.recipe == recipe
 	* @param ingredients
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	private Ingredients(String[] ingredients){
 		// precondition
 		if(ingredients == null)
@@ -44,6 +54,12 @@ public class Ingredients {
 	/**
 	 * @ convenience
 	 */
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	private Ingredients() {
 		ingredients = new String[] {"n/a"};		
 	}
@@ -53,6 +69,12 @@ public class Ingredients {
 	* @param pancakeIngredients
 	* @return Ingredients instance
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public static Ingredients getInstance(String pancakeIngredients) {
 		if (map.containsKey(pancakeIngredients)) 
 			return map.get(pancakeIngredients);
@@ -64,8 +86,20 @@ public class Ingredients {
 		}
 	}
 	
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	protected static String[] asStringArray(String ingredients){
+		//pre
+		if (!StringUtil.isNullOrEmptyString(ingredients))
+			return new String[] {"n/a"};
+		
 		String[] result = ingredients.split(",");
+		for (int i = 0; i < result.length-1; i++)
+			result[i] = result[i].trim();
 		/*char separator = ',';
 		
 		int n = 0; //Counter for Ingredients
@@ -95,12 +129,15 @@ public class Ingredients {
 			}
 		}*/
 		
-		//post
-		if (result == null)
-			result = new String[] {"n/a"};
 		return result;
 	}
 	
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public Ingredients addIngredient(String ingredient) {
 		int temp = ingredients.length;
 		String[] result = new String[temp + 1];
@@ -116,6 +153,12 @@ public class Ingredients {
 	* @methodtype get method
 	* @return recipe
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public String[] getIngredients() {
 		return ingredients;
 	}
@@ -124,6 +167,12 @@ public class Ingredients {
 	* @methodtype conversion method
 	* @return
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public String toString() {
 		return asString();
 	}
@@ -132,6 +181,12 @@ public class Ingredients {
 	* @methodtype conversion method
 	* @return
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public String asString() {
 		String result = "";
 		for (int i=0; i < ingredients.length; i++) {
@@ -145,6 +200,12 @@ public class Ingredients {
 	* @methodtype assertion method
 	* @throws IllegalStateException
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	protected void assertInvariants() throws IllegalStateException {
 		boolean isValid = (this.ingredients != null);
 		if (!isValid) {

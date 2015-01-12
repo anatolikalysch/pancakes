@@ -5,6 +5,12 @@ import java.sql.SQLException;
 
 import org.wahlzeit.services.SysLog;
 
+/**
+ * This class is part of the PancakeFactory collaboration.
+ * 
+ * @author qwert
+ *
+ */
 public class PancakeFactory {
 	
 	/**
@@ -12,9 +18,14 @@ public class PancakeFactory {
 	*/
 	private static PancakeFactory instance = null;
 	
+
 	/**
-	* Public singleton access method.
-	*/
+	 * Public singleton access method.
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public static synchronized PancakeFactory getInstance() {
 		if (instance == null) {
 			SysLog.logSysInfo("setting generic PancakeFactory");
@@ -25,8 +36,12 @@ public class PancakeFactory {
 	}
 	
 	/**
-	* Method to set the singleton instance of PancakeFactory.
-	*/
+	 * Method to set the singleton instance of PancakeFactory.
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	protected static synchronized void setInstance(PancakeFactory pancakeFactory) {
 		if (instance != null) {
 			throw new IllegalStateException("attempt to initalize PancakeFactory twice");
@@ -35,21 +50,30 @@ public class PancakeFactory {
 	}
 	
 	/**
-	* @methodtype constuctor
-	*/
+	 * @methodtype constructor
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	protected PancakeFactory() {
 		//nope
 	}
 	
 	/**
-	 * @methodtype factory method
+	 * @methodtype factory
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	public Pancake createPancake(Integer id) {
 		return new Pancake(id);
 	}
 	
 	/**
-	 * @methodtype factory method
+	 * @methodtype factory
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	public Pancake createPancake(ResultSet rset) throws SQLException {
 		return new Pancake(rset);

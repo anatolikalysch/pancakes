@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 
-import org.wahlzeit.extension.location.AbstractFactory;
+import org.wahlzeit.extension.location.AbstractLocationFactory;
 import org.wahlzeit.extension.location.FactoryProducer;
 import org.wahlzeit.extension.location.GPSLocation;
 import org.wahlzeit.extension.location.Location;
@@ -36,15 +36,12 @@ import org.wahlzeit.webparts.WebPart;
  *
  */
 public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
-	/**
-	 *
-	 */
-	public UploadPancakePhotoFormHandler() {
-		super();
-	}
 	
 	/**
-	 * 
+	 * @methodtype command
+	 * @methodproperty primitive
+	 * @pre
+	 * @post
 	 */
 	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
@@ -66,7 +63,10 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 	}
 	
 	/**
-	 * 
+	 * @methodtype command
+	 * @methodproperty composed (primitive in original Wahlzeit)
+	 * @pre photo instanceof PancakePhoto
+	 * @post
 	 */
 	@Override
 	protected String doHandlePost(UserSession us, Map args) {
@@ -111,67 +111,84 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 		return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
 	}
 	
+	/**
+	 * @methodtype command
+	 * @methodproperty primitive
+	 * @pre photo instanceof PancakePhoto
+	 * @post
+	 */
 	private void doHandleLocationData(PancakePhoto photo, UserSession us, Map args){
-		FactoryProducer fp = new FactoryProducer();
-		AbstractFactory af;
-		Location temp;
-		// get the location data
-		String latitude = us.getAndSaveAsString(args, "lat");
-		String longitude = us.getAndSaveAsString(args, "long");
-		String mapcode = us.getAndSaveAsString(args, "mapcode");
-		
-		if (!latitude.isEmpty() && !longitude.isEmpty()) {
-			try {
-				af = fp.getFactory("GPS");
-				temp = af.createLocation(latitude+", "+longitude);
-				photo.setLocation(temp);
-			} catch (AssertionError e2) { 
-				//do nothing if invalid data is given because photo has
-				//EMPTY_LOCATION by default
-			}	
-		} else 
-			if (!mapcode.isEmpty()) {
+		if (photo instanceof PancakePhoto) {
+			FactoryProducer fp = new FactoryProducer();
+			AbstractLocationFactory af;
+			Location temp;
+			// get the location data
+			String latitude = us.getAndSaveAsString(args, "lat");
+			String longitude = us.getAndSaveAsString(args, "long");
+			String mapcode = us.getAndSaveAsString(args, "mapcode");
+			
+			if (!latitude.isEmpty() && !longitude.isEmpty()) {
 				try {
-					af = fp.getFactory("Mapcode");
-					temp = af.createLocation(mapcode);
+					af = fp.getFactory("GPS");
+					temp = af.createLocation(latitude+", "+longitude);
 					photo.setLocation(temp);
-				} catch (AssertionError e3) {
+				} catch (AssertionError e2) { 
 					//do nothing if invalid data is given because photo has
 					//EMPTY_LOCATION by default
+				}	
+			} else 
+				if (!mapcode.isEmpty()) {
+					try {
+						af = fp.getFactory("Mapcode");
+						temp = af.createLocation(mapcode);
+						photo.setLocation(temp);
+					} catch (AssertionError e3) {
+						//do nothing if invalid data is given because photo has
+						//EMPTY_LOCATION by default
+					}
+					
 				}
-				
-			}
+		}
 	}
 	
+	/**
+	 * @methodtype command
+	 * @methodproperty primitive
+	 * @pre photo instanceof PancakePhoto
+	 * @post pancake created
+	 */
 	private void doHandleDomainData(PancakePhoto photo, UserSession us, Map args) {
-		PancakeManager panMgr = PancakeManager.getInstance();
-		String newPancake = us.getAndSaveAsString(args, "newPancake");
-		
-		if(newPancake.equals("0")) {
-			String pancakeId = us.getAndSaveAsString(args, "pancakeId");
-			Pancake pancake = panMgr.getPancakeFromId(Integer.decode(pancakeId));
-			photo.setPancake(pancake);
-		} else 
-			if (newPancake.equals("1")){
-				String pancakeName = us.getAndSaveAsString(args, "pancakeName");
-				String pancakeIngredients = us.getAndSaveAsString(args, "pancakeIngredients");
-				String pacakeRecipe = us.getAndSaveAsString(args, "pancakeRecipe");
-				
-				Pancake pancake;
-				try {
-					pancake = panMgr.createPancake();
-					PancakeType type = new PancakeType(pancakeName, 
-							Ingredients.getInstance(pancakeIngredients),
-							Recipe.getInstance(pacakeRecipe));
-					pancake.setType(type);
-					photo.setPancake(pancake);
-					panMgr.savePancake(pancake);
-				} catch (Exception e) {
-					SysLog.logThrowable(e);
-					us.setMessage(us.cfg().getPhotoUploadFailed());
+		if (photo instanceof PancakePhoto) {
+			PancakeManager panMgr = PancakeManager.getInstance();
+			String newPancake = us.getAndSaveAsString(args, "newPancake");
+			Pancake pancake = null;
+			
+			if(newPancake.equals("0")) {
+				String pancakeId = us.getAndSaveAsString(args, "pancakeId");
+				pancake = panMgr.getPancakeFromId(Integer.decode(pancakeId));
+				photo.setPancake(pancake);
+			} else 
+				if (newPancake.equals("1")){
+					String pancakeName = us.getAndSaveAsString(args, "pancakeName");
+					String pancakeIngredients = us.getAndSaveAsString(args, "pancakeIngredients");
+					String pacakeRecipe = us.getAndSaveAsString(args, "pancakeRecipe");
+					
+					try {
+						pancake = panMgr.createPancake();
+						PancakeType type = new PancakeType(pancakeName, 
+								Ingredients.getInstance(pancakeIngredients),
+								Recipe.getInstance(pacakeRecipe));
+						pancake.setType(type);
+						photo.setPancake(pancake);
+						panMgr.savePancake(pancake);
+					} catch (Exception e) {
+						SysLog.logThrowable(e);
+						us.setMessage(us.cfg().getPhotoUploadFailed());
+					}
+					
 				}
-				
-			}
+			assert(pancake!=null);
+		}
 	}
 }
 

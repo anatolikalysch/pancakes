@@ -5,6 +5,8 @@ import java.util.HashMap;
 /**
  * This is a value Object. The only way to set the components is via constructor.
  * Further methods to change its state should not exist, e.g. any mutation methods.
+ * 
+ * This class is part of the TypeObject collaboration.
  * @author qwert
  *
  */
@@ -26,6 +28,12 @@ public class Recipe {
 	* @post this.recipe == recipe
 	* @param recipe
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	private Recipe(String recipe){
 		// precondition
 		if(recipe == null)
@@ -42,6 +50,12 @@ public class Recipe {
 	/**
 	 * @ convenience
 	 */
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	private Recipe(){
 		recipe = "";
 	}
@@ -51,6 +65,12 @@ public class Recipe {
 	* @param recipe
 	* @return Recipe instance
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public static Recipe getInstance(String recipe) {
 		if (map.containsKey(recipe)) 
 			return map.get(recipe);
@@ -65,6 +85,12 @@ public class Recipe {
 	* @methodtype get method
 	* @return recipe
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public String getRecipe() {
 		return recipe;
 	}
@@ -73,6 +99,12 @@ public class Recipe {
 	* @methodtype conversion method
 	* @return
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public String toString() {
 		return asString();
 	}
@@ -81,6 +113,12 @@ public class Recipe {
 	* @methodtype conversion method
 	* @return
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public String asString() {
 		return recipe;
 	}
@@ -89,6 +127,12 @@ public class Recipe {
 	* @methodtype assertion method
 	* @throws IllegalStateException
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	protected void assertInvariants() throws IllegalStateException {
 		boolean isValid = (this.recipe != null);
 		if (!isValid) {

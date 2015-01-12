@@ -26,7 +26,10 @@ public class ShowPancakePhotoPageHandler extends ShowPhotoPageHandler {
 	
 	
 	/**
-	 * 
+	 * @methodtype command
+	 * @methodproperty primitive
+	 * @pre
+	 * @post
 	 */
 	@Override
 	protected void makePhotoCaption(UserSession us, WebPart page) {

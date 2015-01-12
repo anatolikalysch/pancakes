@@ -5,7 +5,12 @@ import java.sql.SQLException;
 
 import org.wahlzeit.services.SysLog;
 
-public class GPSLocationFactory extends AbstractFactory {
+/**
+ * This class is part of the AbstractFactory collaboration.
+ * @author qwert
+ *
+ */
+public class GPSLocationFactory extends AbstractLocationFactory {
 	/**
 	* Hidden singleton instance; needs to be initialized from the outside.
 	*/
@@ -14,6 +19,12 @@ public class GPSLocationFactory extends AbstractFactory {
 	/**
 	* Public singleton access method.
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public static synchronized GPSLocationFactory getInstance() {
 		if (instance == null) {
 			SysLog.logSysInfo("setting generic GPSLocationFactory");
@@ -26,6 +37,12 @@ public class GPSLocationFactory extends AbstractFactory {
 	/**
 	* Method to set the singleton instance of LocationFactory.
 	*/
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	protected static synchronized void setInstance(GPSLocationFactory gpsLocationFactory) {
 		if (instance != null) {
 			throw new IllegalStateException("attempt to initalize GPSLocationFactory twice");
@@ -33,12 +50,24 @@ public class GPSLocationFactory extends AbstractFactory {
 		instance = gpsLocationFactory;
 	}
 
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	protected AbstractLocation doCreateLocation(String location) {
 		return new GPSLocation(location);
 	}
 	
 
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	protected AbstractLocation doCreateLocation(ResultSet rset) {
 		try {
@@ -48,6 +77,12 @@ public class GPSLocationFactory extends AbstractFactory {
 		}
 	}
 
+	/**
+	 * @methodtype 
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	protected void doAssertLocation(String location) {
 		String[] components = location.split(",");
