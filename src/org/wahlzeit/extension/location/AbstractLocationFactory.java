@@ -54,7 +54,7 @@ public abstract class AbstractLocationFactory {
 	 */
 	public AbstractLocation createLocation(ResultSet rset) throws SQLException {
 		if (rset == null)
-			throw new SQLException();
+			throw new SQLException("Empty ResultSet, cannot create Location!");
 		else
 			return doCreateLocation(rset);
 	}

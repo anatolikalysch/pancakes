@@ -56,7 +56,7 @@ public class Recipe {
 	
 	/**
 	 * @methodtype get
-	 * @methodproperty 
+	 * @methodproperty composed
 	 * @pre map exists
 	 * @post
 	 */
@@ -82,8 +82,8 @@ public class Recipe {
 	
 	
 	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodtype conversion
+	 * @methodproperty primitive
 	 * @pre recipe != null
 	 * @post
 	 */

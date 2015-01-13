@@ -204,6 +204,10 @@ public class Pancake extends DataObject {
 		rset.updateString("recipe", type.getRecipe().toString());
 	}
 	
+	
+	/**
+	 * ---------- PancakeManager collaboration ---------- 
+	 */
 	/**
 	 * @methodtype command
 	 * @methodproperty hook

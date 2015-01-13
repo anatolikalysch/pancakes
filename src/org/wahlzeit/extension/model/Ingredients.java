@@ -121,7 +121,7 @@ public class Ingredients {
 	}
 	
 	/**
-	 * @methodtype 
+	 * @methodtype command
 	 * @methodproperty
 	 * @pre  ingredient is valid String
 	 * @post ingredients != null

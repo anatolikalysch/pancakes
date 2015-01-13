@@ -15,7 +15,7 @@ import org.wahlzeit.services.Persistent;
 import org.wahlzeit.services.SysLog;
 
 /**
- * This class is part of the PancakeManager collaboration.
+ * This class is part of the PancakeManager and PancakeFactory collaborations.
  * 
  * @author qwert
  *
@@ -38,40 +38,6 @@ public class PancakeManager extends ObjectManager {
 	protected int currentId = 0;
 	
 	/**
-	 * 
-	 * @methodtype set method
-	 */
-	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
-	 * @post
-	 */
-	public void setCurrentId(int currentId) {
-		if (currentId < 0) 
-			throw new IllegalArgumentException();
-	
-		this.currentId = currentId;
-	}
-	
-	/**
-	 * 
-	 * @methodtype get method
-	 */
-	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
-	 * @post
-	 */
-	public int getCurrentId() {
-		return currentId;
-	}
-	
-	/**
-	*
-	*/
-	/**
 	 * @methodtype 
 	 * @methodproperty
 	 * @pre
@@ -82,10 +48,7 @@ public class PancakeManager extends ObjectManager {
 	}
 	
 	/**
-	* @methodtype constructor
-	*/
-	/**
-	 * @methodtype 
+	 * @methodtype  constructor
 	 * @methodproperty
 	 * @pre
 	 * @post
@@ -95,13 +58,32 @@ public class PancakeManager extends ObjectManager {
 	}
 	
 	/**
-	 * 
+	 * @methodtype set
+	 * @methodproperty primitive
+	 * @pre currentId > 0
+	 * @post 
+	 */
+	public void setCurrentId(int currentId) {
+		if (currentId < 0) 
+			throw new IllegalArgumentException();
+	
+		this.currentId = currentId;
+	}
+	
+	/**
+	 * @methodtype get
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
+	public int getCurrentId() {
+		return currentId;
+	}
+	
+	
+	/**
 	 * @methodtype boolean-query
 	 * @methodproperties composed
-	 */
-	/**
-	 * @methodtype 
-	 * @methodproperty
 	 * @pre
 	 * @post
 	 */
@@ -148,7 +130,7 @@ public class PancakeManager extends ObjectManager {
 	/**
 	 * @methodtype command
 	 * @methodproperty composed
-	 * @pre
+	 * @pre is a new pancake
 	 * @post
 	 */
 	public void addPancake(Pancake pancake){
@@ -236,7 +218,7 @@ public class PancakeManager extends ObjectManager {
 	
 	/**
 	 * 
-	 * ---------- PancakeFactory collaborytion ----------
+	 * ---------- PancakeFactory collaboration ----------
 	 */
 	
 	/**
