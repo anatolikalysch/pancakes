@@ -20,9 +20,10 @@ public class PancakeFactory {
 	
 
 	/**
-	 * Public singleton access method.
-	 * @methodtype 
-	 * @methodproperty
+	 * Public singleton access method
+	 * 
+	 * @methodtype get
+	 * @methodproperty composed
 	 * @pre
 	 * @post
 	 */
@@ -36,9 +37,10 @@ public class PancakeFactory {
 	}
 	
 	/**
-	 * Method to set the singleton instance of PancakeFactory.
-	 * @methodtype 
-	 * @methodproperty
+	 * Method to set the singleton instance of LocationFactory
+	 * 
+	 * @methodtype set
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -50,8 +52,10 @@ public class PancakeFactory {
 	}
 	
 	/**
+	 * getInstance() should be used instead
+	 * 
 	 * @methodtype constructor
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -61,7 +65,7 @@ public class PancakeFactory {
 	
 	/**
 	 * @methodtype factory
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -71,12 +75,15 @@ public class PancakeFactory {
 	
 	/**
 	 * @methodtype factory
-	 * @methodproperty
-	 * @pre
+	 * @methodproperty primitive
+	 * @pre rset should not be null
 	 * @post
 	 */
 	public Pancake createPancake(ResultSet rset) throws SQLException {
-		return new Pancake(rset);
+		if (rset == null)
+			throw new SQLException("Cannot create new PancakeObject from empty ResultSet!");
+		else
+			return new Pancake(rset);
 	}
 	
 }

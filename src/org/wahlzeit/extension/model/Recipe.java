@@ -23,16 +23,10 @@ public class Recipe {
 	private static final HashMap<String,Recipe> map = new HashMap<String,Recipe>();
 	
 	/**
-	* @methodtype constructor
-	* @pre recipe != null
-	* @post this.recipe == recipe
-	* @param recipe
-	*/
-	/**
-	 * @methodtype 
+	 * @methodtype constructor
 	 * @methodproperty
-	 * @pre
-	 * @post
+	 * @pre recipe is a valid String
+	 * @post this.recipe == recipe
 	 */
 	private Recipe(String recipe){
 		// precondition
@@ -47,28 +41,23 @@ public class Recipe {
 		assertInvariants();
 	}
 	
+	
 	/**
-	 * @ convenience
-	 */
-	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodtype constructor
+	 * @methodproperty convenience
 	 * @pre
-	 * @post
+	 * @post recipe != null
 	 */
 	private Recipe(){
 		recipe = "";
+		assertInvariants();
 	}
 	
+	
 	/**
-	* @methodtype get method
-	* @param recipe
-	* @return Recipe instance
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
+	 * @methodtype get
+	 * @methodproperty 
+	 * @pre map exists
 	 * @post
 	 */
 	public static Recipe getInstance(String recipe) {
@@ -82,26 +71,8 @@ public class Recipe {
 	}
 	
 	/**
-	* @methodtype get method
-	* @return recipe
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
-	 * @post
-	 */
-	public String getRecipe() {
-		return recipe;
-	}
-	
-	/**
-	* @methodtype conversion method
-	* @return
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodtype conversion
+	 * @methodproperty composed
 	 * @pre
 	 * @post
 	 */
@@ -109,29 +80,23 @@ public class Recipe {
 		return asString();
 	}
 	
-	/**
-	* @methodtype conversion method
-	* @return
-	*/
+	
 	/**
 	 * @methodtype 
 	 * @methodproperty
-	 * @pre
+	 * @pre recipe != null
 	 * @post
 	 */
 	public String asString() {
+		assertInvariants();
 		return recipe;
 	}
 	
+
 	/**
-	* @methodtype assertion method
-	* @throws IllegalStateException
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
-	 * @post
+	 * @methodtype assertion
+	 * @methodproperty primitive
+	 * @invariant
 	 */
 	protected void assertInvariants() throws IllegalStateException {
 		boolean isValid = (this.recipe != null);

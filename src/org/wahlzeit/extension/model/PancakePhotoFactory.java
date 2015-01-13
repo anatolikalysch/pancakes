@@ -15,11 +15,10 @@ public class PancakePhotoFactory extends PhotoFactory {
 	private static PancakePhotoFactory instance = null;
 	
 	/**
-	* Public singleton access method.
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * Public singleton access method
+	 * 
+	 * @methodtype get
+	 * @methodproperty composed
 	 * @pre
 	 * @post
 	 */
@@ -33,11 +32,9 @@ public class PancakePhotoFactory extends PhotoFactory {
 	}
 	
 	/**
-	* Method to set the singleton instance of PancakeFactory.
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * Method to set the singleton instance of LocationFactory
+	 * @methodtype set
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -50,11 +47,7 @@ public class PancakePhotoFactory extends PhotoFactory {
 	
 	/**
 	 * @methodtype constructor
-	 * 
-	 */
-	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodproperty convenience
 	 * @pre
 	 * @post
 	 */
@@ -63,11 +56,8 @@ public class PancakePhotoFactory extends PhotoFactory {
 	}
 	
 	/**
-	* @methodtype factory method
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodtype factory
+	 * @methodproperty convenience
 	 * @pre
 	 * @post
 	 */
@@ -77,11 +67,8 @@ public class PancakePhotoFactory extends PhotoFactory {
 	}
 	
 	/**
-	* @methodtype factory method
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodtype factory
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -91,16 +78,16 @@ public class PancakePhotoFactory extends PhotoFactory {
 	}
 	
 	/**
-	* @methodtype factory method
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
-	 * @post
+	 * @methodtype factory
+	 * @methodproperty primitive
+	 * @pre rset should not be null
+	 * @post 
 	 */
 	@Override
 	public PancakePhoto createPhoto(ResultSet rset) throws SQLException {
-		return new PancakePhoto(rset);
+		if (rset == null)
+			throw new SQLException("Cannot create new Photo from empty ResultSet!");
+		else
+			return new PancakePhoto(rset);
 	}
 }

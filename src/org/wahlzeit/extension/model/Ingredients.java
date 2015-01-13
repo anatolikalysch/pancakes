@@ -26,17 +26,12 @@ public class Ingredients {
 	 */
 	private static final HashMap<String,Ingredients> map = new HashMap<String,Ingredients>();
 	
+	
 	/**
-	* @methodtype constructor
-	* @pre recipe != null
-	* @post this.recipe == recipe
-	* @param ingredients
-	*/
-	/**
-	 * @methodtype 
+	 * @methodtype constructor
 	 * @methodproperty
-	 * @pre
-	 * @post
+	 * @pre ingredients is a valid String
+	 * @post this.ingredients == ingredients
 	 */
 	private Ingredients(String[] ingredients){
 		// precondition
@@ -52,11 +47,8 @@ public class Ingredients {
 	}
 	
 	/**
-	 * @ convenience
-	 */
-	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodtype constructor
+	 * @methodproperty convenience
 	 * @pre
 	 * @post
 	 */
@@ -65,14 +57,9 @@ public class Ingredients {
 	}
 	
 	/**
-	* @methodtype get method
-	* @param pancakeIngredients
-	* @return Ingredients instance
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
+	 * @methodtype get
+	 * @methodproperty composed
+	 * @pre map must exist
 	 * @post
 	 */
 	public static Ingredients getInstance(String pancakeIngredients) {
@@ -87,10 +74,10 @@ public class Ingredients {
 	}
 	
 	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
-	 * @post
+	 * @methodtype conversion
+	 * @methodproperty primitive
+	 * @pre ingredients is valid String
+	 * @post ingredients =! null
 	 */
 	protected static String[] asStringArray(String ingredients){
 		//pre
@@ -129,47 +116,33 @@ public class Ingredients {
 			}
 		}*/
 		
+		assert(result != null);
 		return result;
 	}
 	
 	/**
 	 * @methodtype 
 	 * @methodproperty
-	 * @pre
-	 * @post
+	 * @pre  ingredient is valid String
+	 * @post ingredients != null
 	 */
 	public Ingredients addIngredient(String ingredient) {
+		if (!StringUtil.isNullOrEmptyString(ingredient))
+			throw new AssertionError("Trying to add empty ingredient!");
+		
 		int temp = ingredients.length;
 		String[] result = new String[temp + 1];
 		for (int i=0; i < (temp-1); i++) {
 			result[i] = ingredients[i];
 		}
 		result[temp] = ingredient;
-		
+		assertInvariants();
 		return new Ingredients(result);
 	}
 	
 	/**
-	* @methodtype get method
-	* @return recipe
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
-	 * @post
-	 */
-	public String[] getIngredients() {
-		return ingredients;
-	}
-	
-	/**
-	* @methodtype conversion method
-	* @return
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * @methodtype conversion
+	 * @methodproperty composed
 	 * @pre
 	 * @post
 	 */
@@ -178,33 +151,32 @@ public class Ingredients {
 	}
 	
 	/**
-	* @methodtype conversion method
-	* @return
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
-	 * @post
+	 * @methodtype conversion
+	 * @methodproperty primitive
+	 * @pre ingredients != null
+	 * @post Stringlength > 3
 	 */
 	public String asString() {
+		
+		//pre
+		assertInvariants();
 		String result = "";
 		for (int i=0; i < ingredients.length; i++) {
 			result = result.concat(ingredients[i]+", ");
 		}
 		
-		return result.substring(0, result.length()-2);
+		//post
+		if (result.length() < 3)
+			return "n/a";
+		else
+			return result.substring(0, result.length()-2);
 	}
 	
+	
 	/**
-	* @methodtype assertion method
-	* @throws IllegalStateException
-	*/
-	/**
-	 * @methodtype 
-	 * @methodproperty
-	 * @pre
-	 * @post
+	 * @methodtype assertion
+	 * @methodproperty primitive
+	 * @invariant ingredients != null
 	 */
 	protected void assertInvariants() throws IllegalStateException {
 		boolean isValid = (this.ingredients != null);

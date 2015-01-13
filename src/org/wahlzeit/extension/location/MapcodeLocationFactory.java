@@ -22,7 +22,7 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 	/**
 	 * Public singleton access method
 	 * 
-	 * @methodtype command
+	 * @methodtype get
 	 * @methodproperty composed
 	 * @pre
 	 * @post
@@ -76,7 +76,7 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 			assertLocation(result.toString());
 			return result;
 		} catch (SQLException | AssertionError e) { //post
-			return GPSLocation.EMPTY_LOCATION;
+			throw new AssertionError("Assertion of new MapcodeLocation failed");
 		}
 	}
 

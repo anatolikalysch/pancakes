@@ -19,7 +19,7 @@ public class GPSLocationFactory extends AbstractLocationFactory {
 	/**
 	 * Public singleton access method
 	 * 
-	 * @methodtype command
+	 * @methodtype get
 	 * @methodproperty composed
 	 * @pre
 	 * @post

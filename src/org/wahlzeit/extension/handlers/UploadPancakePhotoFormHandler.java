@@ -133,8 +133,7 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 					temp = af.createLocation(latitude+", "+longitude);
 					photo.setLocation(temp);
 				} catch (AssertionError e2) { 
-					//do nothing if invalid data is given because photo has
-					//EMPTY_LOCATION by default
+					photo.setLocation(GPSLocation.EMPTY_LOCATION);
 				}	
 			} else 
 				if (!mapcode.isEmpty()) {
@@ -143,8 +142,7 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 						temp = af.createLocation(mapcode);
 						photo.setLocation(temp);
 					} catch (AssertionError e3) {
-						//do nothing if invalid data is given because photo has
-						//EMPTY_LOCATION by default
+						photo.setLocation(GPSLocation.EMPTY_LOCATION);
 					}
 					
 				}
