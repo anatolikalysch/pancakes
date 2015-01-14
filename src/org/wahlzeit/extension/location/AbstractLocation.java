@@ -42,7 +42,7 @@ public abstract class AbstractLocation implements Location {
 	 * @post hasLocation is set
 	 */
 	protected void setLocation(String location){
-		if (StringUtil.isNullOrEmptyString(location)) {
+		if (!StringUtil.isNullOrEmptyString(location)) {
 			doSetLocation(location);
 			hasLocation = true;
 		}

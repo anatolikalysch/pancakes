@@ -81,7 +81,7 @@ public class Ingredients {
 	 */
 	protected static String[] asStringArray(String ingredients){
 		//pre
-		if (!StringUtil.isNullOrEmptyString(ingredients))
+		if (StringUtil.isNullOrEmptyString(ingredients))
 			return new String[] {"n/a"};
 		
 		String[] result = ingredients.split(",");
@@ -127,7 +127,7 @@ public class Ingredients {
 	 * @post ingredients != null
 	 */
 	public Ingredients addIngredient(String ingredient) {
-		if (!StringUtil.isNullOrEmptyString(ingredient))
+		if (StringUtil.isNullOrEmptyString(ingredient))
 			throw new AssertionError("Trying to add empty ingredient!");
 		
 		int temp = ingredients.length;

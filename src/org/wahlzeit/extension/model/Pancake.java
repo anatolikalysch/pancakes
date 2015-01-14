@@ -44,16 +44,30 @@ public class Pancake extends DataObject {
 		readFrom(rset);
 	}
 	
+	/**
+	 * ---------- PancakeManager collaboration ---------- 
+	 */
 	
 	/**
 	 * @methodtype get
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
 	public Integer getId() {
 		return id;
 	}
+	/**
+	 * @methodtype command
+	 * @methodproperty hook
+	 * @pre
+	 * @post
+	 */
+	@Override
+	public void writeId(PreparedStatement stmt, int pos) throws SQLException {
+		stmt.setInt(pos, this.id);
+	}
+
 	
 	/**
 	 * ---------- Type Object Collaboration ----------
@@ -61,7 +75,7 @@ public class Pancake extends DataObject {
 	
 	/**
 	 * @methodtype get
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -72,7 +86,7 @@ public class Pancake extends DataObject {
 	
 	/**
 	 * @methodtype set
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -86,7 +100,7 @@ public class Pancake extends DataObject {
 	
 	/**
 	 * @methodtype set
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -101,7 +115,7 @@ public class Pancake extends DataObject {
 	
 	/**
 	 * @methodtype get
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -111,7 +125,7 @@ public class Pancake extends DataObject {
 	
 	/**
 	 * @methodtype set
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -121,7 +135,7 @@ public class Pancake extends DataObject {
 	
 	/**
 	 * @methodtype get
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -131,7 +145,7 @@ public class Pancake extends DataObject {
 	
 	/**
 	 * @methodtype set
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -162,7 +176,7 @@ public class Pancake extends DataObject {
 	
 	/**
 	 * @methodtype get
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -203,20 +217,4 @@ public class Pancake extends DataObject {
 		rset.updateString("ingredients", type.getIng().toString());
 		rset.updateString("recipe", type.getRecipe().toString());
 	}
-	
-	
-	/**
-	 * ---------- PancakeManager collaboration ---------- 
-	 */
-	/**
-	 * @methodtype command
-	 * @methodproperty hook
-	 * @pre
-	 * @post
-	 */
-	@Override
-	public void writeId(PreparedStatement stmt, int pos) throws SQLException {
-		stmt.setInt(pos, this.id);
-	}
-
 }

@@ -23,7 +23,7 @@ public class PancakePhoto extends Photo {
 	
 	/**
 	 * @methodtype constructor
-	 * @methodproperty
+	 * @methodproperty composed
 	 * @pre
 	 * @post
 	 */
@@ -34,7 +34,7 @@ public class PancakePhoto extends Photo {
 
 	/**
 	 * @methodtype constructor
-	 * @methodproperty
+	 * @methodproperty composed
 	 * @pre
 	 * @post
 	 */
@@ -61,7 +61,7 @@ public class PancakePhoto extends Photo {
 	
 	/**
 	 * @methodtype init
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -71,7 +71,7 @@ public class PancakePhoto extends Photo {
 	
 	/**
 	 * @methodtype get
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -116,7 +116,7 @@ public class PancakePhoto extends Photo {
 
 	/**
 	 * @methodtype get
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -126,7 +126,7 @@ public class PancakePhoto extends Photo {
 
 	/**
 	 * @methodtype set
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */

@@ -38,8 +38,10 @@ public class PancakeManager extends ObjectManager {
 	protected int currentId = 0;
 	
 	/**
-	 * @methodtype 
-	 * @methodproperty
+	 * Public singleton access method
+	 * 
+	 * @methodtype get
+	 * @methodproperty composed
 	 * @pre
 	 * @post
 	 */
@@ -48,7 +50,7 @@ public class PancakeManager extends ObjectManager {
 	}
 	
 	/**
-	 * @methodtype  constructor
+	 * @methodtype constructor
 	 * @methodproperty
 	 * @pre
 	 * @post
@@ -72,7 +74,7 @@ public class PancakeManager extends ObjectManager {
 	
 	/**
 	 * @methodtype get
-	 * @methodproperty
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -223,7 +225,7 @@ public class PancakeManager extends ObjectManager {
 	
 	/**
 	 * @methodtype factory
-	 * @methodproperty
+	 * @methodproperty composed
 	 * @pre
 	 * @post
 	 */
@@ -237,7 +239,7 @@ public class PancakeManager extends ObjectManager {
 	
 	/**
 	 * @methodtype factory
-	 * @methodproperty
+	 * @methodproperty hook
 	 * @pre
 	 * @post
 	 */

@@ -90,7 +90,7 @@ public class GPSLocation extends AbstractLocation {
 		if (hasLocation) {
 			result = MapcodeCodec.encodeToShortest(latitude, longitude).asInternationalISO();
 			//post
-			if(!StringUtil.isNullOrEmptyString(result))
+			if(StringUtil.isNullOrEmptyString(result))
 				throw new IllegalStateException();
 		}
 		
