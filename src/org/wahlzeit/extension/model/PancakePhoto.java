@@ -35,7 +35,7 @@ public class PancakePhoto extends Photo {
 	/**
 	 * @methodtype constructor
 	 * @methodproperty composed
-	 * @pre
+	 * @pre myId != null
 	 * @post
 	 */
 	public PancakePhoto(PhotoId myId) {
@@ -72,18 +72,21 @@ public class PancakePhoto extends Photo {
 	/**
 	 * @methodtype get
 	 * @methodproperty primitive
-	 * @pre
+	 * @pre pancake != null
 	 * @post
 	 */
 	public Pancake getPancake() {
+		//precondition
+		if(pancake == null)
+			throw new IllegalStateException();
 		return pancake;
 	}
 
 	/**
 	 * @methodtype set
 	 * @methodproperty composed
-	 * @pre
-	 * @post
+	 * @pre pancake != null
+	 * @post this.pancake == pancake
 	 */
 	public void setPancake(Pancake pancake) {
 		//precondition
@@ -99,8 +102,7 @@ public class PancakePhoto extends Photo {
 	/**
 	 * @methodtype assertion
 	 * @methodproperty primitive
-	 * @pre
-	 * @post
+	 * @invariant
 	 */
 	protected void assertInvariants() throws IllegalStateException {
 		boolean isValid = (pancake != null);
@@ -117,7 +119,7 @@ public class PancakePhoto extends Photo {
 	/**
 	 * @methodtype get
 	 * @methodproperty primitive
-	 * @pre
+	 * @pre location initiated
 	 * @post
 	 */
 	public Location getLocation() {
@@ -128,7 +130,7 @@ public class PancakePhoto extends Photo {
 	 * @methodtype set
 	 * @methodproperty primitive
 	 * @pre
-	 * @post
+	 * @post this.location == location
 	 */
 	public void setLocation(Location location) {
 		this.location = location;
@@ -143,10 +145,11 @@ public class PancakePhoto extends Photo {
 	/**
 	 * @methodtype command
 	 * @methodproperty
-	 * @pre
+	 * @pre resultSet != null
 	 * @post
 	 */
 	public void readFrom(ResultSet rset) throws SQLException {
+		assert(rset != null);
 		super.readFrom(rset);
 		
 		// read the location data from the database
@@ -157,12 +160,13 @@ public class PancakePhoto extends Photo {
 		
 		//read pancake data from the databese
 		pancake = PancakeManager.getInstance().getPancakeFromId(rset.getInt("pancake_id"));
+		assertInvariants();
 	}
 
 	/**
 	 * @methodtype command
 	 * @methodproperty
-	 * @pre
+	 * @pre location data should not be empty
 	 * @post
 	 */
 	public void writeOn(ResultSet rset) throws SQLException {

@@ -51,10 +51,11 @@ public class Pancake extends DataObject {
 	/**
 	 * @methodtype get
 	 * @methodproperty primitive
-	 * @pre
+	 * @pre id != null
 	 * @post
 	 */
 	public Integer getId() {
+		assertInvariants();
 		return id;
 	}
 	/**
@@ -76,7 +77,7 @@ public class Pancake extends DataObject {
 	/**
 	 * @methodtype get
 	 * @methodproperty primitive
-	 * @pre
+	 * @pre type != null
 	 * @post
 	 */
 	public PancakeType getType() {
@@ -87,8 +88,8 @@ public class Pancake extends DataObject {
 	/**
 	 * @methodtype set
 	 * @methodproperty primitive
-	 * @pre
-	 * @post
+	 * @pre type != null
+	 * @post invariants
 	 */
 	public void setType(PancakeType type) {
 		if(type == null)
@@ -101,7 +102,7 @@ public class Pancake extends DataObject {
 	/**
 	 * @methodtype set
 	 * @methodproperty primitive
-	 * @pre
+	 * @pre name != null
 	 * @post
 	 */
 	public void setName(String name) {
@@ -110,47 +111,58 @@ public class Pancake extends DataObject {
 			throw new IllegalArgumentException();
 		
 		this.type.setName(name);
+		assertInvariants();
 		incWriteCount();
 	}
 	
 	/**
 	 * @methodtype get
 	 * @methodproperty primitive
-	 * @pre
+	 * @pre ing != null
 	 * @post
 	 */
 	public Ingredients getIng(){
+		assertInvariants();
 		return this.type.getIng();
 	}
 	
 	/**
 	 * @methodtype set
 	 * @methodproperty primitive
-	 * @pre
-	 * @post
+	 * @pre ingredients =! null
+	 * @post invariants
 	 */
 	public void setIng(Ingredients ingredients){
+		if (ingredients == null)
+			throw new IllegalArgumentException();
 		this.type.setIng(ingredients);
+		incWriteCount();
+		assertInvariants();
 	}
 	
 	/**
 	 * @methodtype get
 	 * @methodproperty primitive
-	 * @pre
+	 * @pre invariants
 	 * @post
 	 */
 	public Recipe getRecipe(){
+		assertInvariants();
 		return this.type.getRecipe();
 	}
 	
 	/**
 	 * @methodtype set
 	 * @methodproperty primitive
-	 * @pre
-	 * @post
+	 * @pre recipe != null
+	 * @post invariants
 	 */
 	public void setRecipe(Recipe recipe){
+		if (recipe == null)
+			throw new IllegalArgumentException();
 		this.type.setRecipe(recipe);
+		incWriteCount();
+		assertInvariants();
 	}
 	
 	/**
@@ -167,22 +179,35 @@ public class Pancake extends DataObject {
 	/**
 	 * @methodtype conversion
 	 * @methodproperty primitive
-	 * @pre
+	 * @pre invariants
 	 * @post
 	 */
 	public String asString() {
+		assertInvariants();
 		return "ID: " + id + ", Ingredients:" + getType().getIng().toString() +  ", Recipe: " + getType().getRecipe().asString();
 	}
 	
 	/**
 	 * @methodtype get
 	 * @methodproperty primitive
-	 * @pre
+	 * @pre id != null
 	 * @post
 	 */
 	@Override
 	public String getIdAsString() {
+		assertInvariants();
 		return String.valueOf(this.id);
+	}
+	
+	/**
+	 * @methodtype assertion
+	 * @methodproperty primitive
+	 * @invariant
+	 */
+	protected void assertInvariants() {
+		boolean isValid = (id != null && type.name != null && type.ingredients != null && type.recipe != null);
+		if (!isValid)
+			throw new IllegalStateException("class invariant violated");
 	}
 	
 	
@@ -193,25 +218,29 @@ public class Pancake extends DataObject {
 	/**
 	 * @methodtype command
 	 * @methodproperty hook
-	 * @pre
-	 * @post
+	 * @pre rset != null
+	 * @post changed fields != null
 	 */
 	@Override
 	public void readFrom(ResultSet rset) throws SQLException {
+		if (rset == null)
+			throw new IllegalArgumentException();
 		id = rset.getInt("id");
 		type.setName(rset.getString("name"));
 		type.setIng(Ingredients.getInstance(rset.getString("ingredients")));
 		type.setRecipe(Recipe.getInstance(rset.getString("recipe")));
+		assertInvariants();
 	}
 	
 	/**
 	 * @methodtype command
 	 * @methodproperty hook
-	 * @pre
+	 * @pre fields != null
 	 * @post
 	 */
 	@Override
 	public void writeOn(ResultSet rset) throws SQLException {
+		assertInvariants();
 		rset.updateInt("id", this.id);
 		rset.updateString("name", type.getName());
 		rset.updateString("ingredients", type.getIng().toString());

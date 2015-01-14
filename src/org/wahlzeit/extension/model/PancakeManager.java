@@ -75,7 +75,7 @@ public class PancakeManager extends ObjectManager {
 	/**
 	 * @methodtype get
 	 * @methodproperty primitive
-	 * @pre
+	 * @pre id != null (always true due to initiation at beginning)
 	 * @post
 	 */
 	public int getCurrentId() {
@@ -96,7 +96,7 @@ public class PancakeManager extends ObjectManager {
 	/**
 	 * @methodtype boolean-query
 	 * @methodproperties primitive
-	 * @pre
+	 * @pre pancakeCache initiated
 	 * @post
 	 */
 	protected boolean doHasPancake(Integer id) {
@@ -106,7 +106,7 @@ public class PancakeManager extends ObjectManager {
 	/**
 	 * @methodtype get
 	 * @methodproperty composed
-	 * @pre
+	 * @pre id != null
 	 * @post
 	 */
 	public final Pancake getPancakeFromId(Integer id) {
@@ -151,7 +151,7 @@ public class PancakeManager extends ObjectManager {
 	/**
 	 * @methodtype assertion
 	 * @methodproperty primitive
-	 * @pre
+	 * @pre id != null (checked in hasPancake(id))
 	 * @post
 	 */
 	private void assertIsNewPancake(Integer id) {
@@ -163,10 +163,12 @@ public class PancakeManager extends ObjectManager {
 	/**
 	 * @methodtype command
 	 * @methodproperty
-	 * @pre
+	 * @pre pancake != null
 	 * @post
 	 */
 	public void savePancake(Pancake pancake) {
+		if (pancake == null)
+			throw new IllegalArgumentException();
 		try {
 			PreparedStatement stmt = getUpdatingStatement("SELECT * FROM pancakes WHERE id = ?");
 			updateObject(pancake, stmt);
