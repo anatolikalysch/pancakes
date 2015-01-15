@@ -13,6 +13,11 @@ import com.mapcode.MapcodeCodec;
  *
  */
 public class GPSLocation extends AbstractLocation {
+	
+	/**
+	 * 
+	 * ---------- AbstractFactory collaboration ----------
+	 */
 
 	protected double latitude;
 	protected double longitude;
@@ -32,21 +37,21 @@ public class GPSLocation extends AbstractLocation {
 	/**
 	 * @methodtype constructor
 	 * @methodproperty 
-	 * @pre String is valid String
+	 * @pre String is valid String (checked in setLocation)
 	 * @post
 	 */
 	protected GPSLocation(String location) {
-		if (!StringUtil.isNullOrEmptyString(location))
-			setLocation(location);
+		setLocation(location);
 	}
 	
 	/**
 	 * @methodtype constructor
 	 * @methodproperty
-	 * @pre
+	 * @pre ResultSet != null
 	 * @post
 	 */
 	protected GPSLocation(ResultSet rset) throws SQLException {
+		assert(rset != null);
 		latitude = rset.getDouble("latitude");
 		longitude = rset.getDouble("longitude");
 	}
@@ -98,6 +103,11 @@ public class GPSLocation extends AbstractLocation {
 	}
 	
 	/**
+	 * 
+	 * ---------- Location collaboration ----------
+	 */
+	
+	/**
 	 * @methodtype conversion
 	 * @methodproperty primitive
 	 * @pre has a location
@@ -124,20 +134,6 @@ public class GPSLocation extends AbstractLocation {
 		if (hasLocation)
 			return latitude+", "+longitude;
 		else
-			return "";
-	}
-
-	/**
-	 * @methodtype get
-	 * @methodproperty hook
-	 * @pre has a location
-	 * @post
-	 */
-	@Override
-	protected AbstractLocation doGetLocation() {
-		if (hasLocation)
-			return this;
-		else
-			return GPSLocation.EMPTY_LOCATION;
+			return "n/a";
 	}
 }

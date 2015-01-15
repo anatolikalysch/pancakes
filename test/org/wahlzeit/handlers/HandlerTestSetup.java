@@ -20,21 +20,20 @@
 
 package org.wahlzeit.handlers;
 
-import java.util.*;
+import junit.extensions.TestSetup;
+import junit.framework.Test;
 
-import org.wahlzeit.main.*;
-import org.wahlzeit.model.*;
-import org.wahlzeit.services.*;
-
-import junit.framework.*;
-import junit.extensions.*;
+import org.wahlzeit.extension.model.ExtendedUserSession;
+import org.wahlzeit.model.LanguageConfigs;
+import org.wahlzeit.services.Language;
+import org.wahlzeit.services.SessionManager;
 
 public class HandlerTestSetup extends TestSetup {
 	
 	/**
 	 * 
 	 */
-	protected UserSession userSession;	
+	protected ExtendedUserSession userSession;	
 	
 	/**
 	 * 
@@ -49,7 +48,7 @@ public class HandlerTestSetup extends TestSetup {
 	protected void setUp() throws Exception {
 		super.setUp();
 		
-		userSession = new UserSession("testContext", ""); //@FIXME
+		userSession = new ExtendedUserSession("testContext", ""); //@FIXME
 		userSession.setConfiguration(LanguageConfigs.get(Language.ENGLISH));
 
 		SessionManager.setThreadLocalSession(userSession);

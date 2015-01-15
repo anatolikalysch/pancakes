@@ -21,6 +21,11 @@ import org.wahlzeit.services.SysLog;
  *
  */
 public class PancakeManager extends ObjectManager {
+	
+	/**
+	 * 
+	 * ---------- PancakeManager collaboration ----------
+	 */
 
 	/**
 	*
@@ -90,7 +95,7 @@ public class PancakeManager extends ObjectManager {
 	 * @post
 	 */
 	public final boolean hasPancake(Integer id) {
-		return getPancakeFromId(id) != null;
+		return pancakeCache.containsKey(id);
 	}
 	
 	/**
@@ -106,7 +111,7 @@ public class PancakeManager extends ObjectManager {
 	/**
 	 * @methodtype get
 	 * @methodproperty composed
-	 * @pre id != null
+	 * @pre id != null, pancake exists
 	 * @post
 	 */
 	public final Pancake getPancakeFromId(Integer id) {
@@ -156,7 +161,7 @@ public class PancakeManager extends ObjectManager {
 	 */
 	private void assertIsNewPancake(Integer id) {
 		if (hasPancake(id)) 
-			throw new IllegalStateException("Pancake already exists!");
+			throw new IllegalArgumentException("Pancake already exists!");
 	}
 	
 	

@@ -20,18 +20,28 @@
 
 package org.wahlzeit.servlets;
 
-import java.io.*;
-import java.util.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.util.Iterator;
+import java.util.Map;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.wahlzeit.extension.model.ExtendedUserSession;
 import org.wahlzeit.main.ServiceMain;
-import org.wahlzeit.model.*;
-import org.wahlzeit.services.*;
-import org.wahlzeit.utils.*;
-import org.wahlzeit.webparts.*;
+import org.wahlzeit.model.LanguageConfigs;
+import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.Language;
+import org.wahlzeit.services.Session;
+import org.wahlzeit.services.SessionManager;
+import org.wahlzeit.services.SysLog;
+import org.wahlzeit.utils.StringUtil;
+import org.wahlzeit.webparts.WebPart;
 
 /**
  * 
@@ -118,14 +128,14 @@ public abstract class AbstractServlet extends HttpServlet {
 	/**
 	 * 
 	 */
-	protected UserSession ensureUserSession(HttpServletRequest request) {
+	protected ExtendedUserSession ensureUserSession(HttpServletRequest request) {
 		HttpSession httpSession = request.getSession();
-		UserSession result = (UserSession) httpSession.getAttribute("session");
+		ExtendedUserSession result = (ExtendedUserSession) httpSession.getAttribute("session");
 		if (result == null) {
 			try {
 				String sessionName = "session" + getNextSessionId();
 				String siteUrl = getSiteUrl(request); // @TODO Application
-				result = new UserSession(sessionName, siteUrl);
+				result = new ExtendedUserSession(sessionName, siteUrl);
 				SysLog.logCreatedObject("UserSession", sessionName);
 
 				// yes, "Referer"; typo in original standard documentation

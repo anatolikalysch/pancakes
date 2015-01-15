@@ -15,6 +15,11 @@ import com.mapcode.UnknownMapcodeException;
  *
  */
 public class MapcodeLocation extends AbstractLocation {
+	
+	/**
+	 * 
+	 * ---------- AbstractFactory collaboration ----------
+	 */
 
 	protected String mapcode;
 	
@@ -83,6 +88,11 @@ public class MapcodeLocation extends AbstractLocation {
 	}
 	
 	/**
+	 * 
+	 * ---------- Location collaboration ----------
+	 */
+	
+	/**
 	 * @methodtype conversion
 	 * @methodproperty primitive
 	 * @pre
@@ -119,19 +129,5 @@ public class MapcodeLocation extends AbstractLocation {
 			return mapcode;
 		else
 			return "";
-	}
-
-	/**
-	 * @methodtype get
-	 * @methodproperty hook
-	 * @pre has a location
-	 * @post
-	 */
-	@Override
-	protected AbstractLocation doGetLocation() {
-		if (hasLocation)
-			return this;
-		else
-			return GPSLocation.EMPTY_LOCATION;
 	}
 }

@@ -9,6 +9,11 @@ import org.wahlzeit.utils.StringUtil;
  */
 public abstract class AbstractLocation implements Location {
 	
+	/**
+	 * 
+	 * ---------- Location collaboration ----------
+	 */
+	
 	boolean hasLocation = false;
 	
 	/**
@@ -32,8 +37,15 @@ public abstract class AbstractLocation implements Location {
 		if (hasLocation)
 			return doLocationAsString();
 		else
-			return "";
+			return "n/a";
 	}
+	
+	protected abstract String doLocationAsString();
+	
+	/**
+	 * 
+	 * ---------- AbstractFactory collaboration ----------
+	 */
 	
 	/**
 	 * @methodtype set
@@ -50,20 +62,6 @@ public abstract class AbstractLocation implements Location {
 	
 	/**
 	 * @methodtype get
-	 * @methodproperty template
-	 * @pre has a location
-	 * @post
-	 */
-	@Override
-	public AbstractLocation getLocation(){
-		if (hasLocation)
-			return doGetLocation();
-		else
-			return null;
-	}
-	
-	/**
-	 * @methodtype get
 	 * @methodproperty primitive
 	 * @pre
 	 * @post
@@ -74,9 +72,4 @@ public abstract class AbstractLocation implements Location {
 	}
 	
 	protected abstract void doSetLocation(String location);
-	
-	protected abstract String doLocationAsString();
-	
-	protected abstract AbstractLocation doGetLocation();
-
 }
