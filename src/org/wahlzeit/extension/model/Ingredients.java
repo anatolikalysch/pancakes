@@ -66,7 +66,7 @@ public class Ingredients {
 		if (map.containsKey(pancakeIngredients)) 
 			return map.get(pancakeIngredients);
 		else {
-			String[] temp = asStringArray(pancakeIngredients);
+			String[] temp = toStringArray(pancakeIngredients);
 			Ingredients result = new Ingredients(temp);
 			map.put(pancakeIngredients, result);
 			return result;
@@ -79,7 +79,7 @@ public class Ingredients {
 	 * @pre ingredients is valid String
 	 * @post ingredients =! null
 	 */
-	protected static String[] asStringArray(String ingredients){
+	protected static String[] toStringArray(String ingredients){
 		//pre
 		if (StringUtil.isNullOrEmptyString(ingredients))
 			return new String[] {"n/a"};
@@ -171,6 +171,12 @@ public class Ingredients {
 		else
 			return result.substring(0, result.length()-2);
 	}
+	
+	public String[] asStringArray() {
+		return ingredients;
+	}
+	
+	
 	
 	
 	/**

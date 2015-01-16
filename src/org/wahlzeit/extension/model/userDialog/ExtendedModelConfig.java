@@ -1,4 +1,4 @@
-package org.wahlzeit.extension.model;
+package org.wahlzeit.extension.model.userDialog;
 
 import org.wahlzeit.model.ModelConfig;
 
@@ -9,6 +9,5 @@ public interface ExtendedModelConfig extends ModelConfig {
 	String getLocationIllegalArguments(String message);
 	
 	//Domain data Errors
-	String getTypeObjectIllegalArguments(String message);
 	String getPancakeIllegalArguments(String message);
 }

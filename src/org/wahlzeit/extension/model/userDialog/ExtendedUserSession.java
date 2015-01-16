@@ -1,4 +1,4 @@
-package org.wahlzeit.extension.model;
+package org.wahlzeit.extension.model.userDialog;
 
 import org.wahlzeit.model.LanguageConfigs;
 import org.wahlzeit.model.ModelConfig;

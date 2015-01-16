@@ -11,13 +11,14 @@ import org.wahlzeit.extension.location.AbstractLocationFactory;
 import org.wahlzeit.extension.location.FactoryProducer;
 import org.wahlzeit.extension.location.GPSLocation;
 import org.wahlzeit.extension.location.Location;
-import org.wahlzeit.extension.model.ExtendedUserSession;
 import org.wahlzeit.extension.model.Ingredients;
 import org.wahlzeit.extension.model.Pancake;
 import org.wahlzeit.extension.model.PancakeManager;
 import org.wahlzeit.extension.model.PancakePhoto;
 import org.wahlzeit.extension.model.PancakeType;
 import org.wahlzeit.extension.model.Recipe;
+import org.wahlzeit.extension.model.userDialog.ExtendedUserSession;
+import org.wahlzeit.extension.utils.ExtendedHtmlUtil;
 import org.wahlzeit.handlers.PartUtil;
 import org.wahlzeit.handlers.UploadPhotoFormHandler;
 import org.wahlzeit.model.Photo;
@@ -46,20 +47,8 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 	@Override
 	protected void doMakeWebPart(UserSession us, WebPart part) {
 		super.doMakeWebPart(us, part);
-		StringBuffer buffer = new StringBuffer();
-		Collection<Pancake> list = PancakeManager.getInstance().loadPancakes();
-		for (Pancake pancake : list) {
-			buffer.append("<option ");
-			buffer.append("value=\""+pancake.getId()+"\"");
-			if(pancake.getId().equals(-1)) 
-				buffer.append(" selected");
-		
-			buffer.append(">");
-			buffer.append(pancake.getType().getName());
-			buffer.append("</option>");
-		}
-		
-		part.addString("pancake", buffer.toString());
+		String selection = ExtendedHtmlUtil.asPancakeSelection();
+		part.addString("pancake", selection);
 	}
 	
 	/**
@@ -78,7 +67,6 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 			us.setMessage(us.cfg().getInputIsInvalid());
 			return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
 		}
-		
 		try {
 			PhotoManager pm = PhotoManager.getInstance();
 			String sourceFileName = us.getAsString(args, "fileName");
@@ -89,14 +77,10 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 			User user = (User) us.getClient();
 			user.addPhoto(photo);
 			photo.setTags(new Tags(tags));
-			
 			// add location data to the photo if correct data is given
 			doHandleLocationData(photo, eus, args);
-			
-				
 			// add domain data to the photo if correct data is given and the Photo is a domain Photo
 			doHandleDomainData(photo, eus, args);
-			
 			
 			pm.savePhoto(photo);
 			StringBuffer sb = UserLog.createActionEntry("UploadPhoto");
@@ -104,10 +88,12 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 			UserLog.log(sb);
 			us.setTwoLineMessage(us.cfg().getPhotoUploadSucceeded(), us.cfg().getKeepGoing());
 			
-			
-		} catch (Exception ex) {
-			SysLog.logThrowable(ex);
-			us.setMessage(us.cfg().getPhotoUploadFailed());
+		} catch (AssertionError e) {
+			SysLog.logThrowable(e);
+			eus.setMessage(eus.cfg().getPancakeIllegalArguments(e.getMessage()));
+		} catch (Exception omega) { //something beyond my control happened, so photoupload failed
+			SysLog.logThrowable(omega);
+			eus.setMessage(eus.cfg().getPhotoUploadFailed());
 		}
 		
 		return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
@@ -129,28 +115,23 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 			String longitude = eus.getAndSaveAsString(args, "long");
 			String mapcode = eus.getAndSaveAsString(args, "mapcode");
 			
-			if (StringUtil.isNullOrEmptyString(mapcode)) {
-				try {
+			try {
+				if (StringUtil.isNullOrEmptyString(mapcode)) {
 					af = fp.getFactory("GPS");
 					temp = af.createLocation(latitude+", "+longitude);
-					photo.setLocation(temp);
-				} catch (AssertionError | IllegalStateException e2) { 
-					photo.setLocation(GPSLocation.EMPTY_LOCATION);
-				} catch (IllegalArgumentException e) {
-					SysLog.logThrowable(e);
-					eus.setMessage((eus.cfg()).getLocationIllegalArguments(e.getMessage()));
-				}
-			} else 
-				if (!mapcode.isEmpty()) {
-					try {
-						af = fp.getFactory("Mapcode");
-						temp = af.createLocation(mapcode);
-						photo.setLocation(temp);
-					} catch (AssertionError e3) {
-						photo.setLocation(GPSLocation.EMPTY_LOCATION);
-					}
-					
-				}
+				} else {
+					af = fp.getFactory("Mapcode");
+					temp = af.createLocation(mapcode);
+				}	
+				photo.setLocation(temp);
+				
+			} catch (AssertionError | IllegalStateException e) {
+				//TODO try 3 times
+				photo.setLocation(GPSLocation.EMPTY_LOCATION);
+			} catch (IllegalArgumentException e) {
+				SysLog.logThrowable(e);
+				eus.setMessage((eus.cfg()).getLocationIllegalArguments(e.getMessage()));
+			}
 		}
 	}
 	
@@ -160,23 +141,22 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 	 * @pre photo instanceof PancakePhoto
 	 * @post pancake created
 	 */
-	private void doHandleDomainData(PancakePhoto photo, UserSession eus, Map args) {
+	private void doHandleDomainData(PancakePhoto photo, ExtendedUserSession eus, Map args) {
 		if (photo instanceof PancakePhoto) {
 			PancakeManager panMgr = PancakeManager.getInstance();
 			String newPancake = eus.getAndSaveAsString(args, "newPancake");
 			Pancake pancake = null;
-			
-			if(newPancake.equals("0")) {
-				String pancakeId = eus.getAndSaveAsString(args, "pancakeId");
-				pancake = panMgr.getPancakeFromId(Integer.decode(pancakeId));
-				photo.setPancake(pancake);
-			} else 
-				if (newPancake.equals("1")){
-					String pancakeName = eus.getAndSaveAsString(args, "pancakeName");
-					String pancakeIngredients = eus.getAndSaveAsString(args, "pancakeIngredients");
-					String pacakeRecipe = eus.getAndSaveAsString(args, "pancakeRecipe");
-					
-					try {
+			try {
+				if(newPancake.equals("0")) {
+					String pancakeId = eus.getAndSaveAsString(args, "pancakeId");
+					pancake = panMgr.getPancakeFromId(Integer.decode(pancakeId));
+					photo.setPancake(pancake);
+				} else 
+					if (newPancake.equals("1")){
+						String pancakeName = eus.getAndSaveAsString(args, "pancakeName");
+						String pancakeIngredients = eus.getAndSaveAsString(args, "pancakeIngredients");
+						String pacakeRecipe = eus.getAndSaveAsString(args, "pancakeRecipe");
+						
 						pancake = panMgr.createPancake();
 						PancakeType type = new PancakeType(pancakeName, 
 								Ingredients.getInstance(pancakeIngredients),
@@ -184,12 +164,18 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 						pancake.setType(type);
 						photo.setPancake(pancake);
 						panMgr.savePancake(pancake);
-					} catch (Exception e) {
-						SysLog.logThrowable(e);
-						eus.setMessage(eus.cfg().getPhotoUploadFailed());
 					}
-					
-				}
+			} catch (AssertionError | IllegalStateException e) {
+				//TODO try 3 times
+				SysLog.logThrowable(e);
+				eus.setMessage(eus.cfg().getPhotoUploadFailed());
+			} catch (IllegalArgumentException e) {
+				SysLog.logThrowable(e);
+				eus.setMessage((eus.cfg()).getPancakeIllegalArguments(e.getMessage()));
+			} catch (Exception e2) {
+				SysLog.logThrowable(e2);
+				eus.setMessage(eus.cfg().getPhotoUploadFailed());
+			}
 			assert(pancake!=null);
 		}
 	}

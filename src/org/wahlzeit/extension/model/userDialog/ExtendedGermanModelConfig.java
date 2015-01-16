@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.wahlzeit.extension.model;
+package org.wahlzeit.extension.model.userDialog;
 
 import org.wahlzeit.model.GermanModelConfig;
 
@@ -18,6 +18,7 @@ public class ExtendedGermanModelConfig extends GermanModelConfig implements Exte
 		super();
 	}
 	
+	@Override
 	public String getLocationIllegalArguments(String message) {
 		switch(message){
 		case "latitude":
@@ -30,17 +31,21 @@ public class ExtendedGermanModelConfig extends GermanModelConfig implements Exte
 			return "Die Argumente der Ortsangabe waren fehlerhaft!";
 		}
 	}
-
-	@Override
-	public String getTypeObjectIllegalArguments(String message) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public String getPancakeIllegalArguments(String message) {
-		// TODO Auto-generated method stub
-		return null;
+		switch(message){
+		case "ingredients":
+			return "Die Angabe der Zutaten war fehlerhaft!";
+		case "recipe":
+			return "Die Angabe des Rezepts war fehlerhaft!!";
+		case "type":
+			return "Fehler beim einlesen des Typs im PancakeObjekt!";
+		case "ID":
+			return "Fehler beim einlesen der Id des PancakeObjekts!";
+		default:
+			return "Fehler beim Lesen des PancakeObjektes!";
+		}
 	}
 
 }

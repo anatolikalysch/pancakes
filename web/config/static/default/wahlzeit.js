@@ -61,8 +61,8 @@ function validate(form) {
 	
 	form.submit();
 }
-
-function addRow(Id){
+/*
+function addRow(r, Id){
 	var table = document.getElementById(Id);
     var row = table.insertRow(2);
     var cell1 = row.insertCell(0);
@@ -71,6 +71,7 @@ function addRow(Id){
     cell2.innerHTML = "";
 }
 
-function deleteRow(Id){
-	
-}
+function deleteRow(r, Id) {
+    var i = r.parentNode.parentNode.rowIndex;
+    document.getElementById(Id).deleteRow(i);
+}*/
