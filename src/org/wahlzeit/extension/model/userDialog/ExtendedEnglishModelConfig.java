@@ -49,4 +49,17 @@ public class ExtendedEnglishModelConfig extends EnglishModelConfig implements Ex
 		}
 	}
 
+	@Override
+	public String getPancakePostViolation(String message) {
+		String result;
+		String var;
+		if (message != null)
+			var = message;
+		else
+			var = "input";
+		
+		result = "Processing of " + var + " failed!";
+		return result;
+	}
+
 }

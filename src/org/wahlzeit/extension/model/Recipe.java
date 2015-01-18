@@ -2,6 +2,8 @@ package org.wahlzeit.extension.model;
 
 import java.util.HashMap;
 
+import org.wahlzeit.utils.StringUtil;
+
 /**
  * This is a value Object. The only way to set the components is via constructor.
  * Further methods to change its state should not exist, e.g. any mutation methods.
@@ -26,17 +28,19 @@ public class Recipe {
 	 * @methodtype constructor
 	 * @methodproperty
 	 * @pre recipe is a valid String
-	 * @post this.recipe == recipe
+	 * @post this.recipe == recipe && recipe is a real text
 	 */
 	private Recipe(String recipe){
 		// precondition
 		if(recipe == null)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("recipe");
 		
 		this.recipe = recipe;
 		
 		//postcondition
 		assert(this.recipe == recipe);
+		if (recipe.length() < 10)
+			throw new AssertionError("recipe");
 		//invariant
 		assertInvariants();
 	}
@@ -50,6 +54,7 @@ public class Recipe {
 	 */
 	private Recipe(){
 		recipe = "";
+		map.put("", EMPTY_RECIPE);
 		assertInvariants();
 	}
 	
@@ -61,12 +66,16 @@ public class Recipe {
 	 * @post
 	 */
 	public static Recipe getInstance(String recipe) {
-		if (map.containsKey(recipe)) 
-			return map.get(recipe);
+		if (StringUtil.isNullOrEmptyString(recipe))
+			return EMPTY_RECIPE;
 		else {
-			Recipe result = new Recipe(recipe);
-			map.put(recipe, result);
-			return result;
+			if (map.containsKey(recipe)) 
+				return map.get(recipe);
+			else {
+				Recipe result = new Recipe(recipe);
+				map.put(recipe, result);
+				return result;
+			}
 		}
 	}
 	
@@ -84,10 +93,12 @@ public class Recipe {
 	/**
 	 * @methodtype conversion
 	 * @methodproperty primitive
-	 * @pre recipe != null
+	 * @pre recipe != null && recipe is a real text.
 	 * @post
 	 */
 	public String asString() {
+		if (recipe.length() < 10)
+			throw new AssertionError("recipe");
 		assertInvariants();
 		return recipe;
 	}
@@ -101,7 +112,7 @@ public class Recipe {
 	protected void assertInvariants() throws IllegalStateException {
 		boolean isValid = (this.recipe != null);
 		if (!isValid) {
-			throw new IllegalStateException("class invariant violated");
+			throw new IllegalStateException("recipe");
 		}
 	}
 	

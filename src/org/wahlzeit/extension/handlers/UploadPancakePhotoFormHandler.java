@@ -125,9 +125,9 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 				}	
 				photo.setLocation(temp);
 				
-			} catch (AssertionError | IllegalStateException e) {
+			} catch (AssertionError | IllegalStateException e) { // class invariant or post condition
 				photo.setLocation(GPSLocation.EMPTY_LOCATION);
-			} catch (IllegalArgumentException e) {
+			} catch (IllegalArgumentException e) { // pre condition
 				SysLog.logThrowable(e);
 				eus.setMessage((eus.cfg()).getLocationIllegalArguments(e.getMessage()));
 			}
@@ -164,10 +164,13 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 						photo.setPancake(pancake);
 						panMgr.savePancake(pancake);
 					}
-			} catch (AssertionError | IllegalStateException e) {
+			} catch (IllegalStateException e) { //class invariant broken, inconsistent state
 				SysLog.logThrowable(e);
 				eus.setMessage(eus.cfg().getPhotoUploadFailed());
-			} catch (IllegalArgumentException e) {
+			} catch (AssertionError e) { //post condition
+				SysLog.logThrowable(e);
+				eus.setMessage(eus.cfg().getPancakePostViolation(e.getMessage()));
+			} catch (IllegalArgumentException e) { //pre condition
 				SysLog.logThrowable(e);
 				eus.setMessage((eus.cfg()).getPancakeIllegalArguments(e.getMessage()));
 			} catch (Exception e2) {

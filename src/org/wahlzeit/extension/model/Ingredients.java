@@ -30,13 +30,13 @@ public class Ingredients {
 	/**
 	 * @methodtype constructor
 	 * @methodproperty
-	 * @pre ingredients is a valid String
+	 * @pre ingredients is a valid String and more than 2 ing
 	 * @post this.ingredients == ingredients
 	 */
 	private Ingredients(String[] ingredients){
 		// precondition
-		if(ingredients == null)
-			throw new IllegalArgumentException();
+		if(ingredients == null || ingredients.length < 2)
+			throw new IllegalArgumentException("ingredients");
 		
 		this.ingredients = ingredients;
 		
@@ -53,7 +53,9 @@ public class Ingredients {
 	 * @post
 	 */
 	private Ingredients() {
-		ingredients = new String[] {"n/a"};		
+		ingredients = new String[] {"n/a"};
+		map.put(ingredients[0], EMPTY_INGREDIENTS);
+		assertInvariants();
 	}
 	
 	/**
@@ -63,13 +65,17 @@ public class Ingredients {
 	 * @post
 	 */
 	public static Ingredients getInstance(String pancakeIngredients) {
-		if (map.containsKey(pancakeIngredients)) 
-			return map.get(pancakeIngredients);
+		if (StringUtil.isNullOrEmptyString(pancakeIngredients))
+			return EMPTY_INGREDIENTS;
 		else {
-			String[] temp = toStringArray(pancakeIngredients);
-			Ingredients result = new Ingredients(temp);
-			map.put(pancakeIngredients, result);
-			return result;
+			if (map.containsKey(pancakeIngredients)) 
+				return map.get(pancakeIngredients);
+			else {
+				String[] temp = toStringArray(pancakeIngredients);
+				Ingredients result = new Ingredients(temp);
+				map.put(pancakeIngredients, result);
+				return result;
+			}
 		}
 	}
 	
@@ -87,36 +93,11 @@ public class Ingredients {
 		String[] result = ingredients.split(",");
 		for (int i = 0; i < result.length-1; i++)
 			result[i] = result[i].trim();
-		/*char separator = ',';
-		
-		int n = 0; //Counter for Ingredients
-		int j = 0;
-		for (int i = 0; i < ingredients.length(); i = j) {
-			for (; ((i < ingredients.length()) && (ingredients.charAt(i) == separator));) {
-				i++;
-			}
-
-			for (j = i; ((j < ingredients.length()) && (ingredients.charAt(j) != separator));) {
-				j++;
-			}
-
-			if (i != j) {
-				String ing = ingredients.substring(i, j).trim();
-				if (!StringUtil.isNullOrEmptyString(ing)) {
-					n = n + 1; // one more ingredient found
-					if (n > 1) {
-						String[] temp = new String[n];
-						for (int a = 0; a < (n-2); a++)
-							temp[a] = result[a];
-						temp[n-1] = ing;
-						result = temp;
-					} else 
-						result = new String[] {ing};
-				}
-			}
-		}*/
 		
 		assert(result != null);
+		//post
+		if (result == null || result.length < 3)
+			throw new AssertionError("ingredients");
 		return result;
 	}
 	
@@ -128,7 +109,7 @@ public class Ingredients {
 	 */
 	public Ingredients addIngredient(String ingredient) {
 		if (StringUtil.isNullOrEmptyString(ingredient))
-			throw new AssertionError("Trying to add empty ingredient!");
+			throw new IllegalArgumentException("ingredients");
 		
 		int temp = ingredients.length;
 		String[] result = new String[temp + 1];
@@ -167,7 +148,7 @@ public class Ingredients {
 		
 		//post
 		if (result.length() < 3)
-			return "n/a";
+			throw new AssertionError("ingredients");
 		else
 			return result.substring(0, result.length()-2);
 	}
@@ -187,7 +168,7 @@ public class Ingredients {
 	protected void assertInvariants() throws IllegalStateException {
 		boolean isValid = (this.ingredients != null);
 		if (!isValid) {
-			throw new IllegalStateException("class invariant violated");
+			throw new IllegalStateException("ingredients");
 		}
 	}
 	

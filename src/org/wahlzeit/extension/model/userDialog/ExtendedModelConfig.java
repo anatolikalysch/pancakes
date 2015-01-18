@@ -10,4 +10,5 @@ public interface ExtendedModelConfig extends ModelConfig {
 	
 	//Domain data Errors
 	String getPancakeIllegalArguments(String message);
+	String getPancakePostViolation(String message);
 }

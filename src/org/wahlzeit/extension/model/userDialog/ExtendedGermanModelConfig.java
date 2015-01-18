@@ -25,6 +25,8 @@ public class ExtendedGermanModelConfig extends GermanModelConfig implements Exte
 			return "Die Angabe des Latitudenwerts war fehlerhaft!";
 		case "longitude":
 			return "Die Angabe des Longitudenwerts war fehlerhaft!";
+		case "gps":
+			return "Einlesen der GPS Koordinaten schlug fehl!";
 		case "mapcode":
 			return "Die Angabe des Mapcodes war fehlerhaft!";
 		default:
@@ -46,6 +48,34 @@ public class ExtendedGermanModelConfig extends GermanModelConfig implements Exte
 		default:
 			return "Fehler beim Lesen des PancakeObjektes!";
 		}
+	}
+
+	@Override
+	public String getPancakePostViolation(String message) {
+		String result;
+		String var;
+		if (message != null)
+			
+			switch(message){
+			case "ingredients":
+				var = "den Zutaten";
+				break;
+			case "recipe":
+				var = "dem Rezept";
+				break;
+			case "ID":
+				var = "der PancakeID";
+				break;
+			default:
+				var = "den Eingaben";
+				break;
+			}
+		
+		else
+			var = "den Eingaben";
+		
+		result = "Bearbeitung von " + var + " schlug fehl!";
+		return result;
 	}
 
 }

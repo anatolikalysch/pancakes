@@ -44,7 +44,7 @@ public class PancakeType {
 	 */
 	public String getName() {
 		if (name == null)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("type");
 		return name;
 	}
 
@@ -57,7 +57,7 @@ public class PancakeType {
 	public void setName(String name) {
 		//precondition
 		if(name == null)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("type");
 		
 		this.name = name;
 		assertInvariants();
@@ -70,8 +70,7 @@ public class PancakeType {
 	 * @post
 	 */
 	public Recipe getRecipe() {
-		if (name == null)
-			throw new IllegalArgumentException();
+		assertInvariants();
 		return recipe;
 	}
 
@@ -82,6 +81,8 @@ public class PancakeType {
 	 * @post class invariant not violated
 	 */
 	public void setRecipe(Recipe recipe) {
+		if (recipe == null)
+			throw new IllegalArgumentException("type");
 		this.recipe = recipe;
 		assertInvariants();
 	}
@@ -93,9 +94,7 @@ public class PancakeType {
 	 * @post
 	 */
 	public Ingredients getIng() {
-		if(ingredients == null)
-			throw new IllegalArgumentException();
-		
+		assertInvariants();
 		return ingredients;
 	}
 
@@ -106,6 +105,8 @@ public class PancakeType {
 	 * @post class invariant not violated
 	 */
 	public void setIng(Ingredients ingredients) {
+		if (ingredients == null)
+			throw new IllegalArgumentException("type");
 		this.ingredients = ingredients;
 		assertInvariants();
 	}
