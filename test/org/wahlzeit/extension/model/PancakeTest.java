@@ -13,29 +13,23 @@ public class PancakeTest extends TestCase {
 	
 	public void testNullAssignmentPancakePhoto(){
 		PancakePhoto photo = PancakePhotoFactory.getInstance().createPhoto();
-		try {
-			photo.getPancake().getType().setRecipe(null);
-		} catch (IllegalArgumentException as) {
-			return;
-		}
-		fail();
+		photo.getPancake().getType().setRecipe(null);
+		assertFalse(photo.getPancake().getType().recipe == null);
+		
 	}
 	
 	
 	
 	public void testNewRecipe() {
 		Recipe recipe = Recipe.getInstance("");
-		try {
-			Recipe recipeOther = Recipe.getInstance(null);
-		} catch (IllegalArgumentException as) {
-			return;
-		}
-		fail();
+		Recipe recipeOther = Recipe.getInstance(null);
+		assertEquals(recipe, recipeOther);
+		
 	}
 	
 	public void testPancakeIsEqual() {
 		Recipe recipe = Recipe.getInstance("1");
 		Recipe recipeOther = Recipe.getInstance("1");
-		this.assertEquals(recipe, recipeOther);
+		assertEquals(recipe, recipeOther);
 	}
 }
