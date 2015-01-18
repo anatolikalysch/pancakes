@@ -55,7 +55,14 @@ public class GPSLocationFactory extends AbstractLocationFactory {
 	 */
 	@Override
 	protected AbstractLocation doCreateLocation(String location) {
-		return new GPSLocation(location);
+		try {
+			GPSLocation result = new GPSLocation(location);
+			//post
+			assertLocation(result.toString());
+			return result;
+		} catch (AssertionError e) { //post
+			throw new IllegalArgumentException("gps");
+		}
 	}
 	
 
@@ -73,7 +80,7 @@ public class GPSLocationFactory extends AbstractLocationFactory {
 			assertLocation(result.toString());
 			return result;
 		} catch (SQLException | AssertionError e) { //post
-			return GPSLocation.EMPTY_LOCATION;
+			throw new IllegalArgumentException("gps");
 		}
 	}
 
@@ -94,6 +101,9 @@ public class GPSLocationFactory extends AbstractLocationFactory {
 		double x = Double.parseDouble(components[0]);
 		double y = Double.parseDouble(components[1]);
 		//post
-		assert ((x <= 90.0 && x >= -90.0) && (y <= 180.0 && y >= -180.0));
+		if (x <= 90.0 && x >= -90.0) 
+			throw new IllegalArgumentException("latitude");
+		if (y <= 180.0 && y >= -180.0)
+			throw new IllegalArgumentException("longitude");;
 	}	
 }

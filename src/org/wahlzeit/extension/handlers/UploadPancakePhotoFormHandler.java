@@ -126,7 +126,6 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 				photo.setLocation(temp);
 				
 			} catch (AssertionError | IllegalStateException e) {
-				//TODO try 3 times
 				photo.setLocation(GPSLocation.EMPTY_LOCATION);
 			} catch (IllegalArgumentException e) {
 				SysLog.logThrowable(e);
@@ -166,7 +165,6 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 						panMgr.savePancake(pancake);
 					}
 			} catch (AssertionError | IllegalStateException e) {
-				//TODO try 3 times
 				SysLog.logThrowable(e);
 				eus.setMessage(eus.cfg().getPhotoUploadFailed());
 			} catch (IllegalArgumentException e) {

@@ -37,7 +37,6 @@ public class ShowPancakePhotoPageHandler extends ShowPhotoPageHandler {
 			
 		WebPart caption = createWebPart(us, PartUtil.CAPTION_INFO_FILE);
 		caption.addString(Photo.CAPTION, getPhotoCaption(us, photo));
-		//TODO tcb
 		// pass over the domain data to be shown in the caption
 		PancakePhoto temp = (PancakePhoto) photo;
 		caption.addString("pancakeId", temp.getPancake().getIdAsString());

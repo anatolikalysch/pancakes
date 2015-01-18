@@ -24,6 +24,8 @@ public class ExtendedEnglishModelConfig extends EnglishModelConfig implements Ex
 			return "Error occured while reading the latitude!";
 		case "longitude":
 			return "Error occured while reading the longitude!";
+		case "gps":
+			return "Error occured while reading the GPS coordinates!";
 		case "mapcode":
 			return "Error occured while reading the mapcode!";
 		default:

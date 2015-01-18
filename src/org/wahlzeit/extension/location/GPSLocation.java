@@ -26,7 +26,7 @@ public class GPSLocation extends AbstractLocation {
 	
 	/**
 	 * @methodtype constructor
-	 * @methodproperty convenience constructor
+	 * @methodproperty convenience
 	 * @pre
 	 * @post
 	 */
@@ -68,11 +68,25 @@ public class GPSLocation extends AbstractLocation {
 			for (String component : components) {
 				component.trim();
 			}
-			this.latitude = Double.parseDouble(components[0]);
-			this.longitude = Double.parseDouble(components[1]);
+			if (components.length == 2) {
+				this.latitude = Double.parseDouble(components[0]);
+				this.longitude = Double.parseDouble(components[1]);
+			} else {
+				//user did not use "." to specify the lat & lon values
+				if (components.length == 4) 
+					repairBrokenValue(components);
+				else
+					throw new IllegalArgumentException("location");
+			}
+				
 		}
 	}
 	
+	private void repairBrokenValue(String[] components) {
+		this.latitude = Double.parseDouble(components[0] + "." + components[1]);
+		this.longitude = Double.parseDouble(components[2] + "." + components[3]);
+	}
+
 	/**
 	 * @methodtype get
 	 * @methodproperty primitive

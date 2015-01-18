@@ -59,7 +59,14 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 	 */
 	@Override
 	protected AbstractLocation doCreateLocation(String location) {
-		return new MapcodeLocation(location);
+		try {
+			MapcodeLocation result = new MapcodeLocation(location);
+			assertLocation(result.toString());
+			return result;
+		} catch (AssertionError e) {
+			throw new IllegalArgumentException("mapcode");
+		}
+		
 	}
 	
 	/**
@@ -76,7 +83,7 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 			assertLocation(result.toString());
 			return result;
 		} catch (SQLException | AssertionError e) { //post
-			throw new AssertionError("Assertion of new MapcodeLocation failed");
+			throw new AssertionError("mapcode");
 		}
 	}
 
