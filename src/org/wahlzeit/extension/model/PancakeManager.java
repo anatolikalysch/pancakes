@@ -72,7 +72,7 @@ public class PancakeManager extends ObjectManager {
 	 */
 	public void setCurrentId(int currentId) {
 		if (currentId < 0) 
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("ID");
 	
 		this.currentId = currentId;
 	}
@@ -116,7 +116,7 @@ public class PancakeManager extends ObjectManager {
 	 */
 	public final Pancake getPancakeFromId(Integer id) {
 		if (id == null) 
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("ID");
 		
 		Pancake result = this.pancakeCache.get(id);
 		if (result == null) {
@@ -141,15 +141,18 @@ public class PancakeManager extends ObjectManager {
 	 * @post
 	 */
 	public void addPancake(Pancake pancake){
-		assertIsNewPancake(pancake.getId());
-		this.pancakeCache.put(pancake.getId(), pancake);
 		try {
+			assertIsNewPancake(pancake.getId());
+			pancakeCache.put(pancake.getId(), pancake);
 			PreparedStatement stmt = getReadingStatement("INSERT INTO pancakes(id) VALUES(?)");
 			createObject(pancake, stmt, pancake.getId());
 			savePancake(pancake);
 			ServiceMain.getInstance().saveGlobals();
 		} catch (SQLException sex) {
 			SysLog.logThrowable(sex);
+		} catch (IllegalArgumentException e) {
+			SysLog.logThrowable(e);
+			throw new AssertionError("ID");
 		}
 	}
 	
@@ -161,7 +164,7 @@ public class PancakeManager extends ObjectManager {
 	 */
 	private void assertIsNewPancake(Integer id) {
 		if (hasPancake(id)) 
-			throw new IllegalArgumentException("Pancake already exists!");
+			throw new IllegalArgumentException("ID");
 	}
 	
 	

@@ -4,6 +4,7 @@
 package org.wahlzeit.extension.handlers;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Map;
 
@@ -88,9 +89,12 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 			UserLog.log(sb);
 			us.setTwoLineMessage(us.cfg().getPhotoUploadSucceeded(), us.cfg().getKeepGoing());
 			
-		} catch (AssertionError e) {
+		} catch (IllegalArgumentException e) {
 			SysLog.logThrowable(e);
 			eus.setMessage(eus.cfg().getPancakeIllegalArguments(e.getMessage()));
+		} catch (AssertionError e) { 
+			SysLog.logThrowable(e);
+			eus.setMessage(eus.cfg().getPancakePostViolation(e.getMessage()));
 		} catch (Exception omega) { //something beyond my control happened, so photoupload failed
 			SysLog.logThrowable(omega);
 			eus.setMessage(eus.cfg().getPhotoUploadFailed());

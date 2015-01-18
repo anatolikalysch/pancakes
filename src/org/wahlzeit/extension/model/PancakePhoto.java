@@ -91,7 +91,7 @@ public class PancakePhoto extends Photo {
 	public void setPancake(Pancake pancake) {
 		//precondition
 		if(pancake == null)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("pancake");
 	
 		this.pancake = pancake;
 		incWriteCount();

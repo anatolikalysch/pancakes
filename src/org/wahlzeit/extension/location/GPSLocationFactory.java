@@ -101,9 +101,9 @@ public class GPSLocationFactory extends AbstractLocationFactory {
 		double x = Double.parseDouble(components[0]);
 		double y = Double.parseDouble(components[1]);
 		//post
-		if (x <= 90.0 && x >= -90.0) 
+		if (!(x <= 90.0 && x >= -90.0)) 
 			throw new IllegalArgumentException("latitude");
-		if (y <= 180.0 && y >= -180.0)
+		if (!(y <= 180.0 && y >= -180.0))
 			throw new IllegalArgumentException("longitude");;
 	}	
 }

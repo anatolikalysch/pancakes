@@ -21,7 +21,7 @@ public class Pancake extends DataObject {
 	/**
 	 * 
 	 */
-	protected PancakeType type = new PancakeType("", Ingredients.EMPTY_INGREDIENTS, Recipe.EMPTY_RECIPE);
+	protected PancakeType type = new PancakeType();
 	
 	/**
 	 * @methodtype constructor
@@ -93,7 +93,7 @@ public class Pancake extends DataObject {
 	 */
 	public void setType(PancakeType type) {
 		if(type == null)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("pancake");
 		this.type = type;
 		incWriteCount();
 	}
@@ -108,9 +108,9 @@ public class Pancake extends DataObject {
 	public void setName(String name) {
 		//precondition
 		if(name == null)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("pancake");
 		
-		this.type.setName(name);
+		type.setName(name);
 		assertInvariants();
 		incWriteCount();
 	}
@@ -123,7 +123,7 @@ public class Pancake extends DataObject {
 	 */
 	public Ingredients getIng(){
 		assertInvariants();
-		return this.type.getIng();
+		return type.getIng();
 	}
 	
 	/**
@@ -134,7 +134,7 @@ public class Pancake extends DataObject {
 	 */
 	public void setIng(Ingredients ingredients){
 		if (ingredients == null)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("pancake");
 		this.type.setIng(ingredients);
 		incWriteCount();
 		assertInvariants();
@@ -159,7 +159,7 @@ public class Pancake extends DataObject {
 	 */
 	public void setRecipe(Recipe recipe){
 		if (recipe == null)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("pancake");
 		this.type.setRecipe(recipe);
 		incWriteCount();
 		assertInvariants();
@@ -207,7 +207,7 @@ public class Pancake extends DataObject {
 	protected void assertInvariants() {
 		boolean isValid = (id != null && type.name != null && type.ingredients != null && type.recipe != null);
 		if (!isValid)
-			throw new IllegalStateException("class invariant violated");
+			throw new IllegalStateException("pancake");
 	}
 	
 	

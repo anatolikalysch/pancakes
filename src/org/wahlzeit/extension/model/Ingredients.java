@@ -35,7 +35,7 @@ public class Ingredients {
 	 */
 	private Ingredients(String[] ingredients){
 		// precondition
-		if(ingredients == null || ingredients.length < 2)
+		if(ingredients == null || (ingredients.length > 1 && ingredients.length < 3))
 			throw new IllegalArgumentException("ingredients");
 		
 		this.ingredients = ingredients;
@@ -54,7 +54,6 @@ public class Ingredients {
 	 */
 	private Ingredients() {
 		ingredients = new String[] {"n/a"};
-		map.put(ingredients[0], EMPTY_INGREDIENTS);
 		assertInvariants();
 	}
 	
@@ -65,8 +64,12 @@ public class Ingredients {
 	 * @post
 	 */
 	public static Ingredients getInstance(String pancakeIngredients) {
-		if (StringUtil.isNullOrEmptyString(pancakeIngredients))
+		if (StringUtil.isNullOrEmptyString(pancakeIngredients)){
+			if (!map.containsKey("n/a"))
+				map.put("n/a", EMPTY_INGREDIENTS);
 			return EMPTY_INGREDIENTS;
+		}
+			
 		else {
 			if (map.containsKey(pancakeIngredients)) 
 				return map.get(pancakeIngredients);
@@ -96,7 +99,7 @@ public class Ingredients {
 		
 		assert(result != null);
 		//post
-		if (result == null || result.length < 3)
+		if (result == null || (result.length > 1 && result.length < 3))
 			throw new AssertionError("ingredients");
 		return result;
 	}

@@ -82,7 +82,7 @@ public class PhotoId {
 	 * 
 	 */
 	public static synchronized int getNextIdAsInt() {
-		currentId += 1;
+		currentId += 10;
 		if (currentId >= ids.length) {
 			PhotoId[] nids = new PhotoId[currentId + BUFFER_SIZE_INCREMENT];
 			System.arraycopy(ids, 0, nids, 0, currentId);

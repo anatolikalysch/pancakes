@@ -39,7 +39,7 @@ public class Recipe {
 		
 		//postcondition
 		assert(this.recipe == recipe);
-		if (recipe.length() < 10)
+		if (recipe.length() > 3 && recipe.length() < 10)
 			throw new AssertionError("recipe");
 		//invariant
 		assertInvariants();
@@ -54,7 +54,6 @@ public class Recipe {
 	 */
 	private Recipe(){
 		recipe = "";
-		map.put("", EMPTY_RECIPE);
 		assertInvariants();
 	}
 	
@@ -66,9 +65,11 @@ public class Recipe {
 	 * @post
 	 */
 	public static Recipe getInstance(String recipe) {
-		if (StringUtil.isNullOrEmptyString(recipe))
+		if (StringUtil.isNullOrEmptyString(recipe)) {
+			if (!map.containsKey(""))
+				map.put("", EMPTY_RECIPE);
 			return EMPTY_RECIPE;
-		else {
+		} else {
 			if (map.containsKey(recipe)) 
 				return map.get(recipe);
 			else {
@@ -97,7 +98,7 @@ public class Recipe {
 	 * @post
 	 */
 	public String asString() {
-		if (recipe.length() < 10)
+		if (recipe.length() > 3 && recipe.length() < 10)
 			throw new AssertionError("recipe");
 		assertInvariants();
 		return recipe;
