@@ -139,8 +139,6 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 				photo.setLocation(GPSLocation.EMPTY_LOCATION);
 			} catch (IllegalArgumentException e) { // pre condition
 				throw new LocationArgumentException(e.getMessage());
-				//SysLog.logThrowable(e);
-				//us.setMessage((eus.cfg()).getLocationIllegalArguments(e.getMessage()));
 			}
 		}
 	}
@@ -177,12 +175,8 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 					}
 			} catch (AssertionError e) { //post condition
 				throw new AssertionError (e.getMessage());
-				//SysLog.logThrowable(e);
-				//us.setMessage(eus.cfg().getPancakePostViolation(e.getMessage()));
 			} catch (IllegalArgumentException e) { //pre condition
 				throw new PancakeArgumentException(e.getMessage());
-				//SysLog.logThrowable(e);
-				//us.setMessage((eus.cfg()).getPancakeIllegalArguments(e.getMessage()));
 			} catch (Exception e2) {
 				SysLog.logThrowable(e2);
 				us.setMessage(eus.cfg().getPhotoUploadFailed());
