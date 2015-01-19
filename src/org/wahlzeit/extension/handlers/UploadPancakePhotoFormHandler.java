@@ -4,16 +4,16 @@
 package org.wahlzeit.extension.handlers;
 
 import java.io.File;
-import java.sql.SQLException;
-import java.util.Collection;
 import java.util.Map;
 
 import org.wahlzeit.extension.location.AbstractLocationFactory;
 import org.wahlzeit.extension.location.FactoryProducer;
 import org.wahlzeit.extension.location.GPSLocation;
 import org.wahlzeit.extension.location.Location;
+import org.wahlzeit.extension.location.LocationArgumentException;
 import org.wahlzeit.extension.model.Ingredients;
 import org.wahlzeit.extension.model.Pancake;
+import org.wahlzeit.extension.model.PancakeArgumentException;
 import org.wahlzeit.extension.model.PancakeManager;
 import org.wahlzeit.extension.model.PancakePhoto;
 import org.wahlzeit.extension.model.PancakeType;
@@ -79,9 +79,9 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 			user.addPhoto(photo);
 			photo.setTags(new Tags(tags));
 			// add location data to the photo if correct data is given
-			doHandleLocationData(photo, eus, args);
+			doHandleLocationData(photo, us, eus, args);
 			// add domain data to the photo if correct data is given and the Photo is a domain Photo
-			doHandleDomainData(photo, eus, args);
+			doHandleDomainData(photo, us, eus, args);
 			
 			pm.savePhoto(photo);
 			StringBuffer sb = UserLog.createActionEntry("UploadPhoto");
@@ -89,15 +89,21 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 			UserLog.log(sb);
 			us.setTwoLineMessage(us.cfg().getPhotoUploadSucceeded(), us.cfg().getKeepGoing());
 			
+		} catch (PancakeArgumentException e) {
+			SysLog.logThrowable(e);
+			us.setMessage((eus.cfg()).getPancakeIllegalArguments(e.getMessage()));
+		} catch (LocationArgumentException e) {
+			SysLog.logThrowable(e);
+			us.setMessage((eus.cfg()).getLocationIllegalArguments(e.getMessage()));
 		} catch (IllegalArgumentException e) {
 			SysLog.logThrowable(e);
-			eus.setMessage(eus.cfg().getPancakeIllegalArguments(e.getMessage()));
+			us.setMessage(eus.cfg().getPancakeIllegalArguments(e.getMessage()));
 		} catch (AssertionError e) { 
 			SysLog.logThrowable(e);
-			eus.setMessage(eus.cfg().getPancakePostViolation(e.getMessage()));
+			us.setMessage(eus.cfg().getPancakePostViolation(e.getMessage()));
 		} catch (Exception omega) { //something beyond my control happened, so photoupload failed
 			SysLog.logThrowable(omega);
-			eus.setMessage(eus.cfg().getPhotoUploadFailed());
+			us.setMessage(eus.cfg().getPhotoUploadFailed());
 		}
 		
 		return PartUtil.UPLOAD_PHOTO_PAGE_NAME;
@@ -109,7 +115,7 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 	 * @pre photo instanceof PancakePhoto
 	 * @post
 	 */
-	private void doHandleLocationData(PancakePhoto photo, ExtendedUserSession eus, Map args){
+	private void doHandleLocationData(PancakePhoto photo, UserSession us, ExtendedUserSession eus, Map args){
 		if (photo instanceof PancakePhoto) {
 			FactoryProducer fp = new FactoryProducer();
 			AbstractLocationFactory af;
@@ -132,8 +138,9 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 			} catch (AssertionError | IllegalStateException e) { // class invariant or post condition
 				photo.setLocation(GPSLocation.EMPTY_LOCATION);
 			} catch (IllegalArgumentException e) { // pre condition
-				SysLog.logThrowable(e);
-				eus.setMessage((eus.cfg()).getLocationIllegalArguments(e.getMessage()));
+				throw new LocationArgumentException(e.getMessage());
+				//SysLog.logThrowable(e);
+				//us.setMessage((eus.cfg()).getLocationIllegalArguments(e.getMessage()));
 			}
 		}
 	}
@@ -144,7 +151,7 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 	 * @pre photo instanceof PancakePhoto
 	 * @post pancake created
 	 */
-	private void doHandleDomainData(PancakePhoto photo, ExtendedUserSession eus, Map args) {
+	private void doHandleDomainData(PancakePhoto photo, UserSession us, ExtendedUserSession eus, Map args) {
 		if (photo instanceof PancakePhoto) {
 			PancakeManager panMgr = PancakeManager.getInstance();
 			String newPancake = eus.getAndSaveAsString(args, "newPancake");
@@ -168,18 +175,17 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 						photo.setPancake(pancake);
 						panMgr.savePancake(pancake);
 					}
-			} catch (IllegalStateException e) { //class invariant broken, inconsistent state
-				SysLog.logThrowable(e);
-				eus.setMessage(eus.cfg().getPhotoUploadFailed());
 			} catch (AssertionError e) { //post condition
-				SysLog.logThrowable(e);
-				eus.setMessage(eus.cfg().getPancakePostViolation(e.getMessage()));
+				throw new AssertionError (e.getMessage());
+				//SysLog.logThrowable(e);
+				//us.setMessage(eus.cfg().getPancakePostViolation(e.getMessage()));
 			} catch (IllegalArgumentException e) { //pre condition
-				SysLog.logThrowable(e);
-				eus.setMessage((eus.cfg()).getPancakeIllegalArguments(e.getMessage()));
+				throw new PancakeArgumentException(e.getMessage());
+				//SysLog.logThrowable(e);
+				//us.setMessage((eus.cfg()).getPancakeIllegalArguments(e.getMessage()));
 			} catch (Exception e2) {
 				SysLog.logThrowable(e2);
-				eus.setMessage(eus.cfg().getPhotoUploadFailed());
+				us.setMessage(eus.cfg().getPhotoUploadFailed());
 			}
 			assert(pancake!=null);
 		}

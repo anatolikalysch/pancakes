@@ -91,7 +91,7 @@ public class GPSLocationFactory extends AbstractLocationFactory {
 	 * @post latitude and longitude are set in the right interval for GPS-Coord
 	 */
 	@Override
-	protected void doAssertLocation(String location) {
+	protected boolean doAssertLocation(String location) {
 		String[] components = location.split(",");
 		for (String component : components) {
 			component.trim();
@@ -101,9 +101,14 @@ public class GPSLocationFactory extends AbstractLocationFactory {
 		double x = Double.parseDouble(components[0]);
 		double y = Double.parseDouble(components[1]);
 		//post
-		if (!(x <= 90.0 && x >= -90.0)) 
+		if (!(x <= 90.0 && x >= -90.0)) {
 			throw new IllegalArgumentException("latitude");
-		if (!(y <= 180.0 && y >= -180.0))
-			throw new IllegalArgumentException("longitude");;
+		} else {
+			if (!(y <= 180.0 && y >= -180.0))
+				throw new IllegalArgumentException("longitude");
+			else
+				return true;
+		}
+		
 	}	
 }

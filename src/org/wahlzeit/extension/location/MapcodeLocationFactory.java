@@ -94,9 +94,10 @@ public class MapcodeLocationFactory extends AbstractLocationFactory {
 	 * @post valid mapcode was generated
 	 */
 	@Override
-	protected void doAssertLocation(String location) {
+	protected boolean doAssertLocation(String location) {
 		try {
 			MapcodeCodec.decode(location);
+			return true;
 		} catch (IllegalArgumentException | UnknownMapcodeException e) {
 			//post
 				throw new AssertionError();

@@ -24,8 +24,10 @@ public abstract class AbstractLocationFactory {
 			return GPSLocation.EMPTY_LOCATION;
 		else {
 			//post
-			assertLocation(location);
-			return doCreateLocation(location);
+			if(assertLocation(location))
+				return doCreateLocation(location);
+			else
+				throw new IllegalArgumentException("location");
 		}	
 	}
 	
@@ -38,13 +40,13 @@ public abstract class AbstractLocationFactory {
 	 * @pre location != null
 	 * @post location is a valid location
 	 */
-	protected void assertLocation(String location) throws AssertionError {
+	protected boolean assertLocation(String location) throws AssertionError {
 		if (StringUtil.isNullOrEmptyString(location))
 			throw new AssertionError();
-		doAssertLocation(location);
+		return doAssertLocation(location);
 	}
 	
-	protected abstract void doAssertLocation(String location);
+	protected abstract boolean doAssertLocation(String location);
 	
 	/**
 	 * @methodtype factory
