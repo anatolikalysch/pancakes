@@ -18,6 +18,14 @@ public class ExtendedEnglishModelConfig extends EnglishModelConfig implements Ex
 		super();
 	}
 	
+	
+	/**
+	 * 
+	 * @methodtype
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public String getLocationIllegalArguments(String message) {
 		switch(message){
 		case "latitude":
@@ -33,6 +41,14 @@ public class ExtendedEnglishModelConfig extends EnglishModelConfig implements Ex
 		}
 	}
 
+	
+	/**
+	 * 
+	 * @methodtype
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	public String getPancakeIllegalArguments(String message) {
 		switch(message){
@@ -49,6 +65,14 @@ public class ExtendedEnglishModelConfig extends EnglishModelConfig implements Ex
 		}
 	}
 
+	
+	/**
+	 * 
+	 * @methodtype
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	public String getPancakePostViolation(String message) {
 		String result;

@@ -10,10 +10,24 @@ public class ExtendedUserSession extends UserSession {
 
 	protected ExtendedModelConfig extendConfig = new ExtendedEnglishModelConfig();
 	
+	/**
+	 * 
+	 * @methodtype
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public ExtendedUserSession(String myName, String mySiteUrl) {
 		super(myName, mySiteUrl);
 	}
 	
+	/**
+	 * 
+	 * @methodtype
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	public ExtendedUserSession(UserSession us) {
 		super(us.getName(), us.getSiteUrl());
 		this.setConfiguration(us.cfg());
@@ -22,6 +36,10 @@ public class ExtendedUserSession extends UserSession {
 	
 	/**
 	 * 
+	 * @methodtype
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	@Override
 	public void clear() {
@@ -33,6 +51,10 @@ public class ExtendedUserSession extends UserSession {
 	
 	/**
 	 * 
+	 * @methodtype
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	@Override
 	public ExtendedModelConfig cfg() {
@@ -41,6 +63,10 @@ public class ExtendedUserSession extends UserSession {
 	
 	/**
 	 * 
+	 * @methodtype
+	 * @methodproperty
+	 * @pre
+	 * @post
 	 */
 	@Override
 	public void setConfiguration(ModelConfig conf) {
@@ -62,6 +88,13 @@ public class ExtendedUserSession extends UserSession {
 		
 	}
 	
+	/**
+	 * 
+	 * @methodtype
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	private void doSetConfiguration(ExtendedModelConfig extendConfig){
 		this.extendConfig = extendConfig;
 	}

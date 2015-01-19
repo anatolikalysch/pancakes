@@ -18,6 +18,13 @@ public class ExtendedGermanModelConfig extends GermanModelConfig implements Exte
 		super();
 	}
 	
+	/**
+	 * 
+	 * @methodtype
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	public String getLocationIllegalArguments(String message) {
 		switch(message){
@@ -34,6 +41,13 @@ public class ExtendedGermanModelConfig extends GermanModelConfig implements Exte
 		}
 	}
 	
+	/**
+	 * 
+	 * @methodtype
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	public String getPancakeIllegalArguments(String message) {
 		switch(message){
@@ -50,6 +64,13 @@ public class ExtendedGermanModelConfig extends GermanModelConfig implements Exte
 		}
 	}
 
+	/**
+	 * 
+	 * @methodtype
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
 	@Override
 	public String getPancakePostViolation(String message) {
 		String result;
@@ -77,5 +98,4 @@ public class ExtendedGermanModelConfig extends GermanModelConfig implements Exte
 		result = "Bearbeitung von " + var + " schlug fehl!";
 		return result;
 	}
-
 }
