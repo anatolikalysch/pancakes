@@ -32,6 +32,7 @@ public class ExtendedHtmlUtil extends HtmlUtil {
 		for (int i = 0; i < ingredients.length - 1; i++) {
 			buffer.append("<tr>");
 			buffer.append(ingredients[i]);
+			buffer.append(", ");
 			buffer.append("</tr>");
 		}
 		buffer.append("</table>");

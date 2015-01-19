@@ -93,9 +93,9 @@ public class Ingredients {
 		if (StringUtil.isNullOrEmptyString(ingredients))
 			return new String[] {"n/a"};
 		
-		String[] result = ingredients.split(",");
-		for (int i = 0; i < result.length-1; i++)
-			result[i] = result[i].trim();
+		String[] result = ingredients.split(", ");
+		//for (int i = 0; i < result.length-1; i++)
+			//result[i] = result[i].trim();
 		
 		assert(result != null);
 		//post
