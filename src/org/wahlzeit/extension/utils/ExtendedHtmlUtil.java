@@ -30,10 +30,9 @@ public class ExtendedHtmlUtil extends HtmlUtil {
 		buffer.append("<table>");
 		String[] ingredients = pancake.getType().getIng().asStringArray();
 		for (int i = 0; i < ingredients.length - 1; i++) {
-			buffer.append("<tr>");
+			buffer.append("<tr><td>");
 			buffer.append(ingredients[i]);
-			buffer.append(", ");
-			buffer.append("</tr>");
+			buffer.append("</td></tr>");
 		}
 		buffer.append("</table>");
 		return buffer.toString();

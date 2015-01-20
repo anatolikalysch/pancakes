@@ -1,4 +1,4 @@
-package org.wahlzeit.extension.model.userDialog;
+package org.wahlzeit.extension.model.UIinteraction;
 
 import org.wahlzeit.model.LanguageConfigs;
 import org.wahlzeit.model.ModelConfig;
@@ -43,7 +43,7 @@ public class ExtendedUserSession extends UserSession {
 	 */
 	@Override
 	public void clear() {
-		configuration = LanguageConfigs.get(Language.ENGLISH);
+		setConfiguration(LanguageConfigs.get(Language.ENGLISH));
 		photoSize = PhotoSize.MEDIUM;
 		clearDisplayedPhotos();
 		clearPraisedPhotos();

@@ -6,7 +6,7 @@ package org.wahlzeit.extension.handlers;
 import org.wahlzeit.extension.location.LocationArgumentException;
 import org.wahlzeit.extension.model.PancakeArgumentException;
 import org.wahlzeit.extension.model.PancakePhoto;
-import org.wahlzeit.extension.model.userDialog.ExtendedUserSession;
+import org.wahlzeit.extension.model.UIinteraction.ExtendedUserSession;
 import org.wahlzeit.extension.utils.ExtendedHtmlUtil;
 import org.wahlzeit.handlers.PartUtil;
 import org.wahlzeit.handlers.ShowPhotoPageHandler;

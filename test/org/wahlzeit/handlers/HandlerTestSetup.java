@@ -23,7 +23,7 @@ package org.wahlzeit.handlers;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 
-import org.wahlzeit.extension.model.userDialog.ExtendedUserSession;
+import org.wahlzeit.extension.model.UIinteraction.ExtendedUserSession;
 import org.wahlzeit.model.LanguageConfigs;
 import org.wahlzeit.services.Language;
 import org.wahlzeit.services.SessionManager;

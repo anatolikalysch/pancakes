@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.wahlzeit.extension.model.userDialog;
+package org.wahlzeit.extension.model.UIinteraction;
 
 import org.wahlzeit.model.EnglishModelConfig;
 

@@ -18,7 +18,7 @@ import org.wahlzeit.extension.model.PancakeManager;
 import org.wahlzeit.extension.model.PancakePhoto;
 import org.wahlzeit.extension.model.PancakeType;
 import org.wahlzeit.extension.model.Recipe;
-import org.wahlzeit.extension.model.userDialog.ExtendedUserSession;
+import org.wahlzeit.extension.model.UIinteraction.ExtendedUserSession;
 import org.wahlzeit.extension.utils.ExtendedHtmlUtil;
 import org.wahlzeit.handlers.PartUtil;
 import org.wahlzeit.handlers.UploadPhotoFormHandler;
