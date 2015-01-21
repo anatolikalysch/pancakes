@@ -9,14 +9,10 @@ import org.wahlzeit.utils.StringUtil;
  */
 public abstract class AbstractLocation implements Location {
 	
-	/**
-	 * 
-	 * ---------- Location collaboration ----------
-	 */
-	
 	boolean hasLocation = false;
 	
 	/**
+	 * @collaboration location, PancakePhoto
 	 * @methodtype conversion
 	 * @methodproperty composed
 	 * @pre has a location
@@ -42,12 +38,9 @@ public abstract class AbstractLocation implements Location {
 	
 	protected abstract String doLocationAsString();
 	
-	/**
-	 * 
-	 * ---------- AbstractFactory collaboration ----------
-	 */
 	
 	/**
+	 * @collaboration AbstractLocationFactory, Location
 	 * @methodtype set
 	 * @methodproperty template
 	 * @pre location is valid String
@@ -61,6 +54,7 @@ public abstract class AbstractLocation implements Location {
 	}
 	
 	/**
+	 * @collaboration location, PancakePhoto
 	 * @methodtype get
 	 * @methodproperty primitive
 	 * @pre

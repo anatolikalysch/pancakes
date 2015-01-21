@@ -3,13 +3,14 @@ package org.wahlzeit.extension.location;
 import org.wahlzeit.utils.StringUtil;
 
 /**
- * This class is part of the AbstractFactory collaboration and the PancakePhoto / Location collaboration.
+ * This class is part of the AbstractLocationFactory collaboration.
  * @author qwert
  *
  */
 public class FactoryProducer {
 	
 	/**
+	 * 
 	 * @methodtype get
 	 * @methodproperty primitive
 	 * @pre locationType is valid String

@@ -1,4 +1,4 @@
-package org.wahlzeit.extension.location;
+package org.wahlzeit.extension.handlers;
 
 public class LocationArgumentException extends IllegalArgumentException {
 

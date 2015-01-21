@@ -49,6 +49,7 @@ public class PancakeType {
 	}
 
 	/**
+	 * @collaboration typeObject, pancake
 	 * @methodtype set
 	 * @methodproperty composed
 	 * @pre
@@ -64,6 +65,7 @@ public class PancakeType {
 	}
 
 	/**
+	 * @collaboration typeObject, pancake
 	 * @methodtype get
 	 * @methodproperty primitive
 	 * @pre recipe != null
@@ -75,6 +77,7 @@ public class PancakeType {
 	}
 
 	/**
+	 * @collaboration typeObject, pancake
 	 * @methodtype set
 	 * @methodproperty composed
 	 * @pre
@@ -88,6 +91,7 @@ public class PancakeType {
 	}
 
 	/**
+	 * @collaboration typeObject, pancake
 	 * @methodtype get
 	 * @methodproperty primitive
 	 * @pre ingredients =! null;
@@ -99,6 +103,7 @@ public class PancakeType {
 	}
 
 	/**
+	 * @collaboration typeObject, pancake
 	 * @methodtype set
 	 * @methodproperty composed
 	 * @pre

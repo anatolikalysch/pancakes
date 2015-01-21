@@ -7,6 +7,11 @@ import org.wahlzeit.model.PhotoFactory;
 import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.services.SysLog;
 
+/**
+ * This class is part of the PancakePhotoFactory collaboration. See the collaborating methods for more information.
+ * @author qwert
+ *
+ */
 public class PancakePhotoFactory extends PhotoFactory {
 	
 	/**
@@ -56,6 +61,7 @@ public class PancakePhotoFactory extends PhotoFactory {
 	}
 	
 	/**
+	 * @collaboration factory, PancakePhoto
 	 * @methodtype factory
 	 * @methodproperty convenience
 	 * @pre
@@ -67,6 +73,7 @@ public class PancakePhotoFactory extends PhotoFactory {
 	}
 	
 	/**
+	 * @collaboration factory, PancakePhoto
 	 * @methodtype factory
 	 * @methodproperty primitive
 	 * @pre
@@ -78,6 +85,7 @@ public class PancakePhotoFactory extends PhotoFactory {
 	}
 	
 	/**
+	 * @collaboration factory, PancakePhoto
 	 * @methodtype factory
 	 * @methodproperty primitive
 	 * @pre rset should not be null

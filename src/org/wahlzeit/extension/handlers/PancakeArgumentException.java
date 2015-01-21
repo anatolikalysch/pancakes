@@ -1,4 +1,4 @@
-package org.wahlzeit.extension.domain;
+package org.wahlzeit.extension.handlers;
 
 public class PancakeArgumentException extends IllegalArgumentException {
 

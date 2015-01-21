@@ -13,11 +13,6 @@ import com.mapcode.MapcodeCodec;
  *
  */
 public class GPSLocation extends AbstractLocation {
-	
-	/**
-	 * 
-	 * ---------- AbstractFactory collaboration ----------
-	 */
 
 	protected double latitude;
 	protected double longitude;
@@ -88,6 +83,7 @@ public class GPSLocation extends AbstractLocation {
 	}
 
 	/**
+	 * @collaboration location, PancakePhoto
 	 * @methodtype get
 	 * @methodproperty primitive
 	 * @pre
@@ -117,11 +113,7 @@ public class GPSLocation extends AbstractLocation {
 	}
 	
 	/**
-	 * 
-	 * ---------- Location collaboration ----------
-	 */
-	
-	/**
+	 * @collaboration location, PancakePhoto
 	 * @methodtype conversion
 	 * @methodproperty primitive
 	 * @pre has a location

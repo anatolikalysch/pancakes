@@ -16,10 +16,6 @@ import com.mapcode.UnknownMapcodeException;
  */
 public class MapcodeLocation extends AbstractLocation {
 	
-	/**
-	 * 
-	 * ---------- AbstractFactory collaboration ----------
-	 */
 
 	protected String mapcode;
 	
@@ -77,6 +73,7 @@ public class MapcodeLocation extends AbstractLocation {
 	}
 	
 	/**
+	 * @collaboration location, PancakePhoto
 	 * @methodtype  get
 	 * @methodproperty primitive
 	 * @pre
@@ -88,11 +85,7 @@ public class MapcodeLocation extends AbstractLocation {
 	}
 	
 	/**
-	 * 
-	 * ---------- Location collaboration ----------
-	 */
-	
-	/**
+	 * @collaboration location, PancakePhoto
 	 * @methodtype conversion
 	 * @methodproperty primitive
 	 * @pre

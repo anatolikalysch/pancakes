@@ -13,6 +13,7 @@ import org.wahlzeit.utils.StringUtil;
 public abstract class AbstractLocationFactory {
 	
 	/**
+	 * @collaboration AbstractLocationFactory, Location
 	 * @methodtype factory
 	 * @methodproperty template
 	 * @pre location should be valid String
@@ -49,6 +50,7 @@ public abstract class AbstractLocationFactory {
 	protected abstract boolean doAssertLocation(String location);
 	
 	/**
+	 * @collaboration AbstractLocationFactory, Location
 	 * @methodtype factory
 	 * @methodproperty template
 	 * @pre rset should not be empty

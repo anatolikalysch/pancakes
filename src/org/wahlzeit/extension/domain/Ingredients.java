@@ -135,12 +135,13 @@ public class Ingredients {
 	}
 	
 	/**
+	 * @collaboration typeObject, pancake
 	 * @methodtype conversion
 	 * @methodproperty primitive
 	 * @pre ingredients != null
 	 * @post Stringlength > 3
 	 */
-	public String asString() {
+	protected String asString() {
 		
 		//pre
 		assertInvariants();
@@ -156,12 +157,16 @@ public class Ingredients {
 			return result.substring(0, result.length()-2);
 	}
 	
+	/**
+	 * @methodtype conversion
+	 * @methodproperty primitive
+	 * @pre ingredients != null
+	 * @post 
+	 */
 	public String[] asStringArray() {
+		assertInvariants();
 		return ingredients;
 	}
-	
-	
-	
 	
 	/**
 	 * @methodtype assertion

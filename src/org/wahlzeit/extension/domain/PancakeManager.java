@@ -15,18 +15,13 @@ import org.wahlzeit.services.Persistent;
 import org.wahlzeit.services.SysLog;
 
 /**
- * This class is part of the PancakeManager and PancakeFactory collaborations.
+ * This class is part of the PancakeManager and PancakeFactory collaborations. See collaborating methods for more information.
  * 
  * @author qwert
  *
  */
 public class PancakeManager extends ObjectManager {
 	
-	/**
-	 * 
-	 * ---------- PancakeManager collaboration ----------
-	 */
-
 	/**
 	*
 	*/
@@ -78,6 +73,7 @@ public class PancakeManager extends ObjectManager {
 	}
 	
 	/**
+	 * 
 	 * @methodtype get
 	 * @methodproperty primitive
 	 * @pre id != null (always true due to initiation at beginning)
@@ -109,6 +105,7 @@ public class PancakeManager extends ObjectManager {
 	}
 	
 	/**
+	 * @collaboration manager, PancakePhoto
 	 * @methodtype get
 	 * @methodproperty composed
 	 * @pre id != null, pancake exists
@@ -131,6 +128,21 @@ public class PancakeManager extends ObjectManager {
 			}
 		}
 		
+		return result;
+	}
+	
+	/**
+	 * @collaboration manager, factory
+	 * @methodtype factory
+	 * @methodproperty composed
+	 * @pre
+	 * @post
+	 */
+	public Pancake createPancake() throws Exception {
+		this.currentId++;
+		Integer id = Integer.valueOf(this.currentId);
+		Pancake result = PancakeFactory.getInstance().createPancake(id);
+		addPancake(result);
 		return result;
 	}
 	
@@ -167,41 +179,8 @@ public class PancakeManager extends ObjectManager {
 			throw new IllegalArgumentException("ID");
 	}
 	
-	
 	/**
-	 * @methodtype command
-	 * @methodproperty
-	 * @pre pancake != null
-	 * @post
-	 */
-	public void savePancake(Pancake pancake) {
-		if (pancake == null)
-			throw new IllegalArgumentException();
-		try {
-			PreparedStatement stmt = getUpdatingStatement("SELECT * FROM pancakes WHERE id = ?");
-			updateObject(pancake, stmt);
-		} catch (SQLException sex) {
-			SysLog.logThrowable(sex);
-		}
-	}
-	
-	/**
-	 * @methodtype command
-	 * @methodproperty
-	 * @pre
-	 * @post
-	 */
-	public void savePancakes() {
-		try {
-			PreparedStatement stmt = getUpdatingStatement("SELECT * FROM pancakes WHERE id = ?");
-			updateObjects(this.pancakeCache.values(), stmt);
-		} catch (SQLException sex) {
-			SysLog.logThrowable(sex);
-		}
-	}
-	
-
-	/**
+	 * @collaboration serializer, pancake
 	 * @methodtype command
 	 * @methodproperty
 	 * @pre
@@ -229,25 +208,41 @@ public class PancakeManager extends ObjectManager {
 	}
 	
 	/**
-	 * 
-	 * ---------- PancakeFactory collaboration ----------
-	 */
-	
-	/**
-	 * @methodtype factory
-	 * @methodproperty composed
-	 * @pre
+	 * @collaboration serializer, pancake
+	 * @methodtype command
+	 * @methodproperty
+	 * @pre pancake != null
 	 * @post
 	 */
-	public Pancake createPancake() throws Exception {
-		this.currentId++;
-		Integer id = Integer.valueOf(this.currentId);
-		Pancake result = PancakeFactory.getInstance().createPancake(id);
-		addPancake(result);
-		return result;
+	public void savePancake(Pancake pancake) {
+		if (pancake == null)
+			throw new IllegalArgumentException();
+		try {
+			PreparedStatement stmt = getUpdatingStatement("SELECT * FROM pancakes WHERE id = ?");
+			updateObject(pancake, stmt);
+		} catch (SQLException sex) {
+			SysLog.logThrowable(sex);
+		}
 	}
 	
 	/**
+	 * @collaboration serializer, pancake
+	 * @methodtype command
+	 * @methodproperty
+	 * @pre
+	 * @post
+	 */
+	public void savePancakes() {
+		try {
+			PreparedStatement stmt = getUpdatingStatement("SELECT * FROM pancakes WHERE id = ?");
+			updateObjects(this.pancakeCache.values(), stmt);
+		} catch (SQLException sex) {
+			SysLog.logThrowable(sex);
+		}
+	}
+	
+	/**
+	 * @collaboration serializer, pancake
 	 * @methodtype factory
 	 * @methodproperty hook
 	 * @pre

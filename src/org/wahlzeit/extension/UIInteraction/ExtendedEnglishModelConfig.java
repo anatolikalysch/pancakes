@@ -21,8 +21,8 @@ public class ExtendedEnglishModelConfig extends EnglishModelConfig implements Ex
 	
 	/**
 	 * 
-	 * @methodtype
-	 * @methodproperty
+	 * @methodtype get
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -44,8 +44,8 @@ public class ExtendedEnglishModelConfig extends EnglishModelConfig implements Ex
 	
 	/**
 	 * 
-	 * @methodtype
-	 * @methodproperty
+	 * @methodtype get
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -68,8 +68,8 @@ public class ExtendedEnglishModelConfig extends EnglishModelConfig implements Ex
 	
 	/**
 	 * 
-	 * @methodtype
-	 * @methodproperty
+	 * @methodtype get
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */

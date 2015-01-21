@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import org.wahlzeit.services.DataObject;
 
 /**
- * This class is part of the PancakePhoto/Pancake, PancakeManager, Serializer and Type Object collaborations.
+ * This class is part of the PancakePhoto/Pancake, PancakeManager, Serializer and Type Object collaborations. See collaborating
+ * methods for more information.
  * @author qwert
  *
  */
@@ -45,10 +46,7 @@ public class Pancake extends DataObject {
 	}
 	
 	/**
-	 * ---------- PancakeManager collaboration ---------- 
-	 */
-	
-	/**
+	 * @collaboration manager, PancakeManager
 	 * @methodtype get
 	 * @methodproperty primitive
 	 * @pre id != null
@@ -58,7 +56,9 @@ public class Pancake extends DataObject {
 		assertInvariants();
 		return id;
 	}
+	
 	/**
+	 * @collaboration manager, PancakeManager
 	 * @methodtype command
 	 * @methodproperty hook
 	 * @pre
@@ -68,11 +68,6 @@ public class Pancake extends DataObject {
 	public void writeId(PreparedStatement stmt, int pos) throws SQLException {
 		stmt.setInt(pos, this.id);
 	}
-
-	
-	/**
-	 * ---------- Type Object Collaboration ----------
-	 */
 	
 	/**
 	 * @methodtype get
@@ -86,6 +81,7 @@ public class Pancake extends DataObject {
 	
 	
 	/**
+	 * @collaboration typeObject, PancakeType
 	 * @methodtype set
 	 * @methodproperty primitive
 	 * @pre type != null
@@ -98,8 +94,8 @@ public class Pancake extends DataObject {
 		incWriteCount();
 	}
 	
-	
 	/**
+	 * @collaboration typeObject, PancakeType
 	 * @methodtype set
 	 * @methodproperty primitive
 	 * @pre name != null
@@ -127,6 +123,7 @@ public class Pancake extends DataObject {
 	}
 	
 	/**
+	 * @collaboration typeObject, PancakeType
 	 * @methodtype set
 	 * @methodproperty primitive
 	 * @pre ingredients =! null
@@ -152,6 +149,7 @@ public class Pancake extends DataObject {
 	}
 	
 	/**
+	 * @collaboration typeObject, PancakeType
 	 * @methodtype set
 	 * @methodproperty primitive
 	 * @pre recipe != null
@@ -188,6 +186,18 @@ public class Pancake extends DataObject {
 	}
 	
 	/**
+	 * @methodtype assertion
+	 * @methodproperty primitive
+	 * @invariant
+	 */
+	protected void assertInvariants() {
+		boolean isValid = (id != null && type.name != null && type.ingredients != null && type.recipe != null);
+		if (!isValid)
+			throw new IllegalStateException("pancake");
+	}
+	
+	/**
+	 * @collaboration manager, PancakeManager
 	 * @methodtype get
 	 * @methodproperty primitive
 	 * @pre id != null
@@ -200,22 +210,7 @@ public class Pancake extends DataObject {
 	}
 	
 	/**
-	 * @methodtype assertion
-	 * @methodproperty primitive
-	 * @invariant
-	 */
-	protected void assertInvariants() {
-		boolean isValid = (id != null && type.name != null && type.ingredients != null && type.recipe != null);
-		if (!isValid)
-			throw new IllegalStateException("pancake");
-	}
-	
-	
-	/**
-	 * ---------- Serializer collaboration ---------- 
-	 */
-	
-	/**
+	 * @collaboration manager, PancakeManager
 	 * @methodtype command
 	 * @methodproperty hook
 	 * @pre rset != null
@@ -233,6 +228,7 @@ public class Pancake extends DataObject {
 	}
 	
 	/**
+	 * @collaboration manager, PancakeManager
 	 * @methodtype command
 	 * @methodproperty hook
 	 * @pre fields != null

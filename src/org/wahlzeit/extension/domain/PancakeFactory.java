@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import org.wahlzeit.services.SysLog;
 
 /**
- * This class is part of the PancakeFactory collaboration.
+ * This class is part of the PancakeFactory collaboration. See the collaborating methods for more information.
  * 
  * @author qwert
  *
@@ -64,6 +64,7 @@ public class PancakeFactory {
 	}
 	
 	/**
+	 * @collaboration factory, Pancake
 	 * @methodtype factory
 	 * @methodproperty primitive
 	 * @pre
@@ -74,6 +75,7 @@ public class PancakeFactory {
 	}
 	
 	/**
+	 * @collaboration factory, Pancake
 	 * @methodtype factory
 	 * @methodproperty primitive
 	 * @pre rset should not be null

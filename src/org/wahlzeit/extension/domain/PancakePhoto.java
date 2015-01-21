@@ -21,6 +21,9 @@ import org.wahlzeit.model.PhotoId;
  */
 public class PancakePhoto extends Photo {
 	
+	protected Location location = GPSLocation.EMPTY_LOCATION;
+	protected Pancake pancake;
+	
 	/**
 	 * @methodtype constructor
 	 * @methodproperty composed
@@ -53,11 +56,6 @@ public class PancakePhoto extends Photo {
 		super(rset);
 	}
 	
-	/** 
-	 * ---------- PancakePhoto / Pancake collaboration ----------
-	 * 
-	 */
-	protected Pancake pancake;
 	
 	/**
 	 * @methodtype init
@@ -70,6 +68,7 @@ public class PancakePhoto extends Photo {
 	}
 	
 	/**
+	 * @collaboration PancakePhoto / Pancake, Pancake
 	 * @methodtype get
 	 * @methodproperty primitive
 	 * @pre pancake != null
@@ -83,6 +82,7 @@ public class PancakePhoto extends Photo {
 	}
 
 	/**
+	 * @collaboration PancakePhoto / Pancake, Pancake
 	 * @methodtype set
 	 * @methodproperty composed
 	 * @pre pancake != null
@@ -110,13 +110,8 @@ public class PancakePhoto extends Photo {
 			throw new IllegalStateException("class invariant violated");
 	}
 
-	
 	/**
-	 * ---------- PancakePhoto / Location collaboration ----------
-	 */
-	protected Location location = GPSLocation.EMPTY_LOCATION;
-
-	/**
+	 * @collaboration location, Location
 	 * @methodtype get
 	 * @methodproperty primitive
 	 * @pre location initiated
@@ -127,6 +122,7 @@ public class PancakePhoto extends Photo {
 	}
 
 	/**
+	 * @collaboration location, Location
 	 * @methodtype set
 	 * @methodproperty primitive
 	 * @pre
@@ -137,12 +133,8 @@ public class PancakePhoto extends Photo {
 		incWriteCount();
 	}
 
-	
 	/**
-	 * ---------- Serializer collaboration ----------
-	 */
-	
-	/**
+	 * @collaboration serializer, PhotoManager; AbstractLocationFactory, FactoryProducer, AbstractLocationFactory
 	 * @methodtype command
 	 * @methodproperty
 	 * @pre resultSet != null
@@ -164,6 +156,7 @@ public class PancakePhoto extends Photo {
 	}
 
 	/**
+	 * @collaboration serializer, PhotoManager
 	 * @methodtype command
 	 * @methodproperty
 	 * @pre location data should not be empty

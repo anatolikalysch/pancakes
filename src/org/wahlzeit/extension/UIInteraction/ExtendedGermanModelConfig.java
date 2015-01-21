@@ -20,8 +20,8 @@ public class ExtendedGermanModelConfig extends GermanModelConfig implements Exte
 	
 	/**
 	 * 
-	 * @methodtype
-	 * @methodproperty
+	 * @methodtype get
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -43,8 +43,8 @@ public class ExtendedGermanModelConfig extends GermanModelConfig implements Exte
 	
 	/**
 	 * 
-	 * @methodtype
-	 * @methodproperty
+	 * @methodtype get
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */
@@ -66,8 +66,8 @@ public class ExtendedGermanModelConfig extends GermanModelConfig implements Exte
 
 	/**
 	 * 
-	 * @methodtype
-	 * @methodproperty
+	 * @methodtype get
+	 * @methodproperty primitive
 	 * @pre
 	 * @post
 	 */

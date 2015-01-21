@@ -25,6 +25,7 @@ public class Recipe {
 	private static final HashMap<String,Recipe> map = new HashMap<String,Recipe>();
 	
 	/**
+	 * @collaboration
 	 * @methodtype constructor
 	 * @methodproperty
 	 * @pre recipe is a valid String
@@ -92,12 +93,13 @@ public class Recipe {
 	
 	
 	/**
+	 * @collaboration typeObject, pancake
 	 * @methodtype conversion
 	 * @methodproperty primitive
 	 * @pre recipe != null && recipe is a real text.
 	 * @post
 	 */
-	public String asString() {
+	protected String asString() {
 		if (recipe.length() > 3 && recipe.length() < 10)
 			throw new AssertionError("recipe");
 		assertInvariants();
