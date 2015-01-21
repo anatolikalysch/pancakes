@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.wahlzeit.extension.model.UIinteraction.ExtendedUserSession;
+import org.wahlzeit.extension.UIInteraction.ExtendedUserSession;
 import org.wahlzeit.main.ServiceMain;
 import org.wahlzeit.model.LanguageConfigs;
 import org.wahlzeit.model.UserSession;

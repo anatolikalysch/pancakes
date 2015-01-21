@@ -28,8 +28,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.wahlzeit.extension.model.PancakeManager;
-import org.wahlzeit.extension.model.PancakePhotoFactory;
+import org.wahlzeit.extension.domain.PancakeManager;
+import org.wahlzeit.extension.domain.PancakePhotoFactory;
 import org.wahlzeit.model.Case;
 import org.wahlzeit.model.CaseId;
 import org.wahlzeit.model.Photo;

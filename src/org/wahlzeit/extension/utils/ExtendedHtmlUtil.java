@@ -2,8 +2,8 @@ package org.wahlzeit.extension.utils;
 
 import java.util.Collection;
 
-import org.wahlzeit.extension.model.Pancake;
-import org.wahlzeit.extension.model.PancakeManager;
+import org.wahlzeit.extension.domain.Pancake;
+import org.wahlzeit.extension.domain.PancakeManager;
 import org.wahlzeit.utils.HtmlUtil;
 
 public class ExtendedHtmlUtil extends HtmlUtil {

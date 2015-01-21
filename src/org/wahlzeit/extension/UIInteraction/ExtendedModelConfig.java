@@ -1,4 +1,4 @@
-package org.wahlzeit.extension.model.UIinteraction;
+package org.wahlzeit.extension.UIInteraction;
 
 import org.wahlzeit.model.ModelConfig;
 

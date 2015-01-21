@@ -1,9 +1,12 @@
-package org.wahlzeit.extension.model.UIinteraction;
+package org.wahlzeit.extension.UIInteraction;
 
-import org.wahlzeit.extension.model.PancakePhoto;
-import org.wahlzeit.extension.model.PancakePhotoFactory;
-import org.wahlzeit.extension.model.PancakeTest;
-import org.wahlzeit.extension.model.Recipe;
+import org.wahlzeit.extension.UIInteraction.ExtendedEnglishModelConfig;
+import org.wahlzeit.extension.UIInteraction.ExtendedGermanModelConfig;
+import org.wahlzeit.extension.UIInteraction.ExtendedUserSession;
+import org.wahlzeit.extension.domain.PancakePhoto;
+import org.wahlzeit.extension.domain.PancakePhotoFactory;
+import org.wahlzeit.extension.domain.PancakeTest;
+import org.wahlzeit.extension.domain.Recipe;
 import org.wahlzeit.model.EnglishModelConfig;
 import org.wahlzeit.model.GermanModelConfig;
 import org.wahlzeit.model.ModelConfig;

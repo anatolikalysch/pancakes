@@ -29,7 +29,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-import org.wahlzeit.extension.model.PancakePhotoFactory;
+import org.wahlzeit.extension.domain.PancakePhotoFactory;
 import org.wahlzeit.services.SysConfig;
 import org.wahlzeit.services.SysLog;
 

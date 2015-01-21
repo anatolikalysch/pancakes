@@ -1,4 +1,4 @@
-package org.wahlzeit.extension.model;
+package org.wahlzeit.extension.domain;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

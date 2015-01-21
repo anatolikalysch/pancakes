@@ -1,4 +1,8 @@
-package org.wahlzeit.extension.model;
+package org.wahlzeit.extension.domain;
+
+import org.wahlzeit.extension.domain.PancakePhoto;
+import org.wahlzeit.extension.domain.PancakePhotoFactory;
+import org.wahlzeit.extension.domain.Recipe;
 
 import junit.framework.TestCase;
 

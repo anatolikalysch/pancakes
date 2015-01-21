@@ -1,4 +1,4 @@
-package org.wahlzeit.extension.model;
+package org.wahlzeit.extension.domain;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
