@@ -4,7 +4,10 @@
 package org.wahlzeit.extension.handlers;
 
 import org.wahlzeit.extension.UIInteraction.ExtendedUserSession;
+import org.wahlzeit.extension.domain.Pancake;
 import org.wahlzeit.extension.domain.PancakePhoto;
+import org.wahlzeit.extension.domain.PancakeType;
+import org.wahlzeit.extension.location.GPSLocation;
 import org.wahlzeit.extension.utils.ExtendedHtmlUtil;
 import org.wahlzeit.handlers.PartUtil;
 import org.wahlzeit.handlers.ShowPhotoPageHandler;
@@ -48,24 +51,33 @@ public class ShowPancakePhotoPageHandler extends ShowPhotoPageHandler {
 			caption.addString("recipe", temp.getPancake().getType().getRecipe().toString());
 			// pass over ingredients as table
 			caption.addString("ingredients", ExtendedHtmlUtil.asIngredientTable(temp.getPancake()));
-			// pass over the location data to be shown in the caption
-			caption.addString("location", temp.getLocation().toString());
-		} catch (PancakeArgumentException e) {
-			SysLog.logThrowable(e);
-			us.setMessage((eus.cfg()).getPancakeIllegalArguments(e.getMessage()));
-		} catch (LocationArgumentException e) {
-			SysLog.logThrowable(e);
-			us.setMessage((eus.cfg()).getLocationIllegalArguments(e.getMessage()));
 		} catch (IllegalArgumentException e) {
 			SysLog.logThrowable(e);
 			us.setMessage(eus.cfg().getPancakeIllegalArguments(e.getMessage()));
 		} catch (AssertionError e) { 
 			SysLog.logThrowable(e);
 			us.setMessage(eus.cfg().getPancakePostViolation(e.getMessage()));
-		} catch (Exception omega) { //something beyond my control happened, so photoupload failed
-			SysLog.logThrowable(omega);
-			us.setMessage(eus.cfg().getPhotoUploadFailed());
+		} catch (Exception omega) { //something beyond my control happened
+			PancakeType empty = new PancakeType();
+			caption.addString("name", empty.getName());
+			caption.addString("recipe", empty.getRecipe().toString());
+			// pass over ingredients as table
+			caption.addString("ingredients", empty.getIng().toString());
 		}
+		
+		try {
+			// pass over the location data to be shown in the caption
+			caption.addString("location", temp.getLocation().toString());
+		} catch (IllegalArgumentException e) {
+			SysLog.logThrowable(e);
+			us.setMessage(eus.cfg().getLocationIllegalArguments(e.getMessage()));
+		} catch (AssertionError e) { 
+			SysLog.logThrowable(e);
+			us.setMessage(eus.cfg().getPancakePostViolation(e.getMessage()));
+		} catch (Exception omega) { //something beyond my control happened
+			caption.addString("location", GPSLocation.EMPTY_LOCATION.toString());
+		}
+		
 		// write caption
 		page.addWritable(Photo.CAPTION, caption);
 	}

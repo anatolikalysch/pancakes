@@ -4,6 +4,7 @@
 package org.wahlzeit.extension.handlers;
 
 import java.io.File;
+import java.util.IllegalFormatException;
 import java.util.Map;
 
 import org.wahlzeit.extension.UIInteraction.ExtendedUserSession;
@@ -133,7 +134,7 @@ public class UploadPancakePhotoFormHandler extends UploadPhotoFormHandler {
 				}	
 				photo.setLocation(temp);
 				
-			} catch (AssertionError | IllegalStateException e) { // class invariant or post condition
+			} catch (AssertionError | IllegalStateException | IllegalFormatException e) { // class invariant or post condition
 				photo.setLocation(GPSLocation.EMPTY_LOCATION);
 			} catch (IllegalArgumentException e) { // pre condition
 				throw new LocationArgumentException(e.getMessage());
